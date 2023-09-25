@@ -2,7 +2,7 @@
     <h2 [title]="center.name">{{center.name}}</h2>
 
     <div>{{center.address}}
-        <span>{{center.postalCode}} à {{center.city}}</span>
+        <!-- <span>{{center.postalCode}} à {{center.city}}</span> -->
     </div>
 
     <input
@@ -10,7 +10,8 @@
         [(ngModel)]="center.city"			
     />
 
-    <div>{{center.openingDate | date:"dd/MM/yyyy"}}</div>
+    <!-- <div>{{center.openingDate | date:"dd/MM/yyyy"}}</div> -->
+    <button (click)="delete()">Delete</button>
 </div>
 
 

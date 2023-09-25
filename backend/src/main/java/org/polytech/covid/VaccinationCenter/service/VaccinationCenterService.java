@@ -18,12 +18,18 @@ public class VaccinationCenterService {
         return centreRepository.findAllByCityLike(cityName);
     }
 
-     public VaccinationCentre findByCityAndNom(String cityName, String centerNom){
-        return centreRepository.findByCityAndNom(cityName,centerNom);
+     public VaccinationCentre findByCityAndName(String cityName, String centerName){
+        return centreRepository.findByCityAndName(cityName,centerName);
+    }
+    
+    public VaccinationCentre getById(Long id) {
+        return centreRepository.getById(id);
     }
 
     public VaccinationCentre saveAll(VaccinationCentre centre){
         return centreRepository.save(centre);
     }
+
+    
 
 }

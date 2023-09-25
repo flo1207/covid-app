@@ -2,9 +2,15 @@
     <li *ngFor="let c of centers">
         {{c.city | uppercase}}
         <button type="button" class="btn btn-outline-success" (click)="centerSelect(c)"> {{c.name}}</button>
+        <button type="button" class="btn btn-outline-primary" routerLink="/centers/detail/{{c.id}}"> Details </button>
+
+        <button 
+            type="button" 
+            class="btn-close btn-outline-danger" 
+            aria-label="Close" (click)="onDeleted(c)">
+        </button> 
     </li>
 </ul>
-
 
 
 <div *ngIf="selected">
@@ -13,5 +19,6 @@
         class="btn-close btn-outline-danger" 
         aria-label="Close" (click)="clearCenter()">
     </button> 
-    <app-vaccination-center [center]="selected"></app-vaccination-center>
+    <app-vaccination-center [center]="selected" (deleted)="onDeleted($event)"></app-vaccination-center>
+    <app-patient></app-patient>
 </div>

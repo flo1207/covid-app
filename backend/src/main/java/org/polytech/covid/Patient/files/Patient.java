@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class Patient {
     @Id
     @GeneratedValue
-    private Integer id;
+    private long id;
     
     @Column(nullable = false)
     private String mail; 
@@ -44,7 +44,7 @@ public class Patient {
         this.date = date;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

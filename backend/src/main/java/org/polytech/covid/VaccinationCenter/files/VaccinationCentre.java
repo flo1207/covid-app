@@ -17,13 +17,13 @@ import org.polytech.covid.Patient.files.Patient;
 public class VaccinationCentre {
     @Id
     @GeneratedValue
-    private Integer id;
+    private long id;
     
     @Column(nullable = false)
-    private String nom;
+    private String name;
 
     @Column(nullable = false)
-    private String adresse;
+    private String address;
 
     @Column(nullable = false)
     private String city;
@@ -33,13 +33,13 @@ public class VaccinationCentre {
 
     public VaccinationCentre(){}
 
-    public VaccinationCentre( String nom, String adresse, String city){
-        this.nom = nom;
-        this.adresse = adresse;
+    public VaccinationCentre( String name, String address, String city){
+        this.name = name;
+        this.address = address;
         this.city = city;
     }
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
@@ -47,20 +47,20 @@ public class VaccinationCentre {
         this.id = id;
     }
 
-    public String getNom() {
-        return nom;
+    public String getName() {
+        return name;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getAdresse() {
-        return adresse;
+    public String getaddress() {
+        return address;
     }
 
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
+    public void setaddress(String address) {
+        this.address = address;
     }
 
     public String getCity() {

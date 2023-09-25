@@ -1,0 +1,17 @@
+<ul>
+    <li *ngFor="let c of centers">
+        {{c.city | uppercase}}
+        <button type="button" class="btn btn-outline-success" (click)="centerSelect(c)"> {{c.name}}</button>
+    </li>
+</ul>
+
+
+
+<div *ngIf="selected">
+    <button 
+        type="button" 
+        class="btn-close btn-outline-danger" 
+        aria-label="Close" (click)="clearCenter()">
+    </button> 
+    <app-vaccination-center [center]="selected"></app-vaccination-center>
+</div>

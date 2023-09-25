@@ -1,0 +1,17 @@
+<div class="detail" *ngIf="center">
+    <h2 [title]="center.name">{{center.name}}</h2>
+
+    <div>{{center.address}}
+        <span>{{center.postalCode}} à {{center.city}}</span>
+    </div>
+
+    <input
+        type="text"
+        [(ngModel)]="center.city"			
+    />
+
+    <div>{{center.openingDate | date:"dd/MM/yyyy"}}</div>
+</div>
+
+
+

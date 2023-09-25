@@ -1,3 +1,0 @@
-# GET http://localhost:8080/test
-
-GET http://localhost:8080/api/centers?city=N%

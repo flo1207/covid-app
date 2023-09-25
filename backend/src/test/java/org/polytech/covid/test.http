@@ -1,0 +1,6 @@
+# GET http://localhost:8080/api/centers?city
+#GET http://localhost:8080/api/center?city=Nancy&nom=Centre2
+
+# POST http://localhost:8080/api/centers?nom=Centre1&adresse=2ruedesmimolettes&city=Nancy
+#POST http://localhost:8080/api/centers?nom=Centre2&adresse=2ruedescomptés&city=Nancy
+POST http://localhost:8080/api/centers/patients?mail=flo1207@live.fr&num_tel=0629152787&nom=IMPROVISATO&prenom=Florian&nom_centre=Centre2&city=Nancy

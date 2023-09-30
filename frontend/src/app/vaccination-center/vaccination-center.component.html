@@ -1,18 +1,18 @@
 <div class="detail" *ngIf="center">
-    <h2 [title]="center.name">{{center.name}}</h2>
+    <div class="info">
 
-    <div>{{center.address}}
-        <!-- <span>{{center.postalCode}} à {{center.city}}</span> -->
+        {{center.name}}
+        {{center.city | uppercase}}
+        <div class="bouton">
+            <button type="button" class="btn btn-outline-primary" routerLink="/centers/detail/{{center.id}}"> Details </button>
+            <button type="button" class="btn btn-outline-success" (click)="centerSelect()"> Choisir </button>
+        </div>
+
     </div>
-
-    <input
-        type="text"
-        [(ngModel)]="center.city"			
-    />
-
-    <!-- <div>{{center.openingDate | date:"dd/MM/yyyy"}}</div> -->
-    <button (click)="delete()">Delete</button>
+    
+    <div *ngIf="selected">
+        <app-patient-form (send)="sendPatient($event)"></app-patient-form>
+    </div>
 </div>
-
 
 

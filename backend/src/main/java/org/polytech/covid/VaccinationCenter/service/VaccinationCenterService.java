@@ -15,11 +15,7 @@ public class VaccinationCenterService {
     private VaccinationCentreRepository centreRepository;
     
     public List<VaccinationCentre> findAllByCity(String cityName){
-        return centreRepository.findAllByCityLike(cityName);
-    }
-
-     public VaccinationCentre findByCityAndName(String cityName, String centerName){
-        return centreRepository.findByCityAndName(cityName,centerName);
+        return centreRepository.findAllByCityIgnoreCaseContaining(cityName);
     }
     
     public VaccinationCentre getById(Long id) {

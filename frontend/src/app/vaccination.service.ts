@@ -11,7 +11,7 @@ export class VaccinationService {
   constructor(private httpClient : HttpClient) { }
 
   getAllVaccinationCenter(city: string): Observable<VaccinationCenter[]> {
-    return this.httpClient.get<VaccinationCenter[]>("api/centers",{
+    return this.httpClient.get<VaccinationCenter[]>("api/public/centers",{
       params:{
         "city":city
       }
@@ -19,6 +19,6 @@ export class VaccinationService {
   }
 
   getAllVaccinationCenterById(id: number) {
-    return this.httpClient.get<VaccinationCenter>("api/centers/detail/"+id); 
+    return this.httpClient.get<VaccinationCenter>("api/public/centers/detail/"+id); 
   }
 }

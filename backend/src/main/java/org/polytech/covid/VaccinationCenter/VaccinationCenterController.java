@@ -27,43 +27,43 @@ public class VaccinationCenterController {
     @Autowired
     private PatientService patientService;
 
-    @GetMapping(path  = "api/centers")
+    @GetMapping(path  = "api/public/centers")
     public List<VaccinationCentre> getCity(
         @RequestParam("city") String city){
         
-        String new_city = "%"+city+"%";
+        // String new_city = "%"+city+"%";
         
         if(city == null) return centerService.findAllByCity("%");
-        else return centerService.findAllByCity(new_city);
+        else return centerService.findAllByCity(city);
     }
 
-    @GetMapping(path  = "api/center")
+    @GetMapping(path  = "api/public/center")
     public VaccinationCentre getCenter(
-        @RequestParam("city") String city, @RequestParam("name") String name){        
-        return centerService.findByCityAndName(city,name);
+        @RequestParam("id") Long id){        
+        return centerService.getById(id);
     }
 
-    @GetMapping(path  = "api/centers/detail/{id}")
+    @GetMapping(path  = "api/public/centers/detail/{id}")
     public VaccinationCentre getCenter(@PathVariable String id){ 
         Long convert_id = Long.parseLong(id);
         return centerService.getById(convert_id);
     }
 
-    @PostMapping(path  = "api/centers")
+    @PostMapping(path  = "api/public/centers")
     @ResponseBody
     public VaccinationCentre setCenter(@RequestParam("name") String name, @RequestParam("address") String address,@RequestParam("city") String city ) { 
         VaccinationCentre new_centre = new VaccinationCentre(name,address,city);
         return centerService.saveAll(new_centre);
     }
 
-    @PostMapping(path  = "api/centers/patients")
+    @PostMapping(path  = "api/public/centers/patients")
     @ResponseBody
-    public VaccinationCentre addPatient(@RequestParam("mail") String mail, @RequestParam("num_tel") Integer num_tel,@RequestParam("nom") String nom, @RequestParam("prenom") String prenom, @RequestParam("nom_centre") String nom_centre,@RequestParam("city") String city, @RequestParam(required = false,name="localDate") @DateTimeFormat(pattern = "dd.MM.yyyy") LocalDate localDate) { 
-        VaccinationCentre vaccinationCenter = centerService.findByCityAndName(city,nom_centre);
+    public VaccinationCentre addPatient(@RequestParam("mail") String mail, @RequestParam("nom") String nom, @RequestParam("prenom") String prenom, @RequestParam("id_centre") Long id_centre, @RequestParam(required = false,name="localDate") @DateTimeFormat(pattern = "dd.MM.yyyy") LocalDate localDate) { 
+        VaccinationCentre vaccinationCenter = centerService.getById(id_centre);
         if(vaccinationCenter == null) return null;
         else{
             
-            Patient new_patient = new Patient(mail,num_tel,nom,prenom,nom_centre,localDate);
+            Patient new_patient = new Patient(mail,nom,prenom,id_centre,false,localDate);
 
             vaccinationCenter.addPatient(new_patient);
             patientService.saveAll(new_patient);

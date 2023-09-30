@@ -19,30 +19,31 @@ public class Patient {
     private String mail; 
     
     @Column(nullable = false)
-    private Integer num_tel;
-    
-    @Column(nullable = false)
     private String nom;
 
     @Column(nullable = false)
     private String prenom;
 
     @Column(nullable = false)
-    private String nom_centre;
+    private Long id_centre;
+
+    @Column(nullable = false)
+    private Boolean vaccination;
     
     @Column(nullable = true)
-    private LocalDate date;
+    private LocalDate date_RDV;
 
-    public Patient(){}
-
-    public Patient(String mail, Integer num_tel, String nom, String prenom, String nom_centre, LocalDate date) {
+    public Patient(String mail, String nom, String prenom, Long id_centre, Boolean vaccination,
+            LocalDate date_RDV) {
         this.mail = mail;
-        this.num_tel = num_tel;
         this.nom = nom;
         this.prenom = prenom;
-        this.nom_centre = nom_centre;
-        this.date = date;
+        this.id_centre = id_centre;
+        this.vaccination = vaccination;
+        this.date_RDV = date_RDV;
     }
+
+    public Patient(){}
 
     public Long getId() {
         return id;
@@ -58,14 +59,6 @@ public class Patient {
 
     public void setMail(String mail) {
         this.mail = mail;
-    }
-
-    public Integer getNum_tel() {
-        return num_tel;
-    }
-
-    public void setNum_tel(Integer num_tel) {
-        this.num_tel = num_tel;
     }
 
     public String getNom() {
@@ -84,19 +77,32 @@ public class Patient {
         this.prenom = prenom;
     }
 
-    public String getNom_centre() {
-        return nom_centre;
+    public Long getid_centree() {
+        return id_centre;
     }
 
-    public void setNom_centre(String nom_centre) {
-        this.nom_centre = nom_centre;
+    public void setNom_centre(Long id_centre) {
+        this.id_centre = id_centre;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getDate_RDV() {
+        return date_RDV;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDate_RDV(LocalDate date_RDV) {
+        this.date_RDV = date_RDV;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Boolean getVaccination() {
+        return vaccination;
+    }
+
+    public void setVaccination(Boolean vaccination) {
+        this.vaccination = vaccination;
+    }
+
 }

@@ -1,29 +1,45 @@
-<h1>Form</h1>
+<h1>Renseignements</h1>
 <form #form="ngForm" [formGroup]="patientInfo" (ngSubmit)="onSubmit()" class="form">
   <div class="card mt-3">
     <div class="card-body">
+      <div class="name-group">
+
         <div class="form-group">
-            <label for="email">FirstName</label>
-            <input id="email" type="text" formControlName="firstName" class="form-control">
-            <!-- <div *ngIf="form.submitted && controls.email.invalid" class="text-danger">
-              <small *ngIf="controls.email.errors?.required">Email is required.</small>
-              <small *ngIf="controls.email.errors?.email">Email is invalid.</small>
-            </div> -->
+          <label for="firstName">Prénom</label>
+          <input id="firstName" type="text" formControlName="firstName" class="form-control">
         </div>
+        
         <div class="form-group">
-            <label for="lastname">LastName</label>
-            <input id="lastname" type="text" formControlName="lastName" class="form-control">
-            <!-- <div *ngIf="form.submitted && controls.email.invalid" class="text-danger">
-              <small *ngIf="controls.email.errors?.required">Email is required.</small>
-              <small *ngIf="controls.email.errors?.email">Email is invalid.</small>
-            </div> -->
+          <label for="lastname">Nom</label>
+          <input id="lastname" type="text" formControlName="lastName" class="form-control">
         </div>
+          
+      </div>
+
       <div class="form-group">
         <label for="email">Email</label>
         <input id="email" type="email" formControlName="email" class="form-control">
       </div>
+      
       <div class="form-group">
-        <button type="submit" class="btn btn-success">Login</button>
+          <div class="col-12">
+            <div class="input-group">
+              <input
+                class="form-control"
+                placeholder="dd/mm/yyyy"
+                name="d2"
+                formControlName="dateRDV"
+                ngbDatepicker
+                #d2="ngbDatepicker"
+              />
+              <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d2.toggle()" type="button"></button>
+            </div>
+          </div>
+      </div>
+
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-success" >Réserver</button>
       </div>
     </div>
   </div>

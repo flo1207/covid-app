@@ -34,8 +34,8 @@ public class PatientController {
 
     @PostMapping(path  = "api/centers/patient")
     @ResponseBody
-    public Patient addPatient(@RequestParam("mail") String mail, @RequestParam("num_tel") Integer num_tel,@RequestParam("nom") String nom, @RequestParam("prenom") String prenom, @RequestParam("nom_centre") String nom_centre, @RequestParam("prenom") LocalDate date) { 
-        Patient new_patient = new Patient(mail,num_tel,nom,prenom,nom_centre,date);
+    public Patient addPatient(@RequestParam("mail") String mail, @RequestParam("num_tel") Integer num_tel,@RequestParam("nom") String nom,@RequestParam("vaccination") Boolean vaccination, @RequestParam("prenom") String prenom, @RequestParam("id_centre") Long id_centre, @RequestParam("prenom") LocalDate date) { 
+        Patient new_patient = new Patient(mail,nom,prenom,id_centre,vaccination,date);
         return patientService.saveAll(new_patient);
     }
 }

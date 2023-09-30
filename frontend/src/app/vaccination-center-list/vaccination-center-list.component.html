@@ -1,24 +1,29 @@
+<div id="textExample1" class="form-text">
+    Recherche par ville ...
+</div>
+<input
+    mdbInput
+    type="text"
+    id="formTextExample1"
+    class="form-control"
+    aria-describedby="textExample1"
+    placeholder="Nancy"
+    [(ngModel)]="city"
+    (ngModelChange)="ngOnInit()"
+/>
+
 <ul>
     <li *ngFor="let c of centers">
-        {{c.city | uppercase}}
-        <button type="button" class="btn btn-outline-success" (click)="centerSelect(c)"> {{c.name}}</button>
-        <button type="button" class="btn btn-outline-primary" routerLink="/centers/detail/{{c.id}}"> Details </button>
-
-        <button 
-            type="button" 
-            class="btn-close btn-outline-danger" 
-            aria-label="Close" (click)="onDeleted(c)">
-        </button> 
+        <app-vaccination-center [center]="c" (deleted)="onDeleted($event)"></app-vaccination-center>
     </li>
 </ul>
 
 
-<div *ngIf="selected">
+<!-- <div *ngIf="selected">
     <button 
         type="button" 
         class="btn-close btn-outline-danger" 
         aria-label="Close" (click)="clearCenter()">
     </button> 
     <app-vaccination-center [center]="selected" (deleted)="onDeleted($event)"></app-vaccination-center>
-    <app-patient></app-patient>
-</div>
+</div> -->

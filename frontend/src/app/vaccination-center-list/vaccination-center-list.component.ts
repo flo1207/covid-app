@@ -10,19 +10,27 @@ import { VaccinationService } from '../vaccination.service';
 export class VaccinationCenterListComponent implements OnInit{
 
   centers?: VaccinationCenter[];
-
+  
   selected?: VaccinationCenter;
+
+  city : string = "";
 
   constructor(private service: VaccinationService){ }
   
   ngOnInit(): void {
-    this.service.getAllVaccinationCenter("").subscribe(resultCenters => {
+    this.service.getAllVaccinationCenter(this.city).subscribe(resultCenters => {
       this.centers = resultCenters;
     });
   }
 
   centerSelect(aCenter: VaccinationCenter) {
     this.selected = aCenter;
+  }
+
+  getCenter(name: string){
+    this.service.getAllVaccinationCenter(this.city).subscribe(resultCenters => {
+      this.centers = resultCenters;
+    });
   }
 
   clearCenter() {

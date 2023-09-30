@@ -1,0 +1,1 @@
+POST http://localhost:8080/api/public/centers?name=Centre1&address=2ruedesmimolettes&city=Nancy

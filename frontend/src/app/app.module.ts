@@ -10,6 +10,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { VaccinationCenterListComponent } from './vaccination-center-list/vaccination-center-list.component';
 import { PatientFormComponent } from './patient-form/patient-form.component';
 import { PatientComponent } from './patient/patient.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { PatientComponent } from './patient/patient.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

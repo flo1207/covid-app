@@ -9,7 +9,7 @@ export class PatientService {
 
   constructor(private httpClient : HttpClient) { }
   postPatient(patient: Patient, id: number) {
-    console.log(patient)
+    console.log(patient.email)
     const body = new HttpParams()
   .set('mail', patient.email)
   .set('id_centre', id)
@@ -18,16 +18,18 @@ export class PatientService {
 
   this.httpClient.post("api/public/centers/patients", body, {
     headers: new HttpHeaders()
-      .set('Content-Type', 'application/x-www-form-urlencoded')
-  }).subscribe();
-  //   this.httpClient.post("api/public/centers/patients",{
-  //     params:{
-  //       "mail":patient.email,
-  //       "nom":patient.lastName,
-  //       "prenom":patient.firstName,
-  //       "id_centre":id
-  //     }
-  //   }).subscribe();
+      .set('Content-Type', 'application/x-www-form-urlencoded'),
+    observe: 'response'
+  }).subscribe(response => console.log(response.status));
+
   }
 
 }
+
+// next: data => {
+//   this.postId = data.id;
+// },
+// error: error => {
+//   this.errorMessage = error.message;
+//   console.error('There was an error!', error);
+// }

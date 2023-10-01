@@ -1,1 +1,1 @@
-POST http://localhost:8080/api/public/centers/patients?mail=flo1207@live.fr&id_centre=1&nom=IMPROVISATO&prenom=Florian
+POST http://localhost:8080/api/public/centers/patients?mail=flo1207@live.fr&id_centre=1&nom=IMPROVISATO&prenom=Florian&localDate=12.06.2001

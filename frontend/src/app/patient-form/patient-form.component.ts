@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import { PatientService } from '../patient.service';
 import { Patient } from '../patient';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-patient-form',
@@ -15,11 +16,11 @@ export class PatientFormComponent {
     firstName: ['', [Validators.required]],
     lastName: ['', [Validators.required]],
     email: ['', [Validators.required]],
-    dateRDV:[Date, [Validators.required]],
+    dateRDV:[new Date(), [Validators.required]],
   })
 
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, public datepipe: DatePipe) {
   }
 
   onSubmit() {
@@ -28,8 +29,9 @@ export class PatientFormComponent {
       firstName: this.patientInfo.value.firstName!,
       lastName: this.patientInfo.value.lastName!,
       email: this.patientInfo.value.email!,
-      dateRDV: this.patientInfo.value.dateRDV!.toLocaleString()
+      dateRDV: this.datepipe.transform(this.patientInfo.value.dateRDV!,'dd.MM.yyyy')
     }
+    console.log(patient.dateRDV)
     this.send.emit(patient)
   }
 

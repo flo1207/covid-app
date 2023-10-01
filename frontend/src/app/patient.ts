@@ -3,5 +3,5 @@ export interface Patient{
     firstName: string;
     lastName: string;
     email: string;
-    dateRDV: string;
+    dateRDV: string | null;
 }

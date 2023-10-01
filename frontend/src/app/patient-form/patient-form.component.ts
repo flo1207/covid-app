@@ -16,23 +16,36 @@ export class PatientFormComponent {
     firstName: ['', [Validators.required]],
     lastName: ['', [Validators.required]],
     email: ['', [Validators.required]],
-    dateRDV:[new Date(), [Validators.required]],
+    dateRDV:['', [Validators.required]],
   })
 
+  submitted = false;
+  full = false;
 
   constructor(private formBuilder: FormBuilder, public datepipe: DatePipe) {
   }
 
   onSubmit() {
-    let patient: Patient = {
-      id: 0,
-      firstName: this.patientInfo.value.firstName!,
-      lastName: this.patientInfo.value.lastName!,
-      email: this.patientInfo.value.email!,
-      dateRDV: this.datepipe.transform(this.patientInfo.value.dateRDV!,'dd.MM.yyyy')
+    this.submitted = true;
+    console.log(this.patientInfo)
+    if (this.patientInfo.invalid) {
+      this.full = true;
+    }else{
+      let priseRDV =  new Date(this.patientInfo.value.dateRDV!)
+      let patient: Patient = {
+        id: 0,
+        firstName: this.patientInfo.value.firstName!,
+        lastName: this.patientInfo.value.lastName!,
+        email: this.patientInfo.value.email!,
+        dateRDV: this.datepipe.transform(priseRDV,'dd.MM.yyyy')!
+      }
+      this.send.emit(patient)
     }
-    console.log(patient.dateRDV)
-    this.send.emit(patient)
+
+    setTimeout(() =>{ 
+      this.full = false; 
+    }, 3500);
+    
   }
 
 }

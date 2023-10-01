@@ -13,6 +13,10 @@
     <div *ngIf="selected">
         <app-patient-form (send)="sendPatient($event)"></app-patient-form>
     </div>
+
+    <div *ngIf="confirm">
+        {{message}}
+    </div>
 </div>
 
 

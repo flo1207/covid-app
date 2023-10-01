@@ -7,11 +7,17 @@
         <div class="form-group">
           <label for="firstName">Prénom</label>
           <input id="firstName" type="text" formControlName="firstName" class="form-control">
+          <div *ngIf="submitted && patientInfo.controls['firstName'].errors?.['required']" class="text-danger">
+            <small>Prénom obligatoire</small>
+          </div>
         </div>
         
         <div class="form-group">
           <label for="lastname">Nom</label>
           <input id="lastname" type="text" formControlName="lastName" class="form-control">
+          <div *ngIf="submitted && patientInfo.controls['lastName'].errors?.['required']" class="text-danger">
+            <small>Nom obligatoire</small>
+          </div>
         </div>
           
       </div>
@@ -19,6 +25,9 @@
       <div class="form-group">
         <label for="email">Email</label>
         <input id="email" type="email" formControlName="email" class="form-control">
+        <div *ngIf="submitted && patientInfo.controls['email'].errors?.['required']" class="text-danger">
+          <small>Email obligatoire</small>
+        </div>
       </div>
       
       <div class="form-group">
@@ -29,17 +38,21 @@
                 placeholder="dd/mm/yyyy"
                 name="d2"
                 formControlName="dateRDV"
-                ngbDatepicker
-                #d2="ngbDatepicker"
               />
-              <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d2.toggle()" type="button"></button>
+              <!-- <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d2.toggle()" type="button"></button> -->
+              <div *ngIf="submitted && patientInfo.controls['dateRDV'].errors?.['required']" class="text-danger">
+                <small>Date de réservation obligatoire</small>
+              </div>
             </div>
           </div>
       </div>
 
 
       <div class="form-group">
-        <button type="submit" class="btn btn-success" >Réserver</button>
+        <button type="submit" class="btn btn-success" [disabled]="" >Réserver</button>
+        <div *ngIf="full" class="text-danger">
+          <small>Veuillez remplir tous les champs !</small>
+        </div>
       </div>
     </div>
   </div>

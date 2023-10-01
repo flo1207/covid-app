@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { VaccinationService } from '../vaccination.service';
 import { PatientService } from '../patient.service';
 import { Patient } from '../patient';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-vaccination-center',
@@ -16,6 +17,8 @@ export class VaccinationCenterComponent implements OnInit{
   @Output() deleted = new EventEmitter<VaccinationCenter>();
 
   selected?: Boolean;
+  confirm?: Boolean;
+  message = "Réservation prise en compte !";
 
 
   constructor(private route: ActivatedRoute, private servicePatient: PatientService){ }
@@ -37,7 +40,19 @@ export class VaccinationCenterComponent implements OnInit{
   }
 
   sendPatient(patient: Patient) {
-    this.servicePatient.postPatient(patient, this.center!.id)
+    this.servicePatient.postPatient(patient, this.center!.id).subscribe((response) => {
+        console.log(response.status)
+    },
+    (error: HttpErrorResponse) => {
+      this.message = "Une erreur est survenue, "+error.message;
+      console.log(error.status)
+    });
+
+    this.confirm = true;
+    setTimeout(() =>{ 
+        this.confirm = false; 
+      }, 2000);
+    
   }
       
 }

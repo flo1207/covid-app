@@ -18,13 +18,16 @@ export class VaccinationCenterComponent implements OnInit{
 
   selected?: Boolean;
   confirm?: Boolean;
+  error?: Boolean;
   message = "Réservation prise en compte !";
+
+  nb_reserv = 0
 
 
   constructor(private route: ActivatedRoute, private servicePatient: PatientService){ }
 
   ngOnInit(): void {
-    console.log(this.center);
+    this.nb_reserv = this.center!.patients.length;
   }
 
   delete(){
@@ -39,19 +42,22 @@ export class VaccinationCenterComponent implements OnInit{
     this.selected = !this.selected;
   }
 
-  sendPatient(patient: Patient) {
-    this.servicePatient.postPatient(patient, this.center!.id).subscribe((response) => {
-        console.log(response.status)
+  async sendPatient(patient: Patient) {
+    const send = (await this.servicePatient.postPatient(patient, this.center!.id)).subscribe((response) => {
+        console.log(response.status);
+        this.confirm = true;
+        this.nb_reserv += 1;
     },
     (error: HttpErrorResponse) => {
       this.message = "Une erreur est survenue, "+error.message;
+      this.error = true;
       console.log(error.status)
     });
 
-    this.confirm = true;
+    this.selected = false;
     setTimeout(() =>{ 
         this.confirm = false; 
-      }, 2000);
+      }, 3000);
     
   }
       

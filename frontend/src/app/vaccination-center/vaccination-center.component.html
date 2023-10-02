@@ -1,20 +1,37 @@
 <div class="detail" *ngIf="center">
     <div class="info">
 
-        {{center.name}}
-        {{center.city | uppercase}}
+        <div class="details">
+            <strong>{{center.name}}</strong>
+            <br> {{center.address}},
+            {{center.city | uppercase}}
+        </div>
+
         <div class="bouton">
-            <button type="button" class="btn btn-outline-primary" routerLink="/centers/detail/{{center.id}}"> Details </button>
+            <strong>{{nb_reserv}}</strong> Réservation(s)
+        </div>
+        
+
+        <div *ngIf="!selected" class="bouton">
+            <!-- <button type="button" class="btn btn-outline-primary" routerLink="/centers/detail/{{center.id}}"> Details </button> -->
             <button type="button" class="btn btn-outline-success" (click)="centerSelect()"> Choisir </button>
+        </div>
+        <div *ngIf="selected" class="bouton">
+            <!-- <button type="button" class="btn btn-outline-primary" routerLink="/centers/detail/{{center.id}}"> Details </button> -->
+            <button type="button" class="btn btn-outline-danger" (click)="centerSelect()"> Annuler </button>
         </div>
 
     </div>
     
-    <div *ngIf="selected">
-        <app-patient-form (send)="sendPatient($event)"></app-patient-form>
+    <div *ngIf="selected" >
+        <app-patient-form (send)="sendPatient($event)" style="display: block; margin-top: 30px;"></app-patient-form>
     </div>
 
-    <div *ngIf="confirm">
+    <div *ngIf="confirm" style="color: green;">
+        {{message}}
+    </div>
+
+    <div *ngIf="error" style="color: red;">
         {{message}}
     </div>
 </div>

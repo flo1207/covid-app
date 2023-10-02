@@ -3,6 +3,7 @@ import {FormBuilder, Validators} from "@angular/forms";
 import { PatientService } from '../patient.service';
 import { Patient } from '../patient';
 import { DatePipe } from '@angular/common';
+import { NgbCalendar, NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-patient-form',
@@ -16,30 +17,40 @@ export class PatientFormComponent {
     firstName: ['', [Validators.required]],
     lastName: ['', [Validators.required]],
     email: ['', [Validators.required]],
-    dateRDV:['', [Validators.required]],
+    dateRDV:[null, [Validators.required]],
   })
 
   submitted = false;
   full = false;
 
-  constructor(private formBuilder: FormBuilder, public datepipe: DatePipe) {
+	date = this.calendar.getToday();
+  
+  
+  date_RDV! : Date
+
+  constructor(private formBuilder: FormBuilder, public datepipe: DatePipe,private calendar: NgbCalendar) {
+  }  
+
+  onDateSelect(date:NgbDate){
+    this.date= date;
+    this.date_RDV = new Date(this.date.year, this.date.month - 1, this.date.day);
   }
 
   onSubmit() {
     this.submitted = true;
-    console.log(this.patientInfo)
+
     if (this.patientInfo.invalid) {
       this.full = true;
-    }else{
-      let priseRDV =  new Date(this.patientInfo.value.dateRDV!)
+    }else{    
       let patient: Patient = {
         id: 0,
         firstName: this.patientInfo.value.firstName!,
         lastName: this.patientInfo.value.lastName!,
         email: this.patientInfo.value.email!,
-        dateRDV: this.datepipe.transform(priseRDV,'dd.MM.yyyy')!
+        dateRDV: this.datepipe.transform(this.date_RDV,'dd.MM.yyyy')!
       }
-      this.send.emit(patient)
+      this.send.emit(patient);
+
     }
 
     setTimeout(() =>{ 
@@ -48,4 +59,6 @@ export class PatientFormComponent {
     
   }
 
+  
 }
+

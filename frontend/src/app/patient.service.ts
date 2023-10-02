@@ -9,7 +9,7 @@ export class PatientService {
 
   constructor(private httpClient : HttpClient) { }
 
-  postPatient(patient: Patient, id: number) {
+  async postPatient(patient: Patient, id: number) {
     const body = new HttpParams()
     .set('mail', patient.email)
     .set('id_centre', id)
@@ -17,7 +17,7 @@ export class PatientService {
     .set('localDate', patient.dateRDV)
     .set('prenom', patient.firstName);
   
-    return this.httpClient.post("api/public/centers/patients", body, {
+    return await this.httpClient.post("api/public/centers/patients", body, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded'),
       observe: 'response'

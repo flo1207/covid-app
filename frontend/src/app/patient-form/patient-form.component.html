@@ -1,4 +1,4 @@
-<h1>Renseignements</h1>
+<h1 style="text-align: center;">Renseignements</h1>
 <form #form="ngForm" [formGroup]="patientInfo" (ngSubmit)="onSubmit()" class="form">
   <div class="card mt-3">
     <div class="card-body">
@@ -32,13 +32,21 @@
       
       <div class="form-group">
           <div class="col-12">
-            <div class="input-group">
-              <input
-                class="form-control"
-                placeholder="dd/mm/yyyy"
-                name="d2"
-                formControlName="dateRDV"
-              />
+            <div class="input-group">              
+              
+              <ngb-datepicker formControlName="dateRDV" #dp (dateSelect)="onDateSelect($event)" ></ngb-datepicker>
+              
+              <div class="form-group">
+                <p>{{ date_RDV | date: 'fullDate'}}</p>
+                <button type="submit" class="btn btn-success" [disabled]="" >Réserver</button>
+                <div *ngIf="full" class="text-danger">
+                  <small>Veuillez remplir tous les champs !</small>
+                </div>
+              </div>
+
+
+
+
               <!-- <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d2.toggle()" type="button"></button> -->
               <div *ngIf="submitted && patientInfo.controls['dateRDV'].errors?.['required']" class="text-danger">
                 <small>Date de réservation obligatoire</small>
@@ -48,12 +56,7 @@
       </div>
 
 
-      <div class="form-group">
-        <button type="submit" class="btn btn-success" [disabled]="" >Réserver</button>
-        <div *ngIf="full" class="text-danger">
-          <small>Veuillez remplir tous les champs !</small>
-        </div>
-      </div>
+      
     </div>
   </div>
 </form>

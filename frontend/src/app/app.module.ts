@@ -5,12 +5,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { VaccinationCenterComponent } from './vaccination-center/vaccination-center.component';
+import { VaccinationCenterComponent } from './Vaccination/vaccination-center/vaccination-center.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-import { VaccinationCenterListComponent } from './vaccination-center-list/vaccination-center-list.component';
-import { PatientFormComponent } from './patient-form/patient-form.component';
-import { PatientComponent } from './patient/patient.component';
+import { VaccinationCenterListComponent } from './Vaccination/vaccination-center-list/vaccination-center-list.component';
+import { PatientFormComponent } from './patient/patient-form/patient-form.component';
 import { DatePipe } from '@angular/common';
+import { LoginPageComponent } from './login/login-page/login-page.component';
+import { LoginFormComponent } from './login/login-form/login-form.component';
+
+import { NgxBootstrapIconsModule, allIcons} from 'ngx-bootstrap-icons';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +22,8 @@ import { DatePipe } from '@angular/common';
     VaccinationCenterComponent,
     VaccinationCenterListComponent,
     PatientFormComponent,
-    PatientComponent
+    LoginPageComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +31,9 @@ import { DatePipe } from '@angular/common';
     AppRoutingModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxBootstrapIconsModule.pick(allIcons)
+
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

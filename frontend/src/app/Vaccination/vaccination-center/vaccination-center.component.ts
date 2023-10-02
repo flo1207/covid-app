@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { VaccinationCenter } from '../vaccination-center';
 import { ActivatedRoute } from '@angular/router';
 import { VaccinationService } from '../vaccination.service';
-import { PatientService } from '../patient.service';
-import { Patient } from '../patient';
+import { PatientService } from '../../patient/patient.service';
+import { Patient } from '../../patient/patient';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({

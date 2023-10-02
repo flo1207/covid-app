@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import { PatientService } from '../patient.service';
-import { Patient } from '../patient';
 import { DatePipe } from '@angular/common';
 import { NgbCalendar, NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Patient } from '../patient';
 
 @Component({
   selector: 'app-patient-form',

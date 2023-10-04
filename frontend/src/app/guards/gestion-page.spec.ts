@@ -1,16 +1,16 @@
 import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 
-import { ChatPageGuard } from './chat-page.guard';
+import { GestionPageGuard } from './gestion-page.guard';
 
 describe('ChatPageGuard', () => {
-  let guard: ChatPageGuard;
+  let guard: GestionPageGuard;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule],
     });
-    guard = TestBed.inject(ChatPageGuard);
+    guard = TestBed.inject(GestionPageGuard);
   });
 
   it('should be created', () => {

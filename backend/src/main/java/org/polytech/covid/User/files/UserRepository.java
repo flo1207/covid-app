@@ -9,4 +9,5 @@ public interface UserRepository extends JpaRepository<User, Integer>{
     public List<User> getByCenter(Long convert_id);
     public User getById(Long convert_id);
     public User findAllByRole(Integer convert_id);
+    public User findAllByMailAndPassword(String username, String password);
 }

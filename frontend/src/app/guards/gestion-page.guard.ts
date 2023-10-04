@@ -6,7 +6,7 @@ import { LoginService } from '../login/login.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ChatPageGuard implements CanActivate {
+export class GestionPageGuard implements CanActivate {
 
   constructor(
     private router: Router,
@@ -17,7 +17,7 @@ export class ChatPageGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if(this.loginService.getToken() == null){
-      this.router.navigate(['**']);
+      this.router.navigate(['admin']);
       return false;
     }
     return true;

@@ -4,9 +4,9 @@ import { VaccinationCenterComponent } from './Vaccination/vaccination-center/vac
 import { VaccinationCenterListComponent } from './Vaccination/vaccination-center-list/vaccination-center-list.component';
 import { LoginPageComponent } from './login/login-page/login-page.component';
 import { LoginPageGuard } from './guards/login-page.guard';
-import { ChatPageGuard } from './guards/chat-page.guard';
-import { UserComponent } from './gestion/user/user.component';
 import { UserListComponent } from './gestion/user-list/user-list.component';
+import { GestionPageGuard } from './guards/gestion-page.guard';
+import { GestionTableComponent } from './gestion/gestion-table/gestion-table.component';
 
 const routes: Routes = [
   {path: "centers",                     component: VaccinationCenterListComponent},
@@ -16,13 +16,13 @@ const routes: Routes = [
     component: LoginPageComponent,
     canActivate: [LoginPageGuard], 
   },
-  { path: 'chat', 
-    component: VaccinationCenterComponent,
-    canActivate: [ChatPageGuard]
+  { path: 'admin/gestion', 
+    component: GestionTableComponent,
+    canActivate: [GestionPageGuard]
   },
-  { path: 'user', 
-    component: UserListComponent 
-  },
+  { path: 'gestion', 
+    component: GestionTableComponent,
+  }
 
 
 ]

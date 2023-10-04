@@ -16,6 +16,7 @@ import { LoginFormComponent } from './login/login-form/login-form.component';
 import { NgxBootstrapIconsModule, allIcons} from 'ngx-bootstrap-icons';
 import { UserComponent } from './gestion/user/user.component';
 import { UserListComponent } from './gestion/user-list/user-list.component';
+import { GestionTableComponent } from './gestion/gestion-table/gestion-table.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { UserListComponent } from './gestion/user-list/user-list.component';
     LoginPageComponent,
     LoginFormComponent,
     UserComponent,
-    UserListComponent
+    UserListComponent,
+    GestionTableComponent
   ],
   imports: [
     BrowserModule,

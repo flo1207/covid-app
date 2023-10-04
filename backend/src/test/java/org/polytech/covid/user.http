@@ -1,2 +1,4 @@
-POST http://localhost:8080/api/users?prenom=Luc&nom=Lais&mail=jean.lais@gmail.com&password=password&id_center=1&role=2
+POST http://localhost:8080/api/users?prenom=Luc&nom=Lais&mail=jean.lais@gmail.com&password=password&id_center=1&role=1
 #GET http://localhost:8080/api/users/2
+
+#POST http://localhost:8080/api/login?username=jean.lais@gmail.com&password=password

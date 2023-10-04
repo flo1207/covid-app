@@ -19,8 +19,9 @@ export class LoginPageGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+      console.log(this.loginService.getToken())
     if(this.loginService.getToken() != null){
-      this.router.navigate(['admin/centers']);
+      this.router.navigate(['admin/gestion']);
       return false;
     }
     return true;

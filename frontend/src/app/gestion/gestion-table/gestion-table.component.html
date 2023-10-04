@@ -1,0 +1,31 @@
+
+    <div class="d-flex" style="padding: 20px;">
+        <div ngbNav #nav="ngbNav" class="nav-pills flex-column" orientation="vertical" >
+            <ng-container ngbNavItem="top">
+                <button ngbNavLink>Centres</button>
+                <ng-template ngbNavContent style="flex: 1;">
+
+                    <app-vaccination-center-list ></app-vaccination-center-list>
+
+                </ng-template>
+            </ng-container>
+            <ng-container ngbNavItem="middle">
+                <button ngbNavLink>Mon centre</button>
+                <ng-template ngbNavContent>
+
+                    <app-user-list [id]="id_center" [title]="title" [role]="role"></app-user-list>
+
+                </ng-template>
+            </ng-container>
+            <ng-container ngbNavItem="bottom">
+                <button ngbNavLink>Planning</button>
+                <ng-template ngbNavContent>
+                    nop
+                </ng-template>
+            </ng-container>
+        </div>
+    
+        <div [ngbNavOutlet]="nav" class="ms-4"></div>
+    </div>
+    
+

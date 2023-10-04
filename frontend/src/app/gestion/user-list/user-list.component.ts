@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { User } from '../User';
 import { GestionService } from '../gestion.service';
 import { ActivatedRoute } from '@angular/router';
@@ -10,19 +10,30 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserListComponent {
   users?: User[];
+
+  medecins?: User[];
+
+  admins?: User[];
+
+  supers?: User[];
   
   selected?: User;
 
-  id = this.route.snapshot.paramMap.get('id');
+  @Input() title?: string;
+  @Input() id?: string;
+  @Input() role?: number;
+
+
+  // id = this.route.snapshot.paramMap.get('id');
 
   constructor(private service: GestionService, private route: ActivatedRoute){ }
   
   ngOnInit(): void {
     this.service.getAllUsers(this.id!).subscribe(resultUsers => {
-      this.users = resultUsers;
+      this.users = resultUsers.filter(t=>t.role === this.role);
     });
 
-    this.users?.sort((a,b) => a.role - b.role);
+
 
   }
 

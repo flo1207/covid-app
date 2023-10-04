@@ -33,5 +33,9 @@ public class UserService {
     public User findAllByRole(Integer convert_id) {
         return userRepository.findAllByRole(convert_id);
     }
+
+    public User findAllByMailAndPassword(String username, String password) {
+        return userRepository.findAllByMailAndPassword(username, password);
+    }
     
 }

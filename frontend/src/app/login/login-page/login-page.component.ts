@@ -8,23 +8,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss'],
-  animations: [
-    trigger(
-      'inOutAnimation', 
-      [
-        transition(
-          ':enter', 
-          [
-            style({ opacity: 0 }),
-            animate('0.5s', 
-                    style({ opacity: 1 }))
-          ]
-        )
-      ]
-      
-    )
-  ]
+  styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
 
@@ -40,8 +24,9 @@ export class LoginPageComponent implements OnInit {
   
   async onLogin(login: { username: string; password: string }) {
     try{
-      await this.loginService.login(login);
-      this.router.navigate(['/chat']);
+      console.log("ici")
+      await this.loginService.login(login)
+      this.router.navigate(['admin/gestion']);
     }catch(err: any){
       if (err instanceof HttpErrorResponse) {
         if(err.status == 403) window.alert("Mot de passe invalide.");

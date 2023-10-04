@@ -15,6 +15,7 @@ export class VaccinationCenterListComponent implements OnInit{
 
   city : string = "";
 
+
   constructor(private service: VaccinationService){ }
   
   ngOnInit(): void {

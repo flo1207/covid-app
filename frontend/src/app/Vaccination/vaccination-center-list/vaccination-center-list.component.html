@@ -1,43 +1,25 @@
-<div class="header">
-  <div class="title">
-    <i-bs name="hospital" width="75" height="75" style="color: white;"> </i-bs>
-    <h1>Centres de vaccination</h1>
-  </div>
-  <button type="button" class="btn btn-outline-light back" routerLink="/admin"> Admin </button>
-</div>
-
-
 <div class="form-text">
-    <h4>Recherche par ville ...</h4> 
+    <h4>Recherche par ville</h4> 
   <input
       mdbInput
       type="text"
       id="formTextExample1"
       class="form-control"
       aria-describedby="textExample1"
-      placeholder="Nancy"
+      placeholder="Nom de ville"
       [(ngModel)]="city"
       (ngModelChange)="ngOnInit()"
   />
 
+  <div *ngIf="centers?.length == 0" style="text-align: center">
+    Aucune correspondance
+  </div>
+
   <ul>
       <li *ngFor="let c of centers">
-          <app-vaccination-center [center]="c" (deleted)="onDeleted($event)"></app-vaccination-center>
+          <app-vaccination-center  [center]="c" (deleted)="onDeleted($event)"></app-vaccination-center>
       </li>
   </ul>
-
-  <!-- <ul ngbNav #nav="ngbNav" class="nav-tabs">
-    <li ngbNavItem>
-      <button ngbNavLink routerLink="" >Centres</button>
-      <ng-template ngbNavContent>
-
-      </ng-template>
-    </li>
-    <li ngbNavItem>
-      <button ngbNavLink>Connexion</button>
-      <ng-template ngbNavContent>Second content</ng-template>
-    </li>
-  </ul> -->
 
 </div>
 

@@ -5,11 +5,13 @@ import { VaccinationCenterListComponent } from './Vaccination/vaccination-center
 import { LoginPageComponent } from './login/login-page/login-page.component';
 import { LoginPageGuard } from './guards/login-page.guard';
 import { ChatPageGuard } from './guards/chat-page.guard';
+import { UserComponent } from './gestion/user/user.component';
+import { UserListComponent } from './gestion/user-list/user-list.component';
 
 const routes: Routes = [
   {path: "centers",                     component: VaccinationCenterListComponent},
   {path: "",                            redirectTo:"/centers", pathMatch:'full'},
-  {path: "centers/detail/:id",          component: VaccinationCenterComponent},
+  {path: "centers/users/:id",          component: UserListComponent},
   { path: 'admin', 
     component: LoginPageComponent,
     canActivate: [LoginPageGuard], 
@@ -18,7 +20,9 @@ const routes: Routes = [
     component: VaccinationCenterComponent,
     canActivate: [ChatPageGuard]
   },
-
+  { path: 'user', 
+    component: UserListComponent 
+  },
 
 
 ]

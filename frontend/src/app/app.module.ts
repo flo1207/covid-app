@@ -14,6 +14,8 @@ import { LoginPageComponent } from './login/login-page/login-page.component';
 import { LoginFormComponent } from './login/login-form/login-form.component';
 
 import { NgxBootstrapIconsModule, allIcons} from 'ngx-bootstrap-icons';
+import { UserComponent } from './gestion/user/user.component';
+import { UserListComponent } from './gestion/user-list/user-list.component';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { NgxBootstrapIconsModule, allIcons} from 'ngx-bootstrap-icons';
     VaccinationCenterListComponent,
     PatientFormComponent,
     LoginPageComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    UserComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,

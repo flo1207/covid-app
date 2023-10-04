@@ -2,7 +2,7 @@ package org.polytech.covid.VaccinationCenter.service;
 
 import java.util.List;
 
-import org.polytech.covid.Patient.files.Patient;
+import org.polytech.covid.User.files.User;
 import org.polytech.covid.VaccinationCenter.files.VaccinationCentre;
 import org.polytech.covid.VaccinationCenter.files.VaccinationCentreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,6 @@ public class VaccinationCenterService {
     public VaccinationCentre saveAll(VaccinationCentre centre){
         return centreRepository.save(centre);
     }
-
     
 
 }

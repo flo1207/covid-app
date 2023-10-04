@@ -3,14 +3,18 @@ package org.polytech.covid.VaccinationCenter.files;
 import java.util.List;
 
 import javax.annotation.Generated;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.polytech.covid.Patient.files.Patient;
+import org.polytech.covid.User.files.User;
 
 @Entity
 @Table(name="t_vaccination_centre")
@@ -30,6 +34,9 @@ public class VaccinationCentre {
 
     @OneToMany
     private List<Patient> patients;
+
+    @OneToMany(mappedBy = "center")
+    private List<User> users;
 
     public VaccinationCentre(){}
 
@@ -83,6 +90,16 @@ public class VaccinationCentre {
         List<Patient> patients = getPatients();
         patients.add(patient);
         this.patients = patients;
+    }
+
+    public List<User> getUsers() {
+        return this.users;
+    }
+
+    public void addUser(User new_user) {
+        List<User> users = getUsers();
+        users.add(new_user);
+        this.users = users;
     }
 
 

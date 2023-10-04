@@ -1,0 +1,42 @@
+<div class="header">
+    <div class="title">
+      <i-bs name="hospital" width="75" height="75" style="color: white;"> </i-bs>
+      <h1>User</h1>
+    </div>
+    <button type="button" class="btn btn-outline-light back" routerLink="/admin"> Admin </button>
+  </div>
+  
+  <div class="form-text">
+
+    <ul>
+        <h2>SUPER</h2>
+        <ng-container *ngFor="let u of users">
+
+          <div *ngIf="u.role === 2">
+            
+            <app-user [user]="u"></app-user>
+
+          </div>
+
+        </ng-container>
+        <h2>ADMIN</h2>
+        <ng-container *ngFor="let u of users">
+
+          <div *ngIf="u.role === 1">
+            
+            <app-user [user]="u"></app-user>
+
+          </div>
+
+        </ng-container>
+        <h2>MDC</h2>
+        <ng-container *ngFor="let u of users">
+          <div *ngIf="u.role === 0">
+            <app-user [user]="u"></app-user>
+          </div>
+        </ng-container>
+    </ul>
+  
+  </div>
+  
+    

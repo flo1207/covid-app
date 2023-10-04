@@ -7,6 +7,7 @@ import javax.websocket.server.PathParam;
 
 import org.polytech.covid.Patient.files.Patient;
 import org.polytech.covid.Patient.service.PatientService;
+import org.polytech.covid.User.files.User;
 import org.polytech.covid.VaccinationCenter.files.VaccinationCentre;
 import org.polytech.covid.VaccinationCenter.service.VaccinationCenterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,12 @@ public class VaccinationCenterController {
     public VaccinationCentre getCenter(@PathVariable String id){ 
         Long convert_id = Long.parseLong(id);
         return centerService.getById(convert_id);
+    }
+
+    @GetMapping(path  = "api/public/centers/users/{id}")
+    public List<User> getCenterUser(@PathVariable String id){ 
+        Long convert_id = Long.parseLong(id);
+        return centerService.getById(convert_id).getUsers();
     }
 
     @PostMapping(path  = "api/public/centers")

@@ -4,4 +4,5 @@ export interface VaccinationCenter{
     address: string;
     city: string;
     patients: [];
+    users: [];
 }

@@ -44,7 +44,7 @@ public class VaccinationCenterController {
         return centerService.findAllByIdCentre(id);
     }
 
-    @PostMapping(path  = "api/private/centers")
+    @PostMapping(path  = "api/public/centers")
     @ResponseBody
     public VaccinationCentre setCenter(@RequestParam("name") String name, @RequestParam("address") String address,@RequestParam("city") String city ) { 
         VaccinationCentre new_centre = new VaccinationCentre(name,address,city);

@@ -1,3 +1,3 @@
-POST http://localhost:8080/api/public/centers?name=Centre&address=2ruedesmimolettes&city=Nancy
+POST http://localhost:8080/api/private/centers?name=EST&address=4ruedesparmesans&city=Nancy
 
 #GET http://localhost:8080/api/public/centers/users/1

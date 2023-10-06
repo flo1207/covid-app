@@ -18,8 +18,8 @@ public class VaccinationCenterService {
         return centreRepository.findAllByCityIgnoreCaseContaining(cityName);
     }
     
-    public VaccinationCentre getById(Long id) {
-        return centreRepository.getById(id);
+    public VaccinationCentre findAllByIdCentre(Long id) {
+        return centreRepository.findAllByIdCentre(id);
     }
 
     public VaccinationCentre saveAll(VaccinationCentre centre){

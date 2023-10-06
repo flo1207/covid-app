@@ -1,0 +1,19 @@
+<div class="user" *ngIf="patient">
+
+    <li class="details">
+        <strong>{{patient.mail}}</strong>
+
+        <br> {{patient.prenom}} {{patient.nom | uppercase}}
+    </li>
+
+    <div *ngIf="patient.vaccination == true">
+        <i-bs name="check" width="75" height="50" style="color: green;"> </i-bs>
+    </div>
+
+    <div *ngIf="patient.vaccination == false">
+        <button type="button" class="btn btn-outline-success" (click)="vacciner()"> Valider </button>
+    </div>
+
+
+
+</div>

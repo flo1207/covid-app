@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { VaccinationCenter } from '../Vaccination/vaccination-center';
+import { User } from '../gestion/User';
+import { GestionService } from '../gestion/gestion.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +15,9 @@ export class LoginService {
   private username = new BehaviorSubject<string | null>(null);
   private token: string | null = null;
 
-  constructor(private httpClient: HttpClient ) {
+  public user! : User
+
+  constructor(private httpClient: HttpClient, private gestionService: GestionService) {
     
   }
 
@@ -37,18 +42,23 @@ export class LoginService {
       .set('username', login.username)
       .set('password', login.password)
     
-      const resp = await this.httpClient.post("api/login", body, {
+      const resp = await this.httpClient.post("api/public/login", body, {
         headers: new HttpHeaders()
           .set('Content-Type', 'application/x-www-form-urlencoded'),
         observe: 'response'
       })
+      
       localStorage.setItem(LoginService.USERNAME_KEY,login.username);
       localStorage.setItem(LoginService.TOKEN_KEY,"valid");
-      this.token = "valid";
+      this.token = "valid";     
+      return resp;
+
   }
+
 
   async logout() {
     localStorage.clear();
+    window.location.reload();
   }
 
 

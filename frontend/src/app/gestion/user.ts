@@ -1,7 +1,7 @@
 import { VaccinationCenter } from "../Vaccination/vaccination-center";
 
 export interface User{
-    id:number;
+    idUser:number;
     nom: string;
     prenom: string;
     password: string;

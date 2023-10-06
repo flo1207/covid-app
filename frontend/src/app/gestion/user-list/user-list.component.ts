@@ -20,7 +20,7 @@ export class UserListComponent {
   selected?: User;
 
   @Input() title?: string;
-  @Input() id?: string;
+  @Input() id?: number;
   @Input() role?: number;
 
 

@@ -1,4 +1,12 @@
 POST http://localhost:8080/api/users?prenom=Luc&nom=Lais&mail=jean.lais@gmail.com&password=password&id_center=1&role=1
+#POST http://localhost:8080/api/users?prenom=Flo&nom=IMP&mail=flo1207@live.fr&password=root&id_center=1&role=2
+
+
+#POST http://localhost:8080/api/public/centers/patient?id=5
 #GET http://localhost:8080/api/users/2
 
-#POST http://localhost:8080/api/login?username=jean.lais@gmail.com&password=password
+#GET http://localhost:8080/api/user?username=jean.lais@gmail.com&passw
+
+#GET  http://localhost:8080/api/public/center/users/1
+
+#GET http://localhost:8080/api/login/user?username=jean.lais@gmail.com

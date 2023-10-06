@@ -13,9 +13,9 @@ export class PatientFormComponent {
   @Output() send = new EventEmitter<Patient>();
 
   patientInfo = this.formBuilder.group({
-    firstName: ['', [Validators.required]],
-    lastName: ['', [Validators.required]],
-    email: ['', [Validators.required]],
+    prenom: ['', [Validators.required]],
+    nom: ['', [Validators.required]],
+    mail: ['', [Validators.required]],
     dateRDV:[null, [Validators.required]],
   })
 
@@ -42,10 +42,11 @@ export class PatientFormComponent {
       this.full = true;
     }else{    
       let patient: Patient = {
-        id: 0,
-        firstName: this.patientInfo.value.firstName!,
-        lastName: this.patientInfo.value.lastName!,
-        email: this.patientInfo.value.email!,
+        idPatient: 0,
+        prenom: this.patientInfo.value.prenom!,
+        nom: this.patientInfo.value.nom!,
+        mail: this.patientInfo.value.mail!,
+        vaccination: false,
         dateRDV: this.datepipe.transform(this.date_RDV,'dd.MM.yyyy')!
       }
       this.send.emit(patient);

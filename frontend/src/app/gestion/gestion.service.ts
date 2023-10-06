@@ -7,14 +7,30 @@ import { User } from './User';
   providedIn: 'root'
 })
 export class GestionService {
+  get(username: string){
+    return this.httpClient.get<User>("api/login/user",{
+      params:{
+        "username":username
+      }
+    }); 
+  }
 
   constructor(private httpClient : HttpClient) { }
 
-  getAllUsers(id: string): Observable<User[]> {
-    return this.httpClient.get<User[]>("api/public/centers/users/"+id); 
+  getAllUsers(id: number): Observable<User[]> {
+    return this.httpClient.get<User[]>("api/public/center/users/"+id); 
   }
 
   getUserById(id: string) {
     return this.httpClient.get<User>("api/users/"+id); 
+  }
+
+  getUser(username: string, password: string){
+    return this.httpClient.get<User>("api/user",{
+      params:{
+        "username":username,
+        "password": password
+      }
+    }); 
   }
 }

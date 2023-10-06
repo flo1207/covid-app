@@ -41,22 +41,10 @@ public class VaccinationCenterController {
     @GetMapping(path  = "api/public/center")
     public VaccinationCentre getCenter(
         @RequestParam("id") Long id){        
-        return centerService.getById(id);
+        return centerService.findAllByIdCentre(id);
     }
 
-    @GetMapping(path  = "api/public/centers/detail/{id}")
-    public VaccinationCentre getCenter(@PathVariable String id){ 
-        Long convert_id = Long.parseLong(id);
-        return centerService.getById(convert_id);
-    }
-
-    @GetMapping(path  = "api/public/centers/users/{id}")
-    public List<User> getCenterUser(@PathVariable String id){ 
-        Long convert_id = Long.parseLong(id);
-        return centerService.getById(convert_id).getUsers();
-    }
-
-    @PostMapping(path  = "api/public/centers")
+    @PostMapping(path  = "api/private/centers")
     @ResponseBody
     public VaccinationCentre setCenter(@RequestParam("name") String name, @RequestParam("address") String address,@RequestParam("city") String city ) { 
         VaccinationCentre new_centre = new VaccinationCentre(name,address,city);
@@ -66,14 +54,14 @@ public class VaccinationCenterController {
     @PostMapping(path  = "api/public/centers/patients")
     @ResponseBody
     public VaccinationCentre addPatient(@RequestParam("mail") String mail, @RequestParam("nom") String nom, @RequestParam("prenom") String prenom, @RequestParam("id_centre") Long id_centre, @RequestParam(required = false,name="localDate") @DateTimeFormat(pattern = "dd.MM.yyyy") LocalDate localDate) { 
-        VaccinationCentre vaccinationCenter = centerService.getById(id_centre);
+        VaccinationCentre vaccinationCenter = centerService.findAllByIdCentre(id_centre);
         if(vaccinationCenter == null) return null;
         else{
             
             Patient new_patient = new Patient(mail,nom,prenom,id_centre,false,localDate);
 
             vaccinationCenter.addPatient(new_patient);
-            patientService.saveAll(new_patient);
+            patientService.save(new_patient);
             return centerService.saveAll(vaccinationCenter);
         }
     }

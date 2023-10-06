@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class Patient {
     @Id
     @GeneratedValue
-    private long id;
+    private long idPatient;
     
     @Column(nullable = false)
     private String mail; 
@@ -44,14 +44,6 @@ public class Patient {
     }
 
     public Patient(){}
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getMail() {
         return mail;
@@ -93,16 +85,28 @@ public class Patient {
         this.date_RDV = date_RDV;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public Boolean getVaccination() {
         return vaccination;
     }
 
     public void setVaccination(Boolean vaccination) {
         this.vaccination = vaccination;
+    }
+
+    public long getIdPatient() {
+        return idPatient;
+    }
+
+    public void setIdPatient(long idPatient) {
+        this.idPatient = idPatient;
+    }
+
+    public Long getId_centre() {
+        return id_centre;
+    }
+
+    public void setId_centre(Long id_centre) {
+        this.id_centre = id_centre;
     }
 
 }

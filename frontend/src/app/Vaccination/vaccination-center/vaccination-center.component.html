@@ -13,11 +13,11 @@
         
 
         <div *ngIf="!selected" class="bouton">
-            <button type="button" class="btn btn-outline-primary" routerLink="/centers/users/{{center.id}}"> Details </button>
+            <button type="button" class="btn btn-outline-primary" routerLink="/centers/users/{{center.idCentre}}"> Details </button>
             <button type="button" class="btn btn-outline-success" (click)="centerSelect()"> Choisir </button>
         </div>
         <div *ngIf="selected" class="bouton">
-            <button type="button" class="btn btn-outline-primary" routerLink="/centers/users/{{center.id}}"> Details </button>
+            <button type="button" class="btn btn-outline-primary" routerLink="/centers/users/{{center.idCentre}}"> Details </button>
             <button type="button" class="btn btn-outline-danger" (click)="centerSelect()"> Annuler </button>
         </div>
 

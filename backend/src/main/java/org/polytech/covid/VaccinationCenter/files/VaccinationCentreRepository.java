@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VaccinationCentreRepository extends JpaRepository<VaccinationCentre, Integer>{
     public List<VaccinationCentre> findAllByCityIgnoreCaseContaining(String city);
-    public VaccinationCentre getById(Long id);
+    public VaccinationCentre findAllByIdCentre(Long id);
 }

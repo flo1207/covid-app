@@ -17,8 +17,12 @@ public class PatientService {
         return patientRepository.findAllByNomLike(nom);
     }
 
-    public Patient saveAll(Patient patient){
+    public Patient save(Patient patient){
         return patientRepository.save(patient);
+    }
+
+    public Patient findByIdPatient(Long id_pat) {
+        return patientRepository.findByIdPatient(id_pat);
     }
     
 }

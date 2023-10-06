@@ -22,8 +22,8 @@ public class UserService {
         return userRepository.getByCenter(convert_id);
     }
 
-    public User getById(Long convert_id) {
-        return userRepository.getById(convert_id);
+    public User findAllByIdUser(Long convert_id) {
+        return userRepository.findAllByIdUser(convert_id);
     }
 
     public List<User> findAll() {
@@ -35,7 +35,14 @@ public class UserService {
     }
 
     public User findAllByMailAndPassword(String username, String password) {
-        return userRepository.findAllByMailAndPassword(username, password);
+        return userRepository.findByMailAndPassword(username, password);
     }
-    
+
+    public List<User> findByCenterIdCentre(Long convert_id) {
+        return userRepository.findByCenterIdCentre(convert_id);
+    }
+
+    public User findByMail(String username) {
+        return userRepository.findByMail(username);
+    }
 }

@@ -43,7 +43,7 @@ export class VaccinationCenterComponent implements OnInit{
   }
 
   async sendPatient(patient: Patient) {
-    const send = (await this.servicePatient.postPatient(patient, this.center!.id)).subscribe((response) => {
+    const send = (await this.servicePatient.postPatient(patient, this.center!.idCentre)).subscribe((response) => {
         console.log(response.status);
         this.confirm = true;
         this.nb_reserv += 1;

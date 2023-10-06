@@ -7,16 +7,20 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.polytech.covid.VaccinationCenter.files.VaccinationCentre;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
  
 @Entity
 @Table(name="t_user")
 public class User {
     @Id
     @GeneratedValue
-    private long id;
+    private long idUser;
     
     @Column(nullable = false)
     private String mail; 
@@ -33,7 +37,7 @@ public class User {
     @Column(nullable = false)
     private Integer role;
 
-    @ManyToOne
+    @OneToOne
     private VaccinationCentre center;
 
     public User(String prenom, String nom, String password, String mail, VaccinationCentre center, Integer role) {
@@ -46,14 +50,6 @@ public class User {
     }
 
     public User(){}
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getMail() {
         return mail;
@@ -94,6 +90,27 @@ public class User {
     public void setRole(Integer role) {
         this.role = role;
     }
+
+    public VaccinationCentre getCenter() {
+        return center;
+    }
+
+    public void setCenter(VaccinationCentre center) {
+        this.center = center;
+    }
+
+    public long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(long idUser) {
+        this.idUser = idUser;
+    }
+
+    // public VaccinationCentre getCenter(){
+    //     return this.center;
+        
+    // }
 
 
 }

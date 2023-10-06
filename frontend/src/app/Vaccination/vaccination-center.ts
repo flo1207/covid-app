@@ -1,5 +1,5 @@
 export interface VaccinationCenter{
-    id:number;
+    idCentre:number;
     name: string;
     address: string;
     city: string;

@@ -1,3 +1,4 @@
+<button style="margin: 20px" (click) = "logout()"> exit </button>
 
     <div class="d-flex" style="padding: 20px;">
         <div ngbNav #nav="ngbNav" class="nav-pills flex-column" orientation="vertical" >
@@ -13,14 +14,23 @@
                 <button ngbNavLink>Mon centre</button>
                 <ng-template ngbNavContent>
 
-                    <app-user-list [id]="id_center" [title]="title" [role]="role"></app-user-list>
+                    <app-user-list [id]=id_center [title]="title" [role]="role"></app-user-list>
 
                 </ng-template>
             </ng-container>
             <ng-container ngbNavItem="bottom">
                 <button ngbNavLink>Planning</button>
                 <ng-template ngbNavContent>
-                    nop
+                    <ul>
+                        <h2>Réservations en cours</h2>
+                        <div *ngIf="patients?.length == 0">
+                          Aucune
+                        </div>
+                        <ng-container *ngFor="let u of patients">
+                            <app-patient [patient]="u"></app-patient>
+                        </ng-container>
+                
+                    </ul>
                 </ng-template>
             </ng-container>
         </div>

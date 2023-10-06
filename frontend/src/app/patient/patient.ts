@@ -1,7 +1,8 @@
 export interface Patient{
-    id:number;
-    firstName: string;
-    lastName: string;
-    email: string;
+    idPatient:number;
+    nom: string;
+    prenom: string;
+    mail: string;
+    vaccination: boolean;
     dateRDV: string;
 }

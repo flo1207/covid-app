@@ -16,12 +16,14 @@ import javax.persistence.Table;
 import org.polytech.covid.Patient.files.Patient;
 import org.polytech.covid.User.files.User;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="t_vaccination_centre")
 public class VaccinationCentre {
     @Id
     @GeneratedValue
-    private long id;
+    private long idCentre;
     
     @Column(nullable = false)
     private String name;
@@ -35,9 +37,6 @@ public class VaccinationCentre {
     @OneToMany
     private List<Patient> patients;
 
-    @OneToMany(mappedBy = "center")
-    private List<User> users;
-
     public VaccinationCentre(){}
 
     public VaccinationCentre( String name, String address, String city){
@@ -46,13 +45,6 @@ public class VaccinationCentre {
         this.city = city;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -92,15 +84,20 @@ public class VaccinationCentre {
         this.patients = patients;
     }
 
-    public List<User> getUsers() {
-        return this.users;
+    public long getIdCentre() {
+        return idCentre;
     }
 
-    public void addUser(User new_user) {
-        List<User> users = getUsers();
-        users.add(new_user);
-        this.users = users;
+    public void setIdCentre(long idCentre) {
+        this.idCentre = idCentre;
     }
+
+
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
 
 
 }

@@ -10,6 +10,7 @@ import org.polytech.covid.VaccinationCenter.files.VaccinationCentre;
 import org.polytech.covid.VaccinationCenter.service.VaccinationCenterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,7 +22,7 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
-    @GetMapping(path  = "api/centers/patients")
+    @GetMapping(path  = "api/private/centers/patients")
     public List<Patient> getPatients(
         @RequestParam("nom") String nom){
         
@@ -31,11 +32,12 @@ public class PatientController {
         else return patientService.findAllByNom(new_nom);
     }
 
-
-    @PostMapping(path  = "api/centers/patient")
+    @PatchMapping(path  = "api/private/centers/patient")
     @ResponseBody
-    public Patient addPatient(@RequestParam("mail") String mail, @RequestParam("num_tel") Integer num_tel,@RequestParam("nom") String nom,@RequestParam("vaccination") Boolean vaccination, @RequestParam("prenom") String prenom, @RequestParam("id_centre") Long id_centre, @RequestParam("prenom") LocalDate date) { 
-        Patient new_patient = new Patient(mail,nom,prenom,id_centre,vaccination,date);
-        return patientService.saveAll(new_patient);
+    public Patient updatePatientVaccination(@RequestParam("id") String id){
+        Long id_pat = Long.parseLong(id);
+        Patient patient = patientService.findByIdPatient(id_pat);
+        patient.setVaccination(true); 
+        return patientService.save(patient);
     }
 }

@@ -11,11 +11,11 @@ export class PatientService {
 
   async postPatient(patient: Patient, id: number) {
     const body = new HttpParams()
-    .set('mail', patient.email)
+    .set('mail', patient.mail)
     .set('id_centre', id)
-    .set('nom', patient.lastName)
+    .set('nom', patient.nom)
     .set('localDate', patient.dateRDV)
-    .set('prenom', patient.firstName);
+    .set('prenom', patient.prenom);
   
     return await this.httpClient.post("api/public/centers/patients", body, {
       headers: new HttpHeaders()
@@ -23,6 +23,18 @@ export class PatientService {
       observe: 'response'
     })
 
+  }
+
+  async updatePatientVaccination(id: number){
+    const body = new HttpParams()
+    .set('id', id)
+
+  
+    return await this.httpClient.patch("api/private/centers/patient", body, {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/x-www-form-urlencoded'),
+      observe: 'response'
+    })
   }
 
 }

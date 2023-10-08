@@ -1,5 +1,7 @@
 package org.polytech.covid.User.files;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.polytech.covid.VaccinationCenter.files.VaccinationCentre;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
  
@@ -35,12 +38,12 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private Integer role;
+    private SimpleGrantedAuthority role;
 
     @OneToOne
     private VaccinationCentre center;
 
-    public User(String prenom, String nom, String password, String mail, VaccinationCentre center, Integer role) {
+    public User(String prenom, String nom, String password, String mail, VaccinationCentre center, SimpleGrantedAuthority role) {
         this.mail = mail;
         this.nom = nom;
         this.prenom = prenom;
@@ -83,11 +86,11 @@ public class User {
         this.password = password;
     }
 
-    public Integer getRole() {
+    public SimpleGrantedAuthority getRole() {
         return role;
     }
 
-    public void setRole(Integer role) {
+    public void setRole(SimpleGrantedAuthority role) {
         this.role = role;
     }
 

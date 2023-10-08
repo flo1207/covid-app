@@ -22,20 +22,34 @@ export class LoginPageComponent implements OnInit {
 
 
   
-  async onLogin(login: { username: string; password: string }) {
-      (await this.loginService.login(login)).subscribe( 
-        resp => {this.router.navigate(['admin/gestion'])},
-        err => {
+  // async onLogin(login: { username: string; password: string }) {
+  //     (await this.loginService.login(login)).subscribe( 
+  //       resp => {this.router.navigate(['admin/gestion'])},
+  //       err => {
         
-        if (err instanceof HttpErrorResponse) {
-          if(err.status == 403) window.alert("Mot de passe invalide.");
-          else window.alert("Problème de connexion.");
-        } 
-        else {
-          window.alert("Un problème est survenu.");
-        }
+  //       if (err instanceof HttpErrorResponse) {
+  //         if(err.status == 403) window.alert("Mot de passe invalide.");
+  //         else window.alert("Problème de connexion.");
+  //       } 
+  //       else {
+  //         window.alert("Un problème est survenu.");
+  //       }
         
-      })
+  //     })
+  // }
 
+  async onLogin(login: { username: string; password: string }) {
+    try{
+      await this.loginService.login(login);
+      this.router.navigate(['admin/gestion']);
+    }catch(err: any){
+      if (err instanceof HttpErrorResponse) {
+        if(err.status == 403) window.alert("Mot de passe invalide.");
+        else window.alert("Problème de connexion.");
+      } 
+      else {
+        window.alert("Un problème est survenu.");
+      }
+    }
   }
 }

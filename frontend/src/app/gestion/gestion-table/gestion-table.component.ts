@@ -25,12 +25,21 @@ export class GestionTableComponent {
   constructor(private service: GestionService, private logservice: LoginService){}
 
   async ngOnInit() { 
-    this.service.get(localStorage.getItem('username')!).subscribe(data => {
+    this.service.getUserByUsername(localStorage.getItem('username')!).subscribe(data => {
       this.user = data;
       this.center = this.user.center;
       this.patients = this.center.patients
       this.id_center = this.center.idCentre
-    })    
+    },error => {
+        if (error.status === 401) {
+          // L'accès est non autorisé, gérer en conséquence
+          console.error('Accès non autorisé:', error);
+        } else {
+          // Gérez d'autres erreurs
+          console.error('Erreur de récupération de l\'utilisateur:', error);
+        }
+      }
+    );    
   }
 
   logout(){

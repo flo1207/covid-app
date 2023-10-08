@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from './User';
@@ -7,18 +7,30 @@ import { User } from './User';
   providedIn: 'root'
 })
 export class GestionService {
-  get(username: string){
-    return this.httpClient.get<User>("api/login/user",{
-      params:{
-        "username":username
-      }
-    }); 
+
+  getUserByUsername(username: string){
+    const token = localStorage.getItem('token');
+    
+    const base64Credentials = btoa(`${username}:${token}`);
+    const headers = new HttpHeaders({
+      Authorization: `Basic ${base64Credentials}`,
+    });
+
+
+    return this.httpClient.get<User>("api/private/get/user",{headers}); 
   }
 
   constructor(private httpClient : HttpClient) { }
 
   getAllUsers(id: number): Observable<User[]> {
-    return this.httpClient.get<User[]>("api/public/center/users/"+id); 
+    const token = localStorage.getItem('token');
+    const username = localStorage.getItem('username');
+
+    const base64Credentials = btoa(`${username}:${token}`);
+    const headers = new HttpHeaders({
+      Authorization: `Basic ${base64Credentials}`,
+    });
+    return this.httpClient.get<User[]>("api/private/center/users/"+id,{headers}); 
   }
 
   getUserById(id: string) {
@@ -26,7 +38,7 @@ export class GestionService {
   }
 
   getUser(username: string, password: string){
-    return this.httpClient.get<User>("api/user",{
+    return this.httpClient.get<User>("api/puser",{
       params:{
         "username":username,
         "password": password

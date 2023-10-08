@@ -21,38 +21,20 @@ export class LoginService {
     
   }
 
-  // async login(login: { username: string; password: string }) {
-  //   const loginResponse = await firstValueFrom(
-  //     this.httpClient.post<{ token: string }>("/auth/login",
-  //       {
-  //         username: login.username,
-  //         password: login.password,
-  //       }
-  //     )
-  //   );
-  //   localStorage.setItem(LoginService.USERNAME_KEY,login.username);
-  //   localStorage.setItem(LoginService.TOKEN_KEY,loginResponse.token);
-  //   this.token = loginResponse.token;
-  //   this.username.next(login.username);
-  // }
-
   async login(login: { username: string; password: string }) {
-
+      
       const body = new HttpParams()
       .set('username', login.username)
       .set('password', login.password)
-    
-      const resp = await this.httpClient.post("api/public/login", body, {
-        headers: new HttpHeaders()
-          .set('Content-Type', 'application/x-www-form-urlencoded'),
-        observe: 'response'
-      })
-      
-      localStorage.setItem(LoginService.USERNAME_KEY,login.username);
-      localStorage.setItem(LoginService.TOKEN_KEY,"valid");
-      this.token = "valid";     
-      return resp;
+          const loginResponse = await firstValueFrom(
+            this.httpClient.post<{ token: string }>("/api/public/login",body
+            )
+          )
 
+
+          localStorage.setItem(LoginService.USERNAME_KEY,login.username);
+          localStorage.setItem(LoginService.TOKEN_KEY,login.password);
+          this.token = loginResponse.token;
   }
 
 
@@ -61,24 +43,6 @@ export class LoginService {
     window.location.reload();
   }
 
-
-  // async logout() {
-  //   if (this.token) {
-  //     try {
-  //       await firstValueFrom(
-  //         this.httpClient.post("/auth/logout", {})
-  //       );
-  //     } catch (error) {
-  //       console.log('Could not logout.');
-  //     }
-
-    
-  //   localStorage.removeItem(LoginService.USERNAME_KEY);
-  //   localStorage.removeItem(LoginService.TOKEN_KEY);
-  //   this.username.next(null);
-  //   this.token = null;
-  //   }
-  // }
 
   getUsername(): Observable<string | null> {
     return this.username.asObservable();

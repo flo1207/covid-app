@@ -9,4 +9,11 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
-    hibernate.ddl-auto: create
+    # hibernate.ddl-auto: create
+
+jwt:
+  secret: YYRq+Y6myo81mBwrJ+oTKeBPhcH1NT2nf6HwVJrGuf09d17vxz4ZRwmipXt4qv2z4fLEw99BNS3AdrLHK/K/LA==
+
+logging:
+  level:
+    org.springframework.security: TRACE

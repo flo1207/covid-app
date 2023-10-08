@@ -10,4 +10,9 @@ public class CovidApiApplication {
 		SpringApplication.run(CovidApiApplication.class, args);
 	}
 
+	
+	
+	
+
+
 }

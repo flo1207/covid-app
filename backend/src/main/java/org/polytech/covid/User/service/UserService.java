@@ -1,14 +1,19 @@
 package org.polytech.covid.User.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.polytech.covid.User.files.User;
 import org.polytech.covid.User.files.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UserService{
 
     @Autowired
     private UserRepository userRepository;
@@ -45,4 +50,20 @@ public class UserService {
     public User findByMail(String username) {
         return userRepository.findByMail(username);
     }
+
+
+    // @Override
+    // public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    //     User user = userRepository.findByMail(username);
+
+        
+    //     return new org.springframework.security.core.userdetails.User(
+    //                 user.getMail(),
+    //                 user.getPassword(),
+    //                 // Add user roles and authorities here
+    //                 Collections.singletonList(new SimpleGrantedAuthority("ADMIN"))
+    //             );
+        
+        
+    // }
 }

@@ -40,8 +40,8 @@ export class LoginService {
 
 
   async logout() {
-    localStorage.clear();
     window.location.reload();
+    localStorage.clear();
   }
 
 

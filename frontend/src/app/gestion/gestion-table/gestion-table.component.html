@@ -1,47 +1,42 @@
-<button style="margin: 20px" (click) = "logout()"> exit </button>
 
-    <div class="d-flex" style="padding: 20px;">
-        <div ngbNav #nav="ngbNav" [(activeId)]="activeId"  class="nav-pills flex-column" orientation="vertical" >
+<div class="d-flex" style="padding: 20px;">
+    <div ngbNav #nav="ngbNav" [(activeId)]="activeId"  class="nav-pills flex-column" orientation="vertical" >
 
-            <ng-container *ngIf="isSuper()" ngbNavItem="1">
-                <button ngbNavLink>Centres</button>
-                <ng-template ngbNavContent style="flex: 1;">
+        <ng-container *ngIf="isSuper()" ngbNavItem="1">
+            <button ngbNavLink>Centres</button>
+            <ng-template ngbNavContent style="flex: 1;">
 
-                    <app-vaccination-center-list ></app-vaccination-center-list>
+                <app-vaccination-center-list ></app-vaccination-center-list>
 
-                </ng-template>
-            </ng-container>
+            </ng-template>
+        </ng-container>
 
-            <ng-container *ngIf="isAdmin()" ngbNavItem="2">
-                <button ngbNavLink>Mon centre</button>
-                <ng-template ngbNavContent>
-                    <div class="center_info">
-                        <b>{{center?.name}}</b>
-                        <br>
-                        {{center?.address}}
-                    </div>
+        <ng-container *ngIf="isAdmin()" ngbNavItem="2">
+            <button ngbNavLink>Mon centre</button>
+            <ng-template ngbNavContent>
+                <div class="center_info">
+                    <b>{{center?.name}}</b>
+                    <br>
+                    {{center?.address}}
+                </div>
 
-                    <app-user-list [id]=id_center [title]="title" [role]="role"></app-user-list>
+                <app-user-list [id]=id_center [title]="title" [role]="role"></app-user-list>
 
-                </ng-template>
-            </ng-container>
+            </ng-template>
+        </ng-container>
 
-            <ng-container *ngIf="isMdc()" ngbNavItem="3">
-                <button ngbNavLink>Planning</button>
-                <ng-template ngbNavContent>
-                    <ul>
-                        <h2>Réservations en cours</h2>
-                        <div *ngIf="patients?.length == 0">
-                        Aucune
-                        </div>
-                        <app-patient-list [patients]="patients"></app-patient-list>
-                    </ul>
-                </ng-template>
-            </ng-container>
+        <ng-container *ngIf="isMdc()" ngbNavItem="3">
+            <button ngbNavLink>Planning</button>
+            <ng-template ngbNavContent>
+                <ul style="text-align: center;">
+                    <app-patient-list [patients]="patients"></app-patient-list>
+                </ul>
+            </ng-template>
+        </ng-container>
 
-        </div>
-    
-        <div [ngbNavOutlet]="nav" class="ms-4"></div>
     </div>
+
+    <div [ngbNavOutlet]="nav" class="ms-4"></div>
+</div>
     
 

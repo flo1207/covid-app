@@ -1,7 +1,7 @@
 
 
-POST http://localhost:8080/api/public/users?prenom=Luc&nom=Lais&mail=jean.lais@gmail.com&password=password&id_center=1&role=1
-#POST http://localhost:8080/api/public/users?prenom=Flo&nom=IMP&mail=flo1207@live.fr&password=root&id_center=1&role=2
+#POST http://localhost:8080/api/public/users?prenom=Luc&nom=Lais&mail=jean.lais@gmail.com&password=password&id_center=1&role=1
+POST http://localhost:8080/api/public/users?prenom=Flo&nom=IMP&mail=flo1207@live.fr&password=root&id_center=1&role=2
 
 
 #POST http://localhost:8080/api/public/centers/patient?id=5

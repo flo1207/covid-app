@@ -3,8 +3,19 @@
     <i-bs name="hospital" width="75" height="75" style="color: white;"> </i-bs>
     <h1>Centres de vaccination</h1>
   </div>
-  <button type="button" class="btn btn-outline-light back" routerLink="/admin"> Admin </button>
-  <button type="button" class="btn btn-outline-light back2" routerLink="/centers"> Centres </button>
+
+  <div *ngIf="isConnected()" >
+    <i-bs (click)="logout()" class="back" name="box-arrow-right" width="40" height="40" > </i-bs>
+  </div>
+
+  <div *ngIf="!isAdmin()" >
+    <button type="button" class="btn btn-outline-light back2" routerLink="/admin"> Admin </button>
+  </div>
+
+  <div *ngIf="isAdmin()" >
+    <button type="button" class="btn btn-outline-light back2" routerLink="/centers"> Centres </button>
+  </div>
+
 
 </div>
 

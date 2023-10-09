@@ -1,10 +1,28 @@
+<h2>Réservations en cours</h2>
 
-<div *ngIf="patients?.length == 0">
-    Aucune
+
+<div style="display: flex;margin-bottom: 10px;">
+    
+    <div style="display: flex;margin: auto; flex-wrap: wrap; padding-top: 10px; padding-bottom: 10px;">
+        <i-bs (click)="dateDown()" name="arrow-left" width="75" height="50" > </i-bs>
+        <div style="margin: auto;">
+            <i-bs (click)="showCal()" name="calendar-date" width="30" height="30" > </i-bs>
+            <p style="text-align:center; width: 250px; margin: auto; padding-top: 6px;"> <b>{{ today | date: 'fullDate' }}</b></p>
+        </div>
+        <i-bs (click)="dateUp()" name="arrow-right" width="75" height="50" > </i-bs>
+
+
+        <div *ngIf="calendar" style="margin-left: 35px ;">
+            <ngb-datepicker  #dp (dateSelect)="onDateSelect($event)" ></ngb-datepicker>
+        </div>
+    </div>
+    
+
 </div>
 
+
 <form>
-	<input
+    <input
       mdbInput
       type="text"
       id="formTextExample1"
@@ -14,46 +32,44 @@
       [formControl]="filter"
   />
 </form>
-<div style="display: flex;">
-    <button (click)="dateDown()"> < </button>
-    <p>{{ today | date: 'fullDate'}}</p>
-    <button (click)="dateUp()"> ></button>
+
+<div *ngIf="(patients$ | async)!.length == 0">
+    Aucune réservation ce jour
 </div>
 
-<div *ngFor="let p of patients$ | async; index as i">
-    <div *ngIf="isDate(p.date_RDV)">
-        <p>{{ p.date_RDV | date: 'fullDate'}}</p>
-    </div>
-</div>
+<div *ngIf="(patients$ | async)!.length > 0">
 
+    
 
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">Prénom</th>
-            <th scope="col">Nom</th>
-            <th scope="col">Mail</th>
-            <th scope="col">Vaccination</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let p of patients$ | async; index as i">
-            
-            <td>{{p.prenom}}</td>
-            <td>{{p.nom | uppercase}}</td>
-            <td>{{p.date_RDV}}</td>
-            <td>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Prénom</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Mail</th>
+                <th scope="col">Vaccination</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of patients$ | async; index as i">
                 
-                <div *ngIf="p.vaccination == true">
-                    <i-bs name="check" width="75" height="50" style="color: green;"> </i-bs>
-                </div>
+                <td>{{p.prenom}}</td>
+                <td>{{p.nom | uppercase}}</td>
+                <td>{{p.mail}}</td>
+                <td>
+                    
+                    <div *ngIf="p.vaccination == true">
+                        <i-bs name="check" width="75" height="50" style="color: green;"> </i-bs>
+                    </div>
+    
+                    <div *ngIf="p.vaccination == false">
+                        <button type="button" class="btn btn-outline-success" (click)="vacciner(p)"> Valider </button>
+                    </div>
+    
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-                <div *ngIf="p.vaccination == false">
-                    <button type="button" class="btn btn-outline-success" (click)="vacciner(p)"> Valider </button>
-                </div>
 
-            </td>
-        </tr>
-    </tbody>
-</table>

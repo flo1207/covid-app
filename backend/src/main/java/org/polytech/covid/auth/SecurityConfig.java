@@ -77,7 +77,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         .password(encoder().encode("admin"))
         .roles("ADMIN")
         .and()
-        .withUser("super")
+        .withUser("flo1207@live.fr")
         .password(encoder().encode("super"))
         .roles("SUPER");
 

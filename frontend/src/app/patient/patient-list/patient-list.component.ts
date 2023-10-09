@@ -1,4 +1,4 @@
-import { Component, Input, PipeTransform} from '@angular/core';
+import { Component, Input, OnInit, PipeTransform} from '@angular/core';
 import { Patient } from '../patient';
 import { PatientService } from '../patient.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -14,21 +14,31 @@ import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
   providers: [DecimalPipe],
 })
 
-export class PatientListComponent {
+export class PatientListComponent implements OnInit{
   @Input() patients?: Patient[];
 
+  patients_filter?: Patient[];
+
   patients$: Observable<Patient[]>;
+
 	filter = new FormControl('', { nonNullable: true });
 
   today : Date = new Date();
   date_RDV: Date | undefined;
+
+  calendar = false;
 
 	constructor(private patientService: PatientService, pipe: DecimalPipe) {
 		this.patients$ = this.filter.valueChanges.pipe(
 			startWith(''),
 			map((text) => this.search(text, pipe)),
 		);
+    
 
+  }
+  ngOnInit(): void {
+    this.patients_filter = this.patients;
+    this.filtreByDate()
   }
   async vacciner(patient: Patient){
     
@@ -61,12 +71,14 @@ export class PatientListComponent {
     var res = new Date(this.today);
     res.setDate(res.getDate() + 1);
     this.today = res;
+    this.filtreByDate()
   }
 
   dateDown(){
     var res = new Date(this.today);
     res.setDate(res.getDate() - 1);
     this.today = res;
+    this.filtreByDate()
   }
 
   isDate(date : string){
@@ -76,7 +88,19 @@ export class PatientListComponent {
     return res;
   }
 
+  filtreByDate(){
+    this.patients = this.patients_filter?.filter( pat => this.isDate(pat.date_RDV))
+    this.filter.setValue("");
+  }
 
+  onDateSelect(date:NgbDate){
+    this.today = new Date(date.year, date.month - 1, date.day);
+    this.filtreByDate();
+  }
+
+  showCal(){
+    this.calendar = !this.calendar;
+  }
 
 
 }

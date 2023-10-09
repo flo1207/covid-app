@@ -30,10 +30,11 @@ export class LoginService {
             this.httpClient.post<{ token: string }>("/api/public/login",body
             )
           )
-
+      
+          const tok = btoa(`${login.username}:${login.password}`);
 
           localStorage.setItem(LoginService.USERNAME_KEY,login.username);
-          localStorage.setItem(LoginService.TOKEN_KEY,login.password);
+          localStorage.setItem(LoginService.TOKEN_KEY,tok);
           this.token = loginResponse.token;
   }
 

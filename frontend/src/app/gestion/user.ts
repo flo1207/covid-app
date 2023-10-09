@@ -5,7 +5,9 @@ export interface User{
     nom: string;
     prenom: string;
     password: string;
-    role: number;
+    role: {
+        authority: string
+    };
     mail: string;
     center: VaccinationCenter;
 }

@@ -17,7 +17,7 @@ import { NgxBootstrapIconsModule, allIcons} from 'ngx-bootstrap-icons';
 import { UserComponent } from './gestion/user/user.component';
 import { UserListComponent } from './gestion/user-list/user-list.component';
 import { GestionTableComponent } from './gestion/gestion-table/gestion-table.component';
-import { PatientComponent } from './patient/patient/patient.component';
+import { PatientListComponent } from './patient/patient-list/patient-list.component';
 
 
 @NgModule({
@@ -31,7 +31,7 @@ import { PatientComponent } from './patient/patient/patient.component';
     UserComponent,
     UserListComponent,
     GestionTableComponent,
-    PatientComponent
+    PatientListComponent
   ],
   imports: [
     BrowserModule,

@@ -47,7 +47,7 @@ export class PatientFormComponent {
         nom: this.patientInfo.value.nom!,
         mail: this.patientInfo.value.mail!,
         vaccination: false,
-        dateRDV: this.datepipe.transform(this.date_RDV,'dd.MM.yyyy')!
+        date_RDV: this.datepipe.transform(this.date_RDV,'dd.MM.yyyy')!
       }
       this.send.emit(patient);
 

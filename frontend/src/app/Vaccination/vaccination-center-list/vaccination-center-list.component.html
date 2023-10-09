@@ -1,14 +1,12 @@
-<div class="form-text">
+<div class="form-text" *ngIf="centers">
     <h4>Recherche par ville</h4> 
   <input
       mdbInput
       type="text"
       id="formTextExample1"
       class="form-control"
-      aria-describedby="textExample1"
       placeholder="Nom de ville"
-      [(ngModel)]="city"
-      (ngModelChange)="ngOnInit()"
+      [formControl]="filter"
   />
 
   <div *ngIf="centers?.length == 0" style="text-align: center">
@@ -16,7 +14,7 @@
   </div>
 
   <ul>
-      <li *ngFor="let c of centers">
+      <li *ngFor="let c of centers$ | async">
           <app-vaccination-center  [center]="c" (deleted)="onDeleted($event)"></app-vaccination-center>
       </li>
   </ul>

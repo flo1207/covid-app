@@ -21,7 +21,7 @@ export class UserListComponent {
 
   @Input() title?: string;
   @Input() id?: number;
-  @Input() role?: number;
+  @Input() role?: string;
 
 
   // id = this.route.snapshot.paramMap.get('id');
@@ -30,7 +30,7 @@ export class UserListComponent {
   
   ngOnInit(): void {
     this.service.getAllUsers(this.id!).subscribe(resultUsers => {
-      this.users = resultUsers.filter(t=>t.role === this.role);
+      this.users = resultUsers.filter(t=>t.role.authority === this.role);
     });
 
 

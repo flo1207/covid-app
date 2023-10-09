@@ -4,5 +4,5 @@ export interface Patient{
     prenom: string;
     mail: string;
     vaccination: boolean;
-    dateRDV: string;
+    date_RDV: string;
 }

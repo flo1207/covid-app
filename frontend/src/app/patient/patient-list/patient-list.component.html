@@ -1,0 +1,59 @@
+
+<div *ngIf="patients?.length == 0">
+    Aucune
+</div>
+
+<form>
+	<input
+      mdbInput
+      type="text"
+      id="formTextExample1"
+      class="form-control"
+      aria-describedby="textExample1"
+      placeholder="Rechercher un patient"
+      [formControl]="filter"
+  />
+</form>
+<div style="display: flex;">
+    <button (click)="dateDown()"> < </button>
+    <p>{{ today | date: 'fullDate'}}</p>
+    <button (click)="dateUp()"> ></button>
+</div>
+
+<div *ngFor="let p of patients$ | async; index as i">
+    <div *ngIf="isDate(p.date_RDV)">
+        <p>{{ p.date_RDV | date: 'fullDate'}}</p>
+    </div>
+</div>
+
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Prénom</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Mail</th>
+            <th scope="col">Vaccination</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let p of patients$ | async; index as i">
+            
+            <td>{{p.prenom}}</td>
+            <td>{{p.nom | uppercase}}</td>
+            <td>{{p.date_RDV}}</td>
+            <td>
+                
+                <div *ngIf="p.vaccination == true">
+                    <i-bs name="check" width="75" height="50" style="color: green;"> </i-bs>
+                </div>
+
+                <div *ngIf="p.vaccination == false">
+                    <button type="button" class="btn btn-outline-success" (click)="vacciner(p)"> Valider </button>
+                </div>
+
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -11,9 +11,8 @@ export class GestionService {
   getUserByUsername(username: string){
     const token = localStorage.getItem('token');
     
-    const base64Credentials = btoa(`${username}:${token}`);
     const headers = new HttpHeaders({
-      Authorization: `Basic ${base64Credentials}`,
+      Authorization: `Basic ${token}`,
     });
 
 
@@ -24,11 +23,9 @@ export class GestionService {
 
   getAllUsers(id: number): Observable<User[]> {
     const token = localStorage.getItem('token');
-    const username = localStorage.getItem('username');
 
-    const base64Credentials = btoa(`${username}:${token}`);
     const headers = new HttpHeaders({
-      Authorization: `Basic ${base64Credentials}`,
+      Authorization: `Basic ${token}`,
     });
     return this.httpClient.get<User[]>("api/private/center/users/"+id,{headers}); 
   }

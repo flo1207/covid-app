@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { VaccinationCenter } from 'src/app/Vaccination/vaccination-center';
-import { VaccinationService } from 'src/app/Vaccination/vaccination.service';
 import { LoginService } from 'src/app/login/login.service';
 import { Patient } from 'src/app/patient/patient';
 import { User } from '../User';
@@ -14,7 +13,8 @@ import { GestionService } from '../gestion.service';
 export class GestionTableComponent {
   id_center?: number;
   title: string = "Médecins(s)"
-  role: number = 1;
+  role: string = "ROLE_ADMIN";
+  activeId: any;
 
   user! : User;
 
@@ -30,6 +30,7 @@ export class GestionTableComponent {
       this.center = this.user.center;
       this.patients = this.center.patients
       this.id_center = this.center.idCentre
+      this.setActive();
     },error => {
         if (error.status === 401) {
           // L'accès est non autorisé, gérer en conséquence
@@ -44,6 +45,24 @@ export class GestionTableComponent {
 
   logout(){
     this.logservice.logout()
+  }
+
+  isMdc(){
+    return (this.user?.role.authority == "ROLE_MDC" || this.user?.role.authority == "ROLE_ADMIN" || this.user?.role.authority == "ROLE_SUPER")
+  }
+
+  isAdmin(){
+    return (this.user?.role.authority == "ROLE_ADMIN" || this.user?.role.authority == "ROLE_SUPER")
+  }
+
+  isSuper(){
+    return this.user?.role.authority == "ROLE_SUPER"
+  }
+
+  setActive(){
+    if(this.isSuper()) this.activeId = "1";
+    else if(this.isAdmin()) this.activeId = "2";
+    else if(this.isMdc()) this.activeId = "3";
   }
 
 }

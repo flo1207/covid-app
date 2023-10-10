@@ -1,5 +1,7 @@
 
-POST http://localhost:8080/api/public/centers?name=EST&address=4ruedesparmesans&city=Nancy
+#POST http://localhost:8080/api/public/centers?name=EST&address=4ruedesparmesans&city=Nancy
+POST http://localhost:8080/api/public/centers?name=SUD&address=5ruedesmimolettes&city=Nancy
+
 #POST http://localhost:8080/api/public/login?username=admin&password=admin
 
 #GET http://localhost:8080/api/public/centers/users/1

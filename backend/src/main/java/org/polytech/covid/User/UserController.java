@@ -116,10 +116,9 @@ public class UserController {
         return userService.findByCenterIdCentre(convert_id);
     }
 
-    @PostMapping(path  = "api/public/users")
+    @PostMapping(path  = "api/private/users")
     @ResponseBody
     public User setCenter(@RequestParam("prenom") String prenom,@RequestParam("nom") String nom,@RequestParam("password") String password, @RequestParam("mail") String mail,@RequestParam("id_center") String id_center,@RequestParam("role") String role ) { 
-        Integer new_role = Integer.parseInt(role);
         Long convert_id = Long.parseLong(id_center);
         VaccinationCentre center = centerService.findAllByIdCentre(convert_id);
         SimpleGrantedAuthority role_user = new SimpleGrantedAuthority("ROLE_MDC");

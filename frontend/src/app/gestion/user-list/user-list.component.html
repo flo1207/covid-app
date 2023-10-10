@@ -1,17 +1,97 @@
 
-  <div class="form-text">
-
-    <ul>
-        <h2>{{title}}</h2>
-        <div *ngIf="users?.length == 0  ">
-          Aucun
-        </div>
-        <ng-container *ngFor="let u of users">
-            <app-user [user]="u"></app-user>
-        </ng-container>
-
-    </ul>
-  
+<div *ngIf="!addUser" class="form-text">
+  <div *ngIf="confirm" style="color: green;">
+      {{message}}
   </div>
+
+  <div *ngIf="error" style="color: red;">
+      {{message}}
+  </div>
+
+
+  <div *ngIf="isSuper()" >
+
+    <ul style="text-align: center;">
+      <h2>Administrateur                     
+        <i-bs class="add" (click)="ajouterAdmin()" name="plus-circle" width="25" height="25" > </i-bs>
+      </h2>
+      <div *ngIf="admins?.length == 0  ">
+        Aucun
+      </div>
+      <div class="tableau" *ngIf="admins?.length != 0  ">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">id</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Nom</th>
+                <th scope="col" style=" width: 20px; ">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let a of admins">
+                  
+                  <td>{{a.idUser}} </td>
+                  <td>{{a.prenom}} </td>
+                  <td>{{a.nom | uppercase}}</td>
+                  <td class="butt">
+
+                    <i-bs (click)="modifierUser()" name="pencil" width="25" height="25" > </i-bs>
+                    <i-bs class="del" (click)="supprimerUser(a)" name="x-circle" width="25" height="25" > </i-bs>
+
+                  </td>
+                </tr>
+            </tbody>
+        </table>
+        
+      </div>
+    </ul>
+
+  </div> 
+
+  <ul style="text-align: center; margin-top: 50px;">
+    <h2>Médecins
+      <i-bs class="add" (click)="ajouterMdc()" name="plus-circle" width="25" height="25" > </i-bs>
+    </h2>
+    <div *ngIf="medecins?.length == 0  ">
+      Aucun
+    </div>
+    <div class="tableau" *ngIf="medecins?.length != 0  ">
+
+      <table class="table table-striped">
+          <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Nom</th>
+                <th scope="col" style=" width: 20px; ">Actions</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let m of medecins">
+
+                <td>{{m.idUser}} </td>
+                <td>{{m.prenom}} </td>
+                <td>{{m.nom | uppercase}}</td>
+
+                <td class="butt">
+                    
+                  <i-bs (click)="modifierUser()" name="pencil" width="25" height="25" > </i-bs>
+                  <i-bs class="del" (click)="supprimerUser(m)" name="x-circle" width="25" height="25"> </i-bs>
+
+                </td>
+              </tr>
+          </tbody>
+      </table>
+
+    </div>
+  </ul>
   
-    
+</div>
+
+
+<div *ngIf="addUser" class="form-text">
+  <i-bs class="back" (click)="back()" name="arrow-left-circle" width="35" height="35" > </i-bs>
+  <app-user-form (send)="createUser($event)"></app-user-form>
+</div>

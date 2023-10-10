@@ -8,7 +8,7 @@
 }
 
 .bouton{
-    margin-right: 0;
+    margin-right: 10px;
     margin-left: auto;
 }
 
@@ -17,4 +17,28 @@
     flex-wrap: wrap;
     align-items: center;
     padding: 5px;
+}
+
+i-bs{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 20px;
+    color: black;
+}
+
+.del{
+    color: red;
+}
+
+.add{
+    color: green;
+}
+
+.back{
+    color: green;
+}
+
+i-bs:hover{
+    color: grey;
+    cursor: pointer;
 }

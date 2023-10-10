@@ -9,9 +9,13 @@ import { GestionPageGuard } from './guards/gestion-page.guard';
 import { GestionTableComponent } from './gestion/gestion-table/gestion-table.component';
 
 const routes: Routes = [
-  {path: "centers",                     component: VaccinationCenterListComponent},
-  {path: "",                            redirectTo:"/centers", pathMatch:'full'},
-  {path: "centers/users/:id",          component: UserListComponent},
+  {path: "centers",                   
+    component: VaccinationCenterListComponent},
+  {path: "",                            
+    redirectTo:"/centers", 
+    pathMatch:'full'},
+  {path: "centers/users/:id",          
+    component: UserListComponent},
   { path: 'admin', 
     component: LoginPageComponent,
     canActivate: [LoginPageGuard], 
@@ -19,9 +23,6 @@ const routes: Routes = [
   { path: 'admin/gestion', 
     component: GestionTableComponent,
     canActivate: [GestionPageGuard]
-  },
-  { path: 'gestion', 
-    component: GestionTableComponent,
   }
 
 

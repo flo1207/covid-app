@@ -1,0 +1,52 @@
+<h1 style="text-align: center;">Création d'un centre de vaccination</h1>
+<form #form="ngForm" [formGroup]="userInfo" (ngSubmit)="onSubmit()" class="form">
+  <div class="card mt-3">
+    <div class="card-body">
+      <div class="name-group">
+        
+        <div class="form-group">
+          <label for="nom">Nom</label>
+          <input id="nom" type="text" formControlName="nom" class="form-control">
+          <div *ngIf="submitted && userInfo.controls['nom'].errors?.['required']" class="text-danger">
+            <small>Nom obligatoire</small>
+          </div>
+        </div>
+          
+      </div>
+
+      <div class="form-group">
+        <label for="address">Adresse</label>
+        <input id="address" type="text" formControlName="address" class="form-control">
+        <div *ngIf="submitted && userInfo.controls['address'].errors?.['required']" class="text-danger">
+          <small>Adresse obligatoire</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="city">Ville</label>
+        <input id="city" type="text" formControlName="city" class="form-control">
+        <div *ngIf="submitted && userInfo.controls['city'].errors?.['required']" class="text-danger">
+          <small>Ville obligatoire</small>
+        </div>
+      </div>
+
+      
+      <div class="form-group">
+          <div class="col-12">              
+              
+              <div class="form-group" style="text-align: center; margin-top: 20px;">
+                <button type="submit" class="btn btn-success" [disabled]="" >Enregistrer</button>
+                <div *ngIf="full" class="text-danger">
+                  <small>Veuillez remplir tous les champs !</small>
+                </div>  
+              </div>
+
+
+          </div>
+      </div>
+
+
+      
+    </div>
+  </div>
+</form>

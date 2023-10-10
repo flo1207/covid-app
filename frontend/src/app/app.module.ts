@@ -18,6 +18,8 @@ import { UserComponent } from './gestion/user/user.component';
 import { UserListComponent } from './gestion/user-list/user-list.component';
 import { GestionTableComponent } from './gestion/gestion-table/gestion-table.component';
 import { PatientListComponent } from './patient/patient-list/patient-list.component';
+import { UserFormComponent } from './gestion/user-form/user-form.component';
+import { VaccinationCenterFormComponent } from './Vaccination/vaccination-center-form/vaccination-center-form.component';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { PatientListComponent } from './patient/patient-list/patient-list.compon
     UserComponent,
     UserListComponent,
     GestionTableComponent,
-    PatientListComponent
+    PatientListComponent,
+    UserFormComponent,
+    VaccinationCenterFormComponent
   ],
   imports: [
     BrowserModule,

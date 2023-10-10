@@ -12,8 +12,7 @@ import { GestionService } from '../gestion.service';
 })
 export class GestionTableComponent {
   id_center?: number;
-  title: string = "Médecins(s)"
-  role: string = "ROLE_ADMIN";
+  role?: string;
   activeId: any;
 
   user! : User;
@@ -27,6 +26,7 @@ export class GestionTableComponent {
   async ngOnInit() { 
     this.service.getUserByUsername(localStorage.getItem('username')!).subscribe(data => {
       this.user = data;
+      this.role = this.user.role.authority;
       this.center = this.user.center;
       this.patients = this.center.patients
       this.id_center = this.center.idCentre
@@ -63,6 +63,6 @@ export class GestionTableComponent {
     if(this.isSuper()) this.activeId = "1";
     else if(this.isAdmin()) this.activeId = "2";
     else if(this.isMdc()) this.activeId = "3";
-  }
+  }  
 
 }

@@ -1,0 +1,90 @@
+<h1 style="text-align: center;">Création utilisateur</h1>
+<form #form="ngForm" [formGroup]="userInfo" (ngSubmit)="onSubmit()" class="form">
+  <div class="card mt-3">
+    <div class="card-body">
+      <div class="name-group">
+
+        <div class="form-group">
+          <label for="prenom">Prénom</label>
+          <input id="prenom" type="text" formControlName="prenom" class="form-control">
+          <div *ngIf="submitted && userInfo.controls['prenom'].errors?.['required']" class="text-danger">
+            <small>Prénom obligatoire</small>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="nom">Nom</label>
+          <input id="nom" type="text" formControlName="nom" class="form-control">
+          <div *ngIf="submitted && userInfo.controls['nom'].errors?.['required']" class="text-danger">
+            <small>Nom obligatoire</small>
+          </div>
+        </div>
+          
+      </div>
+
+      <div class="form-group">
+        <label for="mail">e-mail</label>
+        <input id="mail" type="mail" formControlName="mail" class="form-control">
+        <div *ngIf="submitted && userInfo.controls['mail'].errors?.['required']" class="text-danger">
+          <small>mail obligatoire</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input id="password" type="password" formControlName="password" class="form-control">
+        <div *ngIf="submitted && userInfo.controls['password'].errors?.['required']" class="text-danger">
+          <small>Mot de passe obligatoire</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="role">Role</label>
+
+        <select class="form-select" formControlName="role">
+            <option value="0">Médecin</option>
+            <option value="1">Administrateur</option>
+            <option value="2">Super Administrateur</option>
+        </select>
+
+        <div *ngIf="submitted && userInfo.controls['role'].errors?.['required']" class="text-danger">
+          <small>Role obligatoire</small>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label for="centre">Centre de rattachement</label>
+
+        <select formControlName="centre"  class="form-select">
+            <option *ngFor="let c of centers" value={{c.idCentre}}>{{c.name}}</option>
+        </select>
+
+        <div *ngIf="submitted && userInfo.controls['centre'].errors?.['required']" class="text-danger">
+          <small>Centre obligatoire</small>
+        </div>
+      </div>
+
+      
+      <div class="form-group">
+          <div class="col-12">
+            <div class="input-group">              
+              
+              
+              <div class="form-group">
+                <button type="submit" class="btn btn-success" [disabled]="" >Enregistrer</button>
+                <div *ngIf="full" class="text-danger">
+                  <small>Veuillez remplir tous les champs !</small>
+                </div>  
+              </div>
+
+
+            </div>
+          </div>
+      </div>
+
+
+      
+    </div>
+  </div>
+</form>

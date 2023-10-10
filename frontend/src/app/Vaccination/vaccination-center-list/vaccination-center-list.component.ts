@@ -1,9 +1,10 @@
-import { Component, OnInit, PipeTransform } from '@angular/core';
+import { Component, Input, OnInit, PipeTransform } from '@angular/core';
 import { VaccinationCenter } from '../vaccination-center';
 import { VaccinationService } from '../vaccination.service';
 import { Observable, map, startWith } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-vaccination-center-list',
@@ -13,7 +14,10 @@ import { FormControl } from '@angular/forms';
 })
 export class VaccinationCenterListComponent implements OnInit{
 
+  @Input() gestion?: boolean;
+
   centers?: VaccinationCenter[];
+
   centers$: Observable<VaccinationCenter[]>
 
 	filter = new FormControl('', { nonNullable: true });
@@ -21,6 +25,11 @@ export class VaccinationCenterListComponent implements OnInit{
   selected?: VaccinationCenter;
 
   city : string = "";
+
+  addCenter = false;
+  message = "Centre créé avec succès!";
+  confirm?: Boolean;
+  error?: Boolean;
 
 
   constructor(private service: VaccinationService, pipe: DecimalPipe){ 
@@ -64,6 +73,33 @@ export class VaccinationCenterListComponent implements OnInit{
   onDeleted(event: VaccinationCenter) {
     delete this.selected;
     this.centers!.splice(this.centers!.indexOf(event),1)
+    this.filter.setValue("")
   }
+
+  async createCenter(center: VaccinationCenter) {
+    const send = (await this.service.postCenter(center)).subscribe((response) => {
+        this.confirm = true;
+        this.service.getAllVaccinationCenter(this.city).subscribe(resultCenters => {
+          this.centers = resultCenters;
+          this.filter.setValue("")
+        });
+    },
+    (error: HttpErrorResponse) => {
+      this.message = "Une erreur est survenue, "+error.message;
+      this.error = true;
+      console.log(error.status)
+    });
+
+    this.ajouterCenter()
+    setTimeout(() =>{ 
+        this.confirm = false; 
+      }, 3000);
+    
+  }
+
+  ajouterCenter(){
+    this.addCenter = !this.addCenter;
+  }
+
 
 }

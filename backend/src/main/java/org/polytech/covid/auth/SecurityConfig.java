@@ -79,7 +79,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         .and()
         .withUser("flo1207@live.fr")
         .password(encoder().encode("super"))
-        .roles("SUPER");
+        .roles("SUPER")
+        .and()
+        .withUser("eric.p@gmail.com")
+        .password(encoder().encode("mdc"))
+        .roles("MDC");
 
     }
 

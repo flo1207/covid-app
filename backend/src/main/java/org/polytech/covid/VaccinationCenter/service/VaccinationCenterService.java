@@ -25,6 +25,10 @@ public class VaccinationCenterService {
     public VaccinationCentre saveAll(VaccinationCentre centre){
         return centreRepository.save(centre);
     }
+
+    public void delete(VaccinationCentre center) {
+        centreRepository.delete(center);;
+    }
     
 
 }

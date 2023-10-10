@@ -1,20 +1,28 @@
 <div class="header">
   <div class="title">
-    <i-bs name="hospital" width="75" height="75" style="color: white;"> </i-bs>
+    <i-bs name="hospital" width="75" height="75" style="color: white;" routerLink="/centers"> </i-bs>
     <h1>Centres de vaccination</h1>
   </div>
 
-  <div *ngIf="isConnected()" >
-    <i-bs (click)="logout()" class="back" name="box-arrow-right" width="40" height="40" > </i-bs>
+  <div class="navig">
+    
+    <div *ngIf="!isAdmin()" >
+      <button type="button" class="btn btn-outline-light" routerLink="/admin"> Admin </button>
+    </div>
+  
+    <div *ngIf="isAdmin()" >
+      <button type="button" class="btn btn-outline-light" routerLink="/centers"> Centres </button>
+    </div>
+
+    <div *ngIf="isConnected()" >
+      <i-bs (click)="logout()" class="back" name="box-arrow-right" width="40" height="40" > </i-bs>
+    </div>
+
   </div>
 
-  <div *ngIf="!isAdmin()" >
-    <button type="button" class="btn btn-outline-light back2" routerLink="/admin"> Admin </button>
-  </div>
 
-  <div *ngIf="isAdmin()" >
-    <button type="button" class="btn btn-outline-light back2" routerLink="/centers"> Centres </button>
-  </div>
+
+  
 
 
 </div>

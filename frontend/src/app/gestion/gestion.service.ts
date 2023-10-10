@@ -1,12 +1,14 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from './User';
+import { UserForm } from './user-form';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GestionService {
+  
 
   getUserByUsername(username: string){
     const token = localStorage.getItem('token');
@@ -41,5 +43,27 @@ export class GestionService {
         "password": password
       }
     }); 
+  }
+
+
+  postUser(user: UserForm) {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Basic ${token}`,
+      observe: 'response'
+    });
+
+
+    const body = new HttpParams()
+    .set('nom', user.nom)
+    .set('prenom', user.prenom)
+    .set('password', user.password)
+    .set('mail', user.email)
+    .set('id_center', user.id_center)
+    .set('role', user.role)
+
+    
+    return this.httpClient.post<User>("api/private/users",body,{headers}); 
   }
 }

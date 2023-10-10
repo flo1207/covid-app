@@ -1,12 +1,12 @@
 
-<div class="d-flex" style="padding: 20px;">
+<div class="d-flex gestion" style="padding: 20px;">
     <div ngbNav #nav="ngbNav" [(activeId)]="activeId"  class="nav-pills flex-column" orientation="vertical" >
 
         <ng-container *ngIf="isSuper()" ngbNavItem="1">
             <button ngbNavLink>Centres</button>
             <ng-template ngbNavContent style="flex: 1;">
 
-                <app-vaccination-center-list ></app-vaccination-center-list>
+                <app-vaccination-center-list [gestion]=true></app-vaccination-center-list>
 
             </ng-template>
         </ng-container>
@@ -20,7 +20,7 @@
                     {{center?.address}}
                 </div>
 
-                <app-user-list [id]=id_center [title]="title" [role]="role"></app-user-list>
+                <app-user-list [id]=id_center [role]="role"></app-user-list>
 
             </ng-template>
         </ng-container>

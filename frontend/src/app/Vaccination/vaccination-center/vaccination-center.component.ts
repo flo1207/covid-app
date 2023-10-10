@@ -14,6 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class VaccinationCenterComponent implements OnInit{
 
   @Input() center?: VaccinationCenter;
+  @Input() gestion?: boolean;
   @Output() deleted = new EventEmitter<VaccinationCenter>();
 
   selected?: Boolean;
@@ -22,16 +23,16 @@ export class VaccinationCenterComponent implements OnInit{
   message = "Réservation prise en compte !";
 
   nb_reserv = 0
+  conf = false;
 
 
-  constructor(private route: ActivatedRoute, private servicePatient: PatientService){ }
+
+  constructor(private route: ActivatedRoute, private servicePatient: PatientService, private service: VaccinationService){ }
 
   ngOnInit(): void {
     this.nb_reserv = this.center!.patients.length;
-  }
+    console.log(this.gestion)
 
-  delete(){
-    this.deleted.emit(this.center)
   }
 
   deselect() {
@@ -59,6 +60,19 @@ export class VaccinationCenterComponent implements OnInit{
         this.confirm = false; 
       }, 3000);
     
+  }
+
+  supCenter(){
+    this.service.dellCenter(this.center!.idCentre).subscribe(() =>{
+      this.deleted.emit(this.center)
+    });
+  }
+
+  setConf(){
+    this.conf = true;
+    setTimeout(() =>{ 
+      this.conf = false; 
+    }, 3000);
   }
       
 }

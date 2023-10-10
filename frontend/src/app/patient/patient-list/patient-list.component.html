@@ -37,9 +37,7 @@
     Aucune réservation ce jour
 </div>
 
-<div *ngIf="(patients$ | async)!.length > 0">
-
-    
+<div class="tableau" *ngIf="(patients$ | async)!.length > 0">
 
     <table class="table table-striped">
         <thead>

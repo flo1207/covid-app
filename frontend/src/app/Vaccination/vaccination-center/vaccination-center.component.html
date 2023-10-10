@@ -12,13 +12,28 @@
         </div>
         
 
-        <div *ngIf="!selected" class="bouton">
-            <button type="button" class="btn btn-outline-primary" routerLink="/centers/users/{{center.idCentre}}"> Details </button>
-            <button type="button" class="btn btn-outline-success" (click)="centerSelect()"> Choisir </button>
+       
+        <div *ngIf="gestion">
+            <div *ngIf="!conf">
+                <i-bs class="del" (click)="setConf()" name="x-circle" width="25" height="25" > </i-bs>
+            </div>
+            <div *ngIf="conf">
+                <button type="button" class="btn btn-outline-danger" (click)="supCenter()"> confirmer </button>
+            </div>
         </div>
-        <div *ngIf="selected" class="bouton">
-            <button type="button" class="btn btn-outline-primary" routerLink="/centers/users/{{center.idCentre}}"> Details </button>
-            <button type="button" class="btn btn-outline-danger" (click)="centerSelect()"> Annuler </button>
+
+        <div *ngIf="!gestion">
+
+            <div *ngIf="!selected" class="bouton">
+                <button type="button" class="btn btn-outline-primary" routerLink="/centers/users/{{center.idCentre}}"> Details </button>
+                <button type="button" class="btn btn-outline-success" (click)="centerSelect()"> Choisir </button>
+            </div>
+            <div *ngIf="selected" class="bouton">
+                <button type="button" class="btn btn-outline-primary" routerLink="/centers/users/{{center.idCentre}}"> Details </button>
+                <button type="button" class="btn btn-outline-danger" (click)="centerSelect()"> Annuler </button>
+            </div>
+    
+        
         </div>
 
     </div>

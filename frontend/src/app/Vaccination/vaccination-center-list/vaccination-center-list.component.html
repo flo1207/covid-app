@@ -1,24 +1,51 @@
-<div class="form-text" *ngIf="centers">
-    <h4>Recherche par ville</h4> 
-  <input
-      mdbInput
-      type="text"
-      id="formTextExample1"
-      class="form-control"
-      placeholder="Nom de ville"
-      [formControl]="filter"
-  />
 
-  <div *ngIf="centers?.length == 0" style="text-align: center">
-    Aucune correspondance
+
+
+<div *ngIf="!addCenter" class="form-text">
+  <div *ngIf="gestion">
+
+    <h2>Liste des centres de vaccination                 
+        <i-bs class="add" (click)="ajouterCenter()" name="plus-circle" width="25" height="25" > </i-bs>
+    </h2>
+
   </div>
 
-  <ul>
-      <li *ngFor="let c of centers$ | async">
-          <app-vaccination-center  [center]="c" (deleted)="onDeleted($event)"></app-vaccination-center>
-      </li>
-  </ul>
+  <div *ngIf="confirm" style="color: green;">
+      {{message}}
+  </div>
+
+  <div *ngIf="error" style="color: red;">
+      {{message}}
+  </div>
+  
+  
+  <div class="form-text" *ngIf="centers">
+    <h4>Recherche par ville</h4> 
+    <input
+        mdbInput
+        type="text"
+        id="formTextExample1"
+        class="form-control"
+        placeholder="Nom de ville"
+        [formControl]="filter"
+    />
+
+    <div *ngIf="centers?.length == 0" style="text-align: center">
+      Aucune correspondance
+    </div>
+
+    <ul>
+        <li *ngFor="let c of centers$ | async">
+            <app-vaccination-center  [gestion]=gestion [center]="c" (deleted)="onDeleted($event)"></app-vaccination-center>
+        </li>
+    </ul>
+
+  </div>
+
 
 </div>
 
+<div *ngIf="addCenter" class="form-text">
+  <app-vaccination-center-form (send)="createCenter($event)"></app-vaccination-center-form>
+</div>
   

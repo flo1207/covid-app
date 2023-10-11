@@ -51,6 +51,11 @@ public class UserService{
         return userRepository.findByMail(username);
     }
 
+    public void delete(User user) {
+        userRepository.delete(user);
+    }
+
+
 
     // @Override
     // public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { VaccinationCenter } from 'src/app/Vaccination/vaccination-center';
 import { VaccinationService } from 'src/app/Vaccination/vaccination.service';
+import { User } from '../User';
 
 @Component({
   selector: 'app-user-form',
@@ -13,15 +14,16 @@ import { VaccinationService } from 'src/app/Vaccination/vaccination.service';
 })
 export class UserFormComponent implements OnInit{
   
+  @Input() user?: User;
   @Output() send = new EventEmitter<UserForm>();
   
   centers?: VaccinationCenter[];
  
   userInfo = this.formBuilder.group({
-    prenom: ['', [Validators.required]],
-    nom: ['', [Validators.required]],
-    mail: ['', [Validators.required]],
-    password: ['', [Validators.required]],
+    prenom: [this.user?.prenom, [Validators.required]],
+    nom: [this.user?.nom, [Validators.required]],
+    mail: [this.user?.mail, [Validators.required]],
+    password: [this.user?.password, [Validators.required]],
     centre: [null, [Validators.required]],
     role: [null, [Validators.required]],
   })
@@ -34,6 +36,14 @@ export class UserFormComponent implements OnInit{
   }  
 
   ngOnInit(): void {
+    this.userInfo = this.formBuilder.group({
+      prenom: [this.user?.prenom, [Validators.required]],
+      nom: [this.user?.nom, [Validators.required]],
+      mail: [this.user?.mail, [Validators.required]],
+      password: [this.user?.password, [Validators.required]],
+      centre: [null, [Validators.required]],
+      role: [null, [Validators.required]],
+    })
     this.service.getAllVaccinationCenter("").subscribe(resultCenters => {
       this.centers = resultCenters;
     });
@@ -54,7 +64,6 @@ export class UserFormComponent implements OnInit{
         role: this.userInfo.value.role!
       }
 
-      console.log(user)
       this.send.emit(user);
 
     }

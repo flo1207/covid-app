@@ -1,14 +1,22 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { GestionService } from '../gestion.service';
 import { User } from '../User';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
-  selector: 'app-user',
+  selector: '[app-user]',
+
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent {
   @Input() user?: User;
+  @Output() deleted = new EventEmitter<User>;
+  @Output() edited = new EventEmitter<User>;
+
+  conf = false;
+  addUser= false;
+
      
   constructor(private service: GestionService){ }
   
@@ -18,6 +26,24 @@ export class UserComponent {
   //     console.log(get_user)
   //   });
   // }
+
+  supprimerUser(){
+    this.service.dellUser(this.user!.idUser).subscribe(() =>{
+      this.deleted.emit(this.user);
+    });
+  }
+
+  setConf(){
+    this.conf = true;
+    setTimeout(() =>{ 
+      this.conf = false; 
+    }, 3000);
+  }
+
+  modifierUser(){
+    this.addUser = true;
+    this.edited.emit(this.user);
+  }
 
 
 }

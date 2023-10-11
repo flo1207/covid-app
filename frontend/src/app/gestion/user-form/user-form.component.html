@@ -24,7 +24,7 @@
 
       <div class="form-group">
         <label for="mail">e-mail</label>
-        <input id="mail" type="mail" formControlName="mail" class="form-control">
+        <input id="mail" type="mail" formControlName="mail" class="form-control" >
         <div *ngIf="submitted && userInfo.controls['mail'].errors?.['required']" class="text-danger">
           <small>mail obligatoire</small>
         </div>
@@ -72,7 +72,12 @@
               
               
               <div class="form-group">
-                <button type="submit" class="btn btn-success" [disabled]="" >Enregistrer</button>
+                <div *ngIf="user" class="text-danger">
+                  <button type="submit" class="btn btn-success" [disabled]="" >Modifier</button>
+                </div>
+                <div *ngIf="!user" class="text-danger">
+                  <button type="submit" class="btn btn-success" [disabled]="" >Enregistrer</button>
+                </div>
                 <div *ngIf="full" class="text-danger">
                   <small>Veuillez remplir tous les champs !</small>
                 </div>  

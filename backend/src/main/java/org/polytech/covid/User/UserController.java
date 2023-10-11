@@ -22,6 +22,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -131,6 +132,14 @@ public class UserController {
         new_user.setPassword(encodedPassword);
 
         return userRepository.save(new_user);
+
+    }
+
+    @DeleteMapping(value = "/api/private/user/{id}")
+    public void deleteCenter(@PathVariable String id) {
+        Long new_id = Long.parseLong(id);
+        User user = userService.findAllByIdUser(new_id);
+        userService.delete(user);
 
     }
 

@@ -8,6 +8,19 @@ import { UserForm } from './user-form';
   providedIn: 'root'
 })
 export class GestionService {
+  dellUser(idUser: number) {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Basic ${token}`,
+      observe: 'response'
+    });
+
+    const body = new HttpParams()
+    .set('idUser', idUser)
+
+    return this.httpClient.delete("api/private/user/"+idUser,{headers}); 
+  }
   
 
   getUserByUsername(username: string){

@@ -1,8 +1,14 @@
-<div class="user" *ngIf="user">
+<td>{{user?.idUser}} </td>
+<td>{{user?.prenom}} </td>
+<td>{{user?.nom | uppercase}}</td>
+<td class="butt">
 
-        <li class="details">
-            <strong>{{user.mail}}</strong>
-            <br> {{user.prenom}} {{user.nom | uppercase}}
-        </li>
+    <i-bs (click)="modifierUser()" name="pencil" width="25" height="25" > </i-bs>
+    <div *ngIf="!conf">
+        <i-bs class="del" (click)="setConf()" name="x-circle" width="25" height="25" > </i-bs>
+    </div>
+    <div *ngIf="conf">
+        <button type="button" class="btn btn-outline-danger" (click)="supprimerUser()"> confirmer </button>
+    </div>
 
-</div>
+</td>

@@ -12,6 +12,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class UserListComponent {
   users?: User[];
+  
+  current_user?: User;
 
   medecins?: User[];
 
@@ -62,8 +64,15 @@ export class UserListComponent {
     return this.role == this.super;
   }
 
-  supprimerUser(user: User){
-    console.log("supprimer user")
+  onDeleted(event: User) {
+    this.users!.splice(this.users!.indexOf(event),1)
+    this.medecins!.splice(this.medecins!.indexOf(event),1)
+    this.admins!.splice(this.medecins!.indexOf(event),1)
+  }
+
+  onEdit(event: User){
+    this.addUser = true;
+    this.current_user = event;
   }
 
   modifierUser(){
@@ -73,6 +82,8 @@ export class UserListComponent {
 
   back(){
     this.addUser = false;
+    this.current_user = undefined;
+
   }
 
   ajouterAdmin(){
@@ -87,7 +98,6 @@ export class UserListComponent {
 
   async createUser(user: UserForm) {
     const send = (await this.service.postUser(user)).subscribe((response) => {
-        console.log(response);
         this.getUserList();
         this.confirm = true;
 

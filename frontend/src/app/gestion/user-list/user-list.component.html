@@ -30,17 +30,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let a of admins">
-                  
-                  <td>{{a.idUser}} </td>
-                  <td>{{a.prenom}} </td>
-                  <td>{{a.nom | uppercase}}</td>
-                  <td class="butt">
-
-                    <i-bs (click)="modifierUser()" name="pencil" width="25" height="25" > </i-bs>
-                    <i-bs class="del" (click)="supprimerUser(a)" name="x-circle" width="25" height="25" > </i-bs>
-
-                  </td>
+                <tr app-user *ngFor="let a of admins" [user]="a" (deleted)="onDeleted($event)" (edited)="onEdit($event)">
                 </tr>
             </tbody>
         </table>
@@ -69,19 +59,9 @@
               </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let m of medecins">
-
-                <td>{{m.idUser}} </td>
-                <td>{{m.prenom}} </td>
-                <td>{{m.nom | uppercase}}</td>
-
-                <td class="butt">
-                    
-                  <i-bs (click)="modifierUser()" name="pencil" width="25" height="25" > </i-bs>
-                  <i-bs class="del" (click)="supprimerUser(m)" name="x-circle" width="25" height="25"> </i-bs>
-
-                </td>
-              </tr>
+            <tr app-user *ngFor="let m of medecins" [user]="m" (deleted)="onDeleted($event)" (edited)="onEdit($event)">
+                  
+            </tr>
           </tbody>
       </table>
 
@@ -93,5 +73,5 @@
 
 <div *ngIf="addUser" class="form-text">
   <i-bs class="back" (click)="back()" name="arrow-left-circle" width="35" height="35" > </i-bs>
-  <app-user-form (send)="createUser($event)"></app-user-form>
+  <app-user-form [user]=current_user (send)="createUser($event)"></app-user-form>
 </div>

@@ -15,12 +15,12 @@
             <button ngbNavLink>Mon centre</button>
             <ng-template ngbNavContent>
                 <div class="center_info">
-                    <b>{{center?.name}}</b>
-                    <br>
-                    {{center?.address}}
+                
+                    <app-vaccination-center  [gestion]=false [center]="center" ></app-vaccination-center>
+
                 </div>
 
-                <app-user-list [id]=id_center [role]="role"></app-user-list>
+                <app-user-list [disp_super]="false" [disp_admin]="disp_admin" [disp_mdc]="disp_mdc" [id]=id_center [role]="role"></app-user-list>
 
             </ng-template>
         </ng-container>
@@ -31,6 +31,15 @@
                 <ul style="text-align: center;">
                     <app-patient-list [patients]="patients"></app-patient-list>
                 </ul>
+            </ng-template>
+        </ng-container>
+
+        <ng-container *ngIf="isSuper()" ngbNavItem="4">
+            <button ngbNavLink>Config</button>
+            <ng-template ngbNavContent style="flex: 1;">
+
+                <app-user-list [disp_super]="true" [disp_admin]="false" [disp_mdc]="false" [id]=id_center [role]="role"></app-user-list>
+
             </ng-template>
         </ng-container>
 

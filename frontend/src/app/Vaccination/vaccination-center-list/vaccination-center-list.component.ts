@@ -18,6 +18,8 @@ export class VaccinationCenterListComponent implements OnInit{
 
   centers?: VaccinationCenter[];
 
+  current_center?: VaccinationCenter;
+
   centers$: Observable<VaccinationCenter[]>
 
 	filter = new FormControl('', { nonNullable: true });
@@ -30,6 +32,7 @@ export class VaccinationCenterListComponent implements OnInit{
   message = "Centre créé avec succès!";
   confirm?: Boolean;
   error?: Boolean;
+  
 
 
   constructor(private service: VaccinationService, pipe: DecimalPipe){ 
@@ -99,6 +102,33 @@ export class VaccinationCenterListComponent implements OnInit{
 
   ajouterCenter(){
     this.addCenter = !this.addCenter;
+  }
+
+  onEdit(event: VaccinationCenter){
+    this.addCenter = true;
+    this.current_center = event;
+  }
+
+  async editCenter(event: VaccinationCenter){
+    const send = (await this.service.editCenter(event)).subscribe((response) => {
+      this.confirm = true;
+      this.service.getAllVaccinationCenter(this.city).subscribe(resultCenters => {
+        this.message = "Le centre a bien été mis à jour.";
+        this.centers = resultCenters;
+        this.filter.setValue("")
+        this.current_center = undefined;
+      });
+    },
+    (error: HttpErrorResponse) => {
+      this.message = "Une erreur est survenue, "+error.message;
+      this.error = true;
+    });
+
+    this.ajouterCenter()
+    setTimeout(() =>{ 
+        this.confirm = false; 
+    }, 3000);
+  
   }
 
 

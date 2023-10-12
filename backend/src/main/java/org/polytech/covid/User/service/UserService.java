@@ -35,8 +35,8 @@ public class UserService{
         return userRepository.findAll();
     }
 
-    public User findAllByRole(Integer convert_id) {
-        return userRepository.findAllByRole(convert_id);
+    public User[] findAllByRole(SimpleGrantedAuthority role_user) {
+        return userRepository.findAllByRole(role_user);
     }
 
     public User findAllByMailAndPassword(String username, String password) {

@@ -8,12 +8,43 @@
       {{message}}
   </div>
 
+  <div *ngIf="disp_super" >
 
-  <div *ngIf="isSuper()" >
+    <ul style="text-align: center;">
+      <h2>Super                     
+        <i-bs class="add" (click)="ajouterUser()" name="plus-circle" width="25" height="25" > </i-bs>
+      </h2>
+      <div *ngIf="admins?.length == 0  ">
+        Aucun
+      </div>
+      <div class="tableau" *ngIf="admins?.length != 0  ">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">id</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Nom</th>
+                <th scope="col" style=" width: 20px; ">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr app-user *ngFor="let s of supers" [user]="s" (deleted)="onDeleted($event)" (edited)="onEdit($event)">
+                </tr>
+            </tbody>
+        </table>
+        
+      </div>
+    </ul>
+
+  </div> 
+
+
+  <div *ngIf="disp_admin" >
 
     <ul style="text-align: center;">
       <h2>Administrateur                     
-        <i-bs class="add" (click)="ajouterAdmin()" name="plus-circle" width="25" height="25" > </i-bs>
+        <i-bs class="add" (click)="ajouterUser()" name="plus-circle" width="25" height="25" > </i-bs>
       </h2>
       <div *ngIf="admins?.length == 0  ">
         Aucun
@@ -39,10 +70,12 @@
     </ul>
 
   </div> 
+  
+<div *ngIf="disp_mdc" >
 
   <ul style="text-align: center; margin-top: 50px;">
     <h2>Médecins
-      <i-bs class="add" (click)="ajouterMdc()" name="plus-circle" width="25" height="25" > </i-bs>
+      <i-bs class="add" (click)="ajouterUser()" name="plus-circle" width="25" height="25" > </i-bs>
     </h2>
     <div *ngIf="medecins?.length == 0  ">
       Aucun
@@ -67,11 +100,12 @@
 
     </div>
   </ul>
-  
+</div>
+
 </div>
 
 
 <div *ngIf="addUser" class="form-text">
   <i-bs class="back" (click)="back()" name="arrow-left-circle" width="35" height="35" > </i-bs>
-  <app-user-form [user]=current_user (send)="createUser($event)"></app-user-form>
+  <app-user-form [user]=current_user (send)="createUser($event)" (edit)="editUser($event)" [role]=role></app-user-form>
 </div>

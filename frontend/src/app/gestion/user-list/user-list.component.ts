@@ -25,6 +25,9 @@ export class UserListComponent {
 
   @Input() id?: number;
   @Input() role?: string;
+  @Input() disp_super?: Boolean;
+  @Input() disp_admin?: Boolean;
+  @Input() disp_mdc?: Boolean;
 
   addUser = false;
 
@@ -43,11 +46,15 @@ export class UserListComponent {
   
   ngOnInit(): void {
     this.service.getAllUsers(this.id!).subscribe(resultUsers => {
-      console.log(resultUsers)
       this.users = resultUsers.filter(t=>t.role.authority === this.role);
       this.medecins = resultUsers.filter(t=>t.role.authority === this.medecin);
       this.admins = resultUsers.filter(t=>t.role.authority === this.admin);
       this.supers = resultUsers.filter(t=>t.role.authority === this.super);
+      if(this.disp_super){
+        this.service.getAllSuper().subscribe(data => {
+          this.supers = data.filter(t=>t.role.authority === this.super);
+        })
+      }
     });
   }
 
@@ -57,27 +64,28 @@ export class UserListComponent {
       this.medecins = resultUsers.filter(t=>t.role.authority === this.medecin);
       this.admins = resultUsers.filter(t=>t.role.authority === this.admin);
       this.supers = resultUsers.filter(t=>t.role.authority === this.super);
+      if(this.disp_super){
+        this.service.getAllSuper().subscribe(data => {
+          this.supers = data.filter(t=>t.role.authority === this.super);
+        })
+      }
     });
   }
 
-  isSuper(){
-    return this.role == this.super;
-  }
-
   onDeleted(event: User) {
-    this.users!.splice(this.users!.indexOf(event),1)
-    this.medecins!.splice(this.medecins!.indexOf(event),1)
-    this.admins!.splice(this.medecins!.indexOf(event),1)
+    if(event.role.authority === this.admin){
+      this.admins!.splice(this.admins!.indexOf(event),1)
+    }
+    else if(event.role.authority === this.medecin){
+      this.medecins!.splice(this.medecins!.indexOf(event),1)
+    }else if(event.role.authority === this.super){
+      this.supers!.splice(this.supers!.indexOf(event),1)
+    }
   }
 
   onEdit(event: User){
     this.addUser = true;
     this.current_user = event;
-  }
-
-  modifierUser(){
-    this.addUser = true;
-    console.log("modifier user")
   }
 
   back(){
@@ -86,14 +94,8 @@ export class UserListComponent {
 
   }
 
-  ajouterAdmin(){
+  ajouterUser(){
     this.addUser = true;
-    console.log("ajout admin")
-  }
-
-  ajouterMdc(){
-    this.addUser = true;
-    console.log("ajout mdc")
   }
 
   async createUser(user: UserForm) {
@@ -114,6 +116,27 @@ export class UserListComponent {
       }, 3000);
     
   }
+
+  async editUser(event: UserForm){
+    const send = (await this.service.editUser(event,this.current_user!.idUser)).subscribe((response) => {
+      this.confirm = true;
+      this.message = "Le centre a bien été mis à jour.";
+      this.getUserList();
+      this.confirm = true;
+      this.current_user = undefined;
+    },
+    (error: HttpErrorResponse) => {
+      this.message = "Une erreur est survenue, "+error.message;
+      this.error = true;
+    });
+
+    this.addUser = false;
+    setTimeout(() =>{ 
+        this.confirm = false; 
+    }, 3000);
+  
+    }
+
 
 
 }

@@ -13,7 +13,8 @@
         
 
        
-        <div *ngIf="gestion">
+        <div *ngIf="gestion" class="butt">
+            <i-bs (click)="modifierCentre()" name="pencil" width="25" height="25" > </i-bs>
             <div *ngIf="!conf">
                 <i-bs class="del" (click)="setConf()" name="x-circle" width="25" height="25" > </i-bs>
             </div>
@@ -23,13 +24,10 @@
         </div>
 
         <div *ngIf="!gestion">
-
             <div *ngIf="!selected" class="bouton">
-                <button type="button" class="btn btn-outline-primary" routerLink="/centers/users/{{center.idCentre}}"> Details </button>
                 <button type="button" class="btn btn-outline-success" (click)="centerSelect()"> Choisir </button>
             </div>
             <div *ngIf="selected" class="bouton">
-                <button type="button" class="btn btn-outline-primary" routerLink="/centers/users/{{center.idCentre}}"> Details </button>
                 <button type="button" class="btn btn-outline-danger" (click)="centerSelect()"> Annuler </button>
             </div>
     

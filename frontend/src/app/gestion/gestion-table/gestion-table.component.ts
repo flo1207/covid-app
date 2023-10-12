@@ -21,6 +21,11 @@ export class GestionTableComponent {
 
   patients?: Patient[];
 
+  disp_super = false;
+  disp_admin = false;
+  disp_mdc = false;
+
+
   constructor(private service: GestionService, private logservice: LoginService){}
 
   async ngOnInit() { 
@@ -31,6 +36,9 @@ export class GestionTableComponent {
       this.patients = this.center.patients
       this.id_center = this.center.idCentre
       this.setActive();
+      this.disp_super = this.isSuper();
+      this.disp_admin = this.isAdmin();
+      this.disp_mdc = this.isMdc();
     },error => {
         if (error.status === 401) {
           // L'accès est non autorisé, gérer en conséquence

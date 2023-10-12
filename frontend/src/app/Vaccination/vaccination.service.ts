@@ -7,6 +7,23 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class VaccinationService {
+  editCenter(center: VaccinationCenter) {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Basic ${token}`,
+      observe: 'response'
+    });
+
+
+    const body = new HttpParams()
+    .set('id', center.idCentre)
+    .set('name', center.name)
+    .set('address', center.address)
+    .set('city', center.city)
+
+    return this.httpClient.put<VaccinationCenter>("api/private/centers",body,{headers});    
+  }
   
 
   constructor(private httpClient : HttpClient) { }
@@ -27,14 +44,13 @@ export class VaccinationService {
       observe: 'response'
     });
 
-
     const body = new HttpParams()
     .set('name', center.name)
     .set('address', center.address)
     .set('city', center.city)
 
     
-    return this.httpClient.post<VaccinationCenter>("api/public/centers",body,{headers}); 
+    return this.httpClient.post<VaccinationCenter>("api/private/centers",body,{headers}); 
   }
 
   getAllVaccinationCenterById(id: number) {

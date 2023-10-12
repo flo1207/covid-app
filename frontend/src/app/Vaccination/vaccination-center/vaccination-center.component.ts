@@ -16,6 +16,7 @@ export class VaccinationCenterComponent implements OnInit{
   @Input() center?: VaccinationCenter;
   @Input() gestion?: boolean;
   @Output() deleted = new EventEmitter<VaccinationCenter>();
+  @Output() edited = new EventEmitter<VaccinationCenter>;
 
   selected?: Boolean;
   confirm?: Boolean;
@@ -45,14 +46,12 @@ export class VaccinationCenterComponent implements OnInit{
 
   async sendPatient(patient: Patient) {
     const send = (await this.servicePatient.postPatient(patient, this.center!.idCentre)).subscribe((response) => {
-        console.log(response.status);
         this.confirm = true;
         this.nb_reserv += 1;
     },
     (error: HttpErrorResponse) => {
       this.message = "Une erreur est survenue, "+error.message;
       this.error = true;
-      console.log(error.status)
     });
 
     this.selected = false;
@@ -73,6 +72,10 @@ export class VaccinationCenterComponent implements OnInit{
     setTimeout(() =>{ 
       this.conf = false; 
     }, 3000);
+  }
+
+  modifierCentre(){
+    this.edited.emit(this.center);
   }
       
 }

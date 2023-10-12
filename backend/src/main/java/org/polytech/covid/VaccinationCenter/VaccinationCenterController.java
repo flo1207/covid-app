@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,16 +49,27 @@ public class VaccinationCenterController {
         return centerService.findAllByIdCentre(id);
     }
 
-    @PostMapping(path  = "api/public/centers")
+    @PostMapping(path  = "api/private/centers")
     @ResponseBody
     public VaccinationCentre setCenter(@RequestParam("name") String name, @RequestParam("address") String address,@RequestParam("city") String city ) { 
         VaccinationCentre new_centre = new VaccinationCentre(name,address,city);
         return centerService.saveAll(new_centre);
     }
 
+    @PutMapping(path  = "api/private/centers")
+    @ResponseBody
+    public VaccinationCentre updateCenter(@RequestHeader("Authorization") String authorizationHeader, @RequestParam("id") Long id, @RequestParam("name") String name, @RequestParam("address") String address,@RequestParam("city") String city ) { 
+        
+        VaccinationCentre centre = this.centerService.findAllByIdCentre(id);
+        centre.setAddress(address);
+        centre.setName(name);
+        centre.setCity(city);
+        return centerService.saveAll(centre);
+    }
+
     @PostMapping(path  = "api/public/centers/patients")
     @ResponseBody
-    public VaccinationCentre addPatient(@RequestParam("mail") String mail, @RequestParam("nom") String nom, @RequestParam("prenom") String prenom, @RequestParam("id_centre") Long id_centre, @RequestParam(required = false,name="localDate") @DateTimeFormat(pattern = "dd.MM.yyyy") LocalDate localDate) { 
+    public VaccinationCentre addPatient( @RequestParam("mail") String mail, @RequestParam("nom") String nom, @RequestParam("prenom") String prenom, @RequestParam("id_centre") Long id_centre, @RequestParam(required = false,name="localDate") @DateTimeFormat(pattern = "dd.MM.yyyy") LocalDate localDate) { 
         VaccinationCentre vaccinationCenter = centerService.findAllByIdCentre(id_centre);
         if(vaccinationCenter == null) return null;
         else{
@@ -70,7 +83,7 @@ public class VaccinationCenterController {
     }
 
     @DeleteMapping(value = "/api/private/center/{id}")
-    public void deleteCenter(@PathVariable String id) {
+    public void deleteCenter(@RequestHeader("Authorization") String authorizationHeader,@PathVariable String id) {
         Long new_id = Long.parseLong(id);
         VaccinationCentre center = centerService.findAllByIdCentre(new_id);
         centerService.delete(center);

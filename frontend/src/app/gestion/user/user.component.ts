@@ -15,8 +15,6 @@ export class UserComponent {
   @Output() edited = new EventEmitter<User>;
 
   conf = false;
-  addUser= false;
-
      
   constructor(private service: GestionService){ }
   
@@ -41,7 +39,6 @@ export class UserComponent {
   }
 
   modifierUser(){
-    this.addUser = true;
     this.edited.emit(this.user);
   }
 

@@ -15,21 +15,25 @@ import { User } from '../User';
 export class UserFormComponent implements OnInit{
   
   @Input() user?: User;
+  @Input() role?: String;
+
   @Output() send = new EventEmitter<UserForm>();
-  
+  @Output() edit = new EventEmitter<UserForm>();
+
   centers?: VaccinationCenter[];
  
   userInfo = this.formBuilder.group({
     prenom: [this.user?.prenom, [Validators.required]],
     nom: [this.user?.nom, [Validators.required]],
     mail: [this.user?.mail, [Validators.required]],
-    password: [this.user?.password, [Validators.required]],
+    password: ["", [Validators.required]],
     centre: [null, [Validators.required]],
     role: [null, [Validators.required]],
   })
 
   submitted = false;
   full = false;
+  isSuper = false;
   
   
   constructor(private formBuilder: FormBuilder, private service : VaccinationService) {
@@ -40,12 +44,14 @@ export class UserFormComponent implements OnInit{
       prenom: [this.user?.prenom, [Validators.required]],
       nom: [this.user?.nom, [Validators.required]],
       mail: [this.user?.mail, [Validators.required]],
-      password: [this.user?.password, [Validators.required]],
+      password: ["", [Validators.required]],
       centre: [null, [Validators.required]],
       role: [null, [Validators.required]],
     })
+
     this.service.getAllVaccinationCenter("").subscribe(resultCenters => {
       this.centers = resultCenters;
+      this.isSuper = this.role == "ROLE_SUPER"
     });
   }
 
@@ -63,8 +69,12 @@ export class UserFormComponent implements OnInit{
         id_center: this.userInfo.value.centre!,
         role: this.userInfo.value.role!
       }
+      if(this.user){
+        this.edit.emit(user);
+      }else{
+        this.send.emit(user);
+      }
 
-      this.send.emit(user);
 
     }
 

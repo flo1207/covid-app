@@ -40,18 +40,29 @@
 
       <div class="form-group">
         <label for="role">Role</label>
+        <div *ngIf=isSuper>
 
-        <select class="form-select" formControlName="role">
-            <option value="0">Médecin</option>
-            <option value="1">Administrateur</option>
-            <option value="2">Super Administrateur</option>
-        </select>
+          <select class="form-select" formControlName="role">
+              <option value="0">Médecin</option>
+              <option value="1">Administrateur</option>
+                <option value="2">Super Administrateur</option>
+          </select>
+
+        </div>
+
+        <div *ngIf=!isSuper>
+
+          <select class="form-select" formControlName="role">
+              <option value="0">Médecin</option>
+              <option value="1">Administrateur</option>
+          </select>
+          
+        </div>
 
         <div *ngIf="submitted && userInfo.controls['role'].errors?.['required']" class="text-danger">
           <small>Role obligatoire</small>
         </div>
       </div>
-
 
       <div class="form-group">
         <label for="centre">Centre de rattachement</label>

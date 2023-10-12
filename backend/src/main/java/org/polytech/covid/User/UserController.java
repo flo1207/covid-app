@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -105,9 +106,12 @@ public class UserController {
 
 
     @GetMapping(path  = "api/private/user/{role}")
-    public User getUserRole(@PathVariable String role){ 
-        Integer convert_id = Integer.parseInt(role);
-        return userService.findAllByRole(convert_id);
+    public User[] getUserRole(@PathVariable String role){ 
+        SimpleGrantedAuthority role_user = new SimpleGrantedAuthority("ROLE_MDC");
+        if(role.equals("1")) role_user = new SimpleGrantedAuthority("ROLE_ADMIN");
+        else if(role.equals("2")) role_user = new SimpleGrantedAuthority("ROLE_SUPER");
+
+        return userService.findAllByRole(role_user);
     }
 
     @GetMapping(path  = "api/private/center/users/{id}")
@@ -132,6 +136,30 @@ public class UserController {
         new_user.setPassword(encodedPassword);
 
         return userRepository.save(new_user);
+
+    }
+
+    @PutMapping(path  = "api/private/users")
+    @ResponseBody
+    public User updateCenter(@RequestParam("id") Long id,@RequestParam("prenom") String prenom,@RequestParam("nom") String nom,@RequestParam("password") String password, @RequestParam("mail") String mail,@RequestParam("id_center") Long id_center,@RequestParam("role") String role ) { 
+         
+        VaccinationCentre center = centerService.findAllByIdCentre(id_center);
+        SimpleGrantedAuthority role_user = new SimpleGrantedAuthority("ROLE_MDC");
+        if(role.equals("1")) role_user = new SimpleGrantedAuthority("ROLE_ADMIN");
+        else if(role.equals("2")) role_user = new SimpleGrantedAuthority("ROLE_SUPER");
+        String encodedPassword = passwordEncoder.encode(password);
+
+        
+        User user = userService.findAllByIdUser(id);
+        System.out.println(user.getMail());
+        user.setMail(mail);
+        user.setNom(nom);
+        user.setPrenom(prenom);
+        user.setPassword(encodedPassword);
+        user.setRole(role_user);
+        user.setCenter(center);
+
+        return userRepository.save(user);
 
     }
 

@@ -35,7 +35,12 @@
           <div class="col-12">              
               
               <div class="form-group" style="text-align: center; margin-top: 20px;">
-                <button type="submit" class="btn btn-success" [disabled]="" >Enregistrer</button>
+                <div *ngIf="center" class="text-danger">
+                  <button type="submit" class="btn btn-success" [disabled]="" >Modifier</button>
+                </div>
+                <div *ngIf="!center" class="text-danger">
+                  <button type="submit" class="btn btn-success" [disabled]="" >Enregistrer</button>
+                </div>
                 <div *ngIf="full" class="text-danger">
                   <small>Veuillez remplir tous les champs !</small>
                 </div>  

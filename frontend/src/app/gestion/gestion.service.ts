@@ -8,6 +8,27 @@ import { UserForm } from './user-form';
   providedIn: 'root'
 })
 export class GestionService {
+  async editUser(user: UserForm, user_id: number) {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Basic ${token}`,
+      observe: 'response'
+    });
+
+    const body = new HttpParams()
+    .set('id', user_id)
+    .set('nom', user.nom)
+    .set('prenom', user.prenom)
+    .set('password', user.password)
+    .set('mail', user.email)
+    .set('id_center', user.id_center)
+    .set('role', user.role)
+    
+    return this.httpClient.put<User>("api/private/users",body,{headers}); 
+  }
+
+
   dellUser(idUser: number) {
     const token = localStorage.getItem('token');
 
@@ -45,6 +66,16 @@ export class GestionService {
     return this.httpClient.get<User[]>("api/private/center/users/"+id,{headers}); 
   }
 
+  getAllSuper(): Observable<User[]> {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Basic ${token}`,
+    });
+    return this.httpClient.get<User[]>("api/private/user/"+2,{headers}); 
+  }
+  
+
   getUserById(id: string) {
     return this.httpClient.get<User>("api/users/"+id); 
   }
@@ -66,7 +97,6 @@ export class GestionService {
       Authorization: `Basic ${token}`,
       observe: 'response'
     });
-
 
     const body = new HttpParams()
     .set('nom', user.nom)

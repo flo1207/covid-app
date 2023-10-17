@@ -11,7 +11,7 @@ export class VaccinationService {
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders({
-      Authorization: `Basic ${token}`,
+      Authorization: `Bearer ${token}`,
       observe: 'response'
     });
 
@@ -40,7 +40,7 @@ export class VaccinationService {
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders({
-      Authorization: `Basic ${token}`,
+      Authorization: `Bearer ${token}`,
       observe: 'response'
     });
 
@@ -61,7 +61,7 @@ export class VaccinationService {
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders({
-      Authorization: `Basic ${token}`,
+      Authorization: `Bearer ${token}`,
       observe: 'response'
     });
 

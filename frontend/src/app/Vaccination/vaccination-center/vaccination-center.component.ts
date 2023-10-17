@@ -17,6 +17,7 @@ export class VaccinationCenterComponent implements OnInit{
   @Input() gestion?: boolean;
   @Output() deleted = new EventEmitter<VaccinationCenter>();
   @Output() edited = new EventEmitter<VaccinationCenter>;
+  @Output() editeduser = new EventEmitter<VaccinationCenter>;
 
   selected?: Boolean;
   confirm?: Boolean;
@@ -32,8 +33,6 @@ export class VaccinationCenterComponent implements OnInit{
 
   ngOnInit(): void {
     this.nb_reserv = this.center!.patients.length;
-    console.log(this.gestion)
-
   }
 
   deselect() {
@@ -76,6 +75,10 @@ export class VaccinationCenterComponent implements OnInit{
 
   modifierCentre(){
     this.edited.emit(this.center);
+  }
+
+  modifierUserCentre(){
+    this.editeduser.emit(this.center);
   }
       
 }

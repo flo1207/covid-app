@@ -5,13 +5,19 @@
         <ng-container *ngIf="isSuper()" ngbNavItem="1">
             <button ngbNavLink>Centres</button>
             <ng-template ngbNavContent style="flex: 1;">
+                <div *ngIf="!disp_user_center" class="butt">
+                    <app-vaccination-center-list (edituser)="onEditUser($event)" [gestion]=true></app-vaccination-center-list>
+                </div>
+                <div *ngIf="disp_user_center" class="butt">
+                    <i-bs class="back" (click)="back()" name="arrow-left-circle" width="35" height="35" > </i-bs>
+                    <app-user-list [disp_super]="false" [disp_admin]="disp_admin" [disp_mdc]="disp_mdc" [id]=id_center_user [role]="role"></app-user-list>
+                </div>
 
-                <app-vaccination-center-list [gestion]=true></app-vaccination-center-list>
 
             </ng-template>
         </ng-container>
 
-        <ng-container *ngIf="isAdmin()" ngbNavItem="2">
+        <ng-container *ngIf="isAdmin() && !isSuper()" ngbNavItem="2">
             <button ngbNavLink>Mon centre</button>
             <ng-template ngbNavContent>
                 <div class="center_info">

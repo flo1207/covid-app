@@ -31,6 +31,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 
 
 @RestController
@@ -53,15 +54,18 @@ public class AuthController {
 
         try {
             // Effectuez l'authentification en utilisant Spring Security
+            
+            String secretKey = jwtSecret;
+            List<String> roles = Arrays.asList("ROLE_ADMIN", "ROLE_SUPER"); // Remplacez par les rôles réels de l'utilisateur
 
-            final Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(username, password,Collections.singletonList(new SimpleGrantedAuthority(   "ADMIN")))
-            );
 
-            System.out.println(authentication);
+            // Créez le JWT avec les informations nécessaires (par exemple, le nom d'utilisateur et les rôles)
+            String token = Jwts.builder()
+                .setSubject(username) // Le nom d'utilisateur
+                .claim("roles", roles) // Les rôles de l'utilisateur
+                .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()), SignatureAlgorithm.HS256)
+                .compact();
 
-            // Générez le token JWT
-            final String token = generateJwtToken(authentication);
             System.out.println(token);
             JwtResponse jwtResponse = new JwtResponse(token);
 
@@ -78,23 +82,6 @@ public class AuthController {
 
 
 
-    private String generateJwtToken(org.springframework.security.core.Authentication authentication) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        
-        long jwtExpirationMs = 60 * 10 * 1000 ;
-
-        // Créez une liste de rôles que l'utilisateur a
-        List<String> userRoles = Arrays.asList("ADMIN");
-
-
-        // Ajoutez le claim personnalisé "roles" au token
-        return Jwts.builder()
-                .setSubject(userDetails.getUsername())
-                // .claim("roles", userRoles) // Ajoutez les rôles en tant que claim
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
-                .compact();
-    }
 
 
 }

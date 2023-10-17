@@ -12,6 +12,7 @@ import { GestionService } from '../gestion.service';
 })
 export class GestionTableComponent {
   id_center?: number;
+  id_center_user!: number;
   role?: string;
   activeId: any;
 
@@ -25,11 +26,14 @@ export class GestionTableComponent {
   disp_admin = false;
   disp_mdc = false;
 
+  disp_user_center = false;
+
 
   constructor(private service: GestionService, private logservice: LoginService){}
 
   async ngOnInit() { 
-    this.service.getUserByUsername(localStorage.getItem('username')!).subscribe(data => {
+    
+    this.service.getUserByUsername().subscribe(data => {
       this.user = data;
       this.role = this.user.role.authority;
       this.center = this.user.center;
@@ -39,6 +43,7 @@ export class GestionTableComponent {
       this.disp_super = this.isSuper();
       this.disp_admin = this.isAdmin();
       this.disp_mdc = this.isMdc();
+
     },error => {
         if (error.status === 401) {
           // L'accès est non autorisé, gérer en conséquence
@@ -72,5 +77,14 @@ export class GestionTableComponent {
     else if(this.isAdmin()) this.activeId = "2";
     else if(this.isMdc()) this.activeId = "3";
   }  
+
+  onEditUser(event: VaccinationCenter){
+    this.id_center_user = event.idCentre;
+    this.disp_user_center = true;
+  }
+
+  back(){
+    this.disp_user_center = false;
+  }
 
 }

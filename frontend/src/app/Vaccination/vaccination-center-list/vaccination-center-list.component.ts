@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, PipeTransform } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, PipeTransform } from '@angular/core';
 import { VaccinationCenter } from '../vaccination-center';
 import { VaccinationService } from '../vaccination.service';
 import { Observable, map, startWith } from 'rxjs';
@@ -15,6 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class VaccinationCenterListComponent implements OnInit{
 
   @Input() gestion?: boolean;
+  @Output() edituser = new EventEmitter<VaccinationCenter>();
 
   centers?: VaccinationCenter[];
 
@@ -32,6 +33,8 @@ export class VaccinationCenterListComponent implements OnInit{
   message = "Centre créé avec succès!";
   confirm?: Boolean;
   error?: Boolean;
+
+
   
 
 
@@ -109,6 +112,10 @@ export class VaccinationCenterListComponent implements OnInit{
     this.current_center = event;
   }
 
+  onEditUser(event: VaccinationCenter){
+    this.edituser.emit(event)
+  }
+
   async editCenter(event: VaccinationCenter){
     const send = (await this.service.editCenter(event)).subscribe((response) => {
       this.confirm = true;
@@ -129,6 +136,10 @@ export class VaccinationCenterListComponent implements OnInit{
         this.confirm = false; 
     }, 3000);
   
+  }
+
+  back(){
+    this.addCenter = false;
   }
 
 

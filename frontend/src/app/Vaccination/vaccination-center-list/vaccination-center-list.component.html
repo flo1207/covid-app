@@ -36,7 +36,7 @@
 
     <ul>
         <li *ngFor="let c of centers$ | async">
-            <app-vaccination-center  [gestion]=gestion [center]="c" (deleted)="onDeleted($event)" (edited)="onEdit($event)"></app-vaccination-center>
+            <app-vaccination-center  [gestion]=gestion [center]="c" (editeduser)="onEditUser($event)" (deleted)="onDeleted($event)" (edited)="onEdit($event)"></app-vaccination-center>
         </li>
     </ul>
 
@@ -46,6 +46,7 @@
 </div>
 
 <div *ngIf="addCenter" class="form-text">
+  <i-bs class="back" (click)="back()" name="arrow-left-circle" width="35" height="35" > </i-bs>
   <app-vaccination-center-form (send)="createCenter($event)" (edit)="editCenter($event)"  [center]=current_center></app-vaccination-center-form>
 </div>
   

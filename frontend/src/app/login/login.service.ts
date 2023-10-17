@@ -34,7 +34,7 @@ export class LoginService {
           const tok = btoa(`${login.username}:${login.password}`);
 
           localStorage.setItem(LoginService.USERNAME_KEY,login.username);
-          localStorage.setItem(LoginService.TOKEN_KEY,tok);
+          localStorage.setItem(LoginService.TOKEN_KEY,loginResponse.token);
           this.token = loginResponse.token;
   }
 

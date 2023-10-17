@@ -49,12 +49,10 @@ export class UserListComponent {
       this.users = resultUsers.filter(t=>t.role.authority === this.role);
       this.medecins = resultUsers.filter(t=>t.role.authority === this.medecin);
       this.admins = resultUsers.filter(t=>t.role.authority === this.admin);
-      this.supers = resultUsers.filter(t=>t.role.authority === this.super);
-      if(this.disp_super){
-        this.service.getAllSuper().subscribe(data => {
-          this.supers = data.filter(t=>t.role.authority === this.super);
-        })
-      }
+      if(!this.disp_super) this.supers = resultUsers.filter(t=>t.role.authority === this.super);
+      else this.service.getAllSuper().subscribe(data => {
+        this.supers = data.filter(t=>t.role.authority === this.super);
+      })
     });
   }
 
@@ -63,12 +61,10 @@ export class UserListComponent {
       this.users = resultUsers.filter(t=>t.role.authority === this.role);
       this.medecins = resultUsers.filter(t=>t.role.authority === this.medecin);
       this.admins = resultUsers.filter(t=>t.role.authority === this.admin);
-      this.supers = resultUsers.filter(t=>t.role.authority === this.super);
-      if(this.disp_super){
-        this.service.getAllSuper().subscribe(data => {
-          this.supers = data.filter(t=>t.role.authority === this.super);
-        })
-      }
+      if(!this.disp_super) this.supers = resultUsers.filter(t=>t.role.authority === this.super);
+      else this.service.getAllSuper().subscribe(data => {
+        this.supers = data.filter(t=>t.role.authority === this.super);
+      })
     });
   }
 

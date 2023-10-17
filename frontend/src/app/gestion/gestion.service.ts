@@ -12,7 +12,7 @@ export class GestionService {
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders({
-      Authorization: `Basic ${token}`,
+      Authorization: `Bearer ${token}`,
       observe: 'response'
     });
 
@@ -33,7 +33,7 @@ export class GestionService {
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders({
-      Authorization: `Basic ${token}`,
+      Authorization: `Bearer ${token}`,
       observe: 'response'
     });
 
@@ -44,11 +44,11 @@ export class GestionService {
   }
   
 
-  getUserByUsername(username: string){
+  getUserByUsername(){
     const token = localStorage.getItem('token');
     
     const headers = new HttpHeaders({
-      Authorization: `Basic ${token}`,
+      Authorization: `Bearer ${token}`,
     });
 
 
@@ -61,7 +61,7 @@ export class GestionService {
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders({
-      Authorization: `Basic ${token}`,
+      Authorization: `Bearer ${token}`,
     });
     return this.httpClient.get<User[]>("api/private/center/users/"+id,{headers}); 
   }
@@ -70,7 +70,7 @@ export class GestionService {
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders({
-      Authorization: `Basic ${token}`,
+      Authorization: `Bearer ${token}`,
     });
     return this.httpClient.get<User[]>("api/private/user/"+2,{headers}); 
   }
@@ -94,7 +94,7 @@ export class GestionService {
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders({
-      Authorization: `Basic ${token}`,
+      Authorization: `Bearer ${token}`,
       observe: 'response'
     });
 

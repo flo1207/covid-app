@@ -37,3 +37,28 @@
     display: block;
     padding-left: 100px;
 }
+
+
+i-bs{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 20px;
+    color: black;
+}
+
+.del{
+    color: red;
+}
+
+.add{
+    color: green;
+}
+
+.back{
+    color: green;
+}
+
+i-bs:hover{
+    color: grey;
+    cursor: pointer;
+}

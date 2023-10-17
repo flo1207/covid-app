@@ -14,6 +14,7 @@
 
        
         <div *ngIf="gestion" class="butt">
+            <i-bs (click)="modifierUserCentre()" name="people-fill" width="25" height="25" > </i-bs>
             <i-bs (click)="modifierCentre()" name="pencil" width="25" height="25" > </i-bs>
             <div *ngIf="!conf">
                 <i-bs class="del" (click)="setConf()" name="x-circle" width="25" height="25" > </i-bs>

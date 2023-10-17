@@ -31,6 +31,24 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         @Value("${jwt.secret}")
         private String jwtSecret;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
         private CustomUserDetailsService userDetailsService;
 
 
@@ -45,15 +63,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
             return super.authenticationManagerBean();
         }
 
+
+
     
         @Override
         protected void configure(HttpSecurity http) throws Exception {      
             http
+                .addFilterBefore(new JwtAuthenticationFilter(jwtSecret), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                     .mvcMatchers("/api/public/**").permitAll()
                     .mvcMatchers("/api/private/**").hasAnyRole("ADMIN", "SUPER", "MDC")
-                    .and()
-                .httpBasic()
                     .and()
                 .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -61,29 +80,27 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                 .csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint((request, response, authException) ->{
-                    System.out.println("1");
                     System.out.println(authException);
-                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "1Erreur d'authentification");})
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Erreur d'authentification");})
                 .accessDeniedHandler((request, response, accessDeniedException) ->{
-                    System.out.println("1");
-                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "2Accès refusé");});
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "Accès refusé");});
     }
         
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-    auth.inMemoryAuthentication()
-        .withUser("jean.lais@gmail.com")
-        .password(encoder().encode("admin"))
-        .roles("ADMIN")
-        .and()
-        .withUser("flo1207@live.fr")
-        .password(encoder().encode("super"))
-        .roles("SUPER")
-        .and()
-        .withUser("eric.p@gmail.com")
-        .password(encoder().encode("mdc"))
-        .roles("MDC");
+        auth.inMemoryAuthentication()
+            .withUser("jean.lais@gmail.com")
+            .password(encoder().encode("admin"))
+            .roles("ADMIN")
+            .and()
+            .withUser("flo1207@live.fr")
+            .password(encoder().encode("super"))
+            .roles("SUPER")
+            .and()
+            .withUser("eric.p@gmail.com")
+            .password(encoder().encode("mdc"))
+            .roles("MDC");
 
     }
 

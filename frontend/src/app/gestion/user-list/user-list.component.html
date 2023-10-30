@@ -14,10 +14,10 @@
       <h2>Super                     
         <i-bs class="add" (click)="ajouterUser()" name="plus-circle" width="25" height="25" > </i-bs>
       </h2>
-      <div *ngIf="admins?.length == 0  ">
+      <div *ngIf="supers?.length == 0  ">
         Aucun
       </div>
-      <div class="tableau" *ngIf="admins?.length != 0  ">
+      <div class="tableau" *ngIf="supers?.length != 0  ">
 
         <table class="table table-striped">
             <thead>
@@ -107,5 +107,5 @@
 
 <div *ngIf="addUser" class="form-text">
   <i-bs class="back" (click)="back()" name="arrow-left-circle" width="35" height="35" > </i-bs>
-  <app-user-form [user]=current_user (send)="createUser($event)" (edit)="editUser($event)" [role]=role></app-user-form>
+  <app-user-form [current_user]=current_user [user]=edit_user (send)="createUser($event)" (edit)="editUser($event)" ></app-user-form>
 </div>

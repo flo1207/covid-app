@@ -3,18 +3,14 @@ package org.polytech.covid.VaccinationCenter;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.websocket.server.PathParam;
-
 import org.polytech.covid.Patient.files.Patient;
 import org.polytech.covid.Patient.service.PatientService;
-import org.polytech.covid.User.files.User;
 import org.polytech.covid.VaccinationCenter.files.VaccinationCentre;
 import org.polytech.covid.VaccinationCenter.service.VaccinationCenterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.DeleteMapping;

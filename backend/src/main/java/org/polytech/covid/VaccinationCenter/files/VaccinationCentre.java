@@ -2,21 +2,14 @@ package org.polytech.covid.VaccinationCenter.files;
 
 import java.util.List;
 
-import javax.annotation.Generated;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.polytech.covid.Patient.files.Patient;
-import org.polytech.covid.User.files.User;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="t_vaccination_centre")
@@ -44,7 +37,6 @@ public class VaccinationCentre {
         this.address = address;
         this.city = city;
     }
-
 
     public String getName() {
         return name;
@@ -92,12 +84,8 @@ public class VaccinationCentre {
         this.idCentre = idCentre;
     }
 
-
-
     public void setAddress(String address) {
         this.address = address;
     }
-
-
 
 }

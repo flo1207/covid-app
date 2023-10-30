@@ -11,25 +11,22 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent {
-  users?: User[];
   
-  current_user?: User;
-
-  medecins?: User[];
-
-  admins?: User[];
-
-  supers?: User[];
-  
-  selected?: User;
-
-  @Input() id?: number;
-  @Input() role?: string;
   @Input() disp_super?: Boolean;
   @Input() disp_admin?: Boolean;
   @Input() disp_mdc?: Boolean;
+  @Input() current_user!: User;
 
   addUser = false;
+
+  users?: User[];
+  edit_user?: User;
+  
+  medecins?: User[];
+  admins?: User[];
+  supers?: User[];
+  
+  selected?: User;
 
   medecin = "ROLE_MDC"
   admin = "ROLE_ADMIN"
@@ -39,14 +36,11 @@ export class UserListComponent {
   confirm?: Boolean;
   error?: Boolean;
 
-
-  // id = this.route.snapshot.paramMap.get('id');
-
   constructor(private service: GestionService, private route: ActivatedRoute){ }
   
   ngOnInit(): void {
-    this.service.getAllUsers(this.id!).subscribe(resultUsers => {
-      this.users = resultUsers.filter(t=>t.role.authority === this.role);
+    this.service.getAllUsers(this.current_user.center.idCentre!).subscribe(resultUsers => {
+      this.users = resultUsers.filter(t=>t.role.authority === this.current_user.role.authority);
       this.medecins = resultUsers.filter(t=>t.role.authority === this.medecin);
       this.admins = resultUsers.filter(t=>t.role.authority === this.admin);
       if(!this.disp_super) this.supers = resultUsers.filter(t=>t.role.authority === this.super);
@@ -57,8 +51,8 @@ export class UserListComponent {
   }
 
   getUserList(){
-    this.service.getAllUsers(this.id!).subscribe(resultUsers => {
-      this.users = resultUsers.filter(t=>t.role.authority === this.role);
+    this.service.getAllUsers(this.current_user.center.idCentre!).subscribe(resultUsers => {
+      this.users = resultUsers.filter(t=>t.role.authority === this.current_user.role.authority);
       this.medecins = resultUsers.filter(t=>t.role.authority === this.medecin);
       this.admins = resultUsers.filter(t=>t.role.authority === this.admin);
       if(!this.disp_super) this.supers = resultUsers.filter(t=>t.role.authority === this.super);
@@ -81,12 +75,12 @@ export class UserListComponent {
 
   onEdit(event: User){
     this.addUser = true;
-    this.current_user = event;
+    this.edit_user = event;
   }
 
   back(){
     this.addUser = false;
-    this.current_user = undefined;
+    this.edit_user = undefined;
 
   }
 
@@ -114,12 +108,12 @@ export class UserListComponent {
   }
 
   async editUser(event: UserForm){
-    const send = (await this.service.editUser(event,this.current_user!.idUser)).subscribe((response) => {
+    const send = (await this.service.editUser(event,this.edit_user!.idUser)).subscribe((response) => {
       this.confirm = true;
       this.message = "Le centre a bien été mis à jour.";
       this.getUserList();
       this.confirm = true;
-      this.current_user = undefined;
+      this.edit_user = undefined;
     },
     (error: HttpErrorResponse) => {
       this.message = "Une erreur est survenue, "+error.message;

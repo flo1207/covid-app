@@ -1,15 +1,11 @@
 package org.polytech.covid.User.files;
 
-import org.polytech.covid.User.files.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.Collections;
 
 public class CustomUserDetails implements UserDetails {
-
     private final User user;
 
     public CustomUserDetails(User user) {
@@ -18,8 +14,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Retournez les rôles de l'utilisateur
-        return Collections.singleton(new SimpleGrantedAuthority(user.getRole().getAuthority()));
+        return Collections.singleton(user.getRole());
     }
 
     @Override
@@ -34,21 +29,29 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isAccountNonExpired'");
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isAccountNonLocked'");
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isCredentialsNonExpired'");
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isEnabled'");
     }
+
+    // Implement other UserDetails methods like isEnabled, isAccountNonExpired, etc.
+
+    // You may also want to provide getters for user-related information.
 }

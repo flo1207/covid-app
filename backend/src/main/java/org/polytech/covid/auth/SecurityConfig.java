@@ -2,12 +2,8 @@ package org.polytech.covid.auth;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.polytech.covid.User.JwtTokenValidator;
 import org.polytech.covid.User.service.CustomUserDetailsService;
-import org.polytech.covid.User.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -18,7 +14,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -26,36 +21,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
     @EnableWebSecurity
     @Configuration(proxyBeanMethods = false)
     public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
         
         @Value("${jwt.secret}")
         private String jwtSecret;
 
+        private final CustomUserDetailsService customUserDetailsService;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
-        private CustomUserDetailsService userDetailsService;
-
-
-        @Autowired
-        public SecurityConfig(CustomUserDetailsService userDetailsService) {
-            this.userDetailsService = userDetailsService;
+        public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
+            this.customUserDetailsService = customUserDetailsService;
         }
+
 
         @Bean
         @Order(Ordered.HIGHEST_PRECEDENCE + 1)
@@ -63,9 +38,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
             return super.authenticationManagerBean();
         }
 
-
-
-    
         @Override
         protected void configure(HttpSecurity http) throws Exception {      
             http
@@ -89,18 +61,21 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        auth.inMemoryAuthentication()
-            .withUser("jean.lais@gmail.com")
-            .password(encoder().encode("admin"))
-            .roles("ADMIN")
-            .and()
-            .withUser("flo1207@live.fr")
-            .password(encoder().encode("super"))
-            .roles("SUPER")
-            .and()
-            .withUser("eric.p@gmail.com")
-            .password(encoder().encode("mdc"))
-            .roles("MDC");
+        // auth.inMemoryAuthentication()
+        //     .withUser("jean.lais@gmail.com")
+        //     .password(encoder().encode("admin"))
+        //     .roles("ADMIN")
+        //     .and()
+        //     .withUser("flo1207@live.fr")
+        //     .password(encoder().encode("super"))
+        //     .roles("SUPER")
+        //     .and()
+        //     .withUser("eric.p@gmail.com")
+        //     .password(encoder().encode("mdc"))
+        //     .roles("MDC");
+
+        auth.userDetailsService(customUserDetailsService)
+            .passwordEncoder(encoder());
 
     }
 
@@ -110,14 +85,5 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         return new BCryptPasswordEncoder();
     }
 
-
-    // @Override
-    // protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    //     auth.userDetailsService(userDetailsService)
-    //         .passwordEncoder(encoder());
-    // }  
-
-       
-
     
-    }
+}

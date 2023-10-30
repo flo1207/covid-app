@@ -53,8 +53,8 @@
         <div *ngIf=!isSuper>
 
           <select class="form-select" formControlName="role">
-              <option value="0">Médecin</option>
-              <option value="1">Administrateur</option>
+            <option value="0">Médecin</option>
+            <option value="1">Administrateur</option>
           </select>
           
         </div>
@@ -67,9 +67,18 @@
       <div class="form-group">
         <label for="centre">Centre de rattachement</label>
 
-        <select formControlName="centre"  class="form-select">
+        <div *ngIf="role == 'ROLE_ADMIN'" >
+          <select formControlName="centre"  class="form-select">
+              <option value={{current_user.center.idCentre}} >{{current_user.center.name}}</option>
+          </select>
+        </div>
+
+        <div *ngIf="role == 'ROLE_SUPER'">
+          <select formControlName="centre"  class="form-select">
             <option *ngFor="let c of centers" value={{c.idCentre}}>{{c.name}}</option>
-        </select>
+          </select>
+        </div>
+
 
         <div *ngIf="submitted && userInfo.controls['centre'].errors?.['required']" class="text-danger">
           <small>Centre obligatoire</small>

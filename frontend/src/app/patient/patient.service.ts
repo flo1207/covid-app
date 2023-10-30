@@ -26,12 +26,12 @@ export class PatientService {
   }
 
   async updatePatientVaccination(id: number){
-    const body = new HttpParams()
-    .set('id', id)
+    const body = new HttpParams().set('id', id)
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders({
-      Authorization: `Basic ${token}`,
+      Authorization: `Bearer ${token}`,
+      observe: 'response'
     });
   
     return await this.httpClient.patch("api/private/centers/patient", body, {headers})

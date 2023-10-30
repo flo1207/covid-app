@@ -10,7 +10,7 @@
                 </div>
                 <div *ngIf="disp_user_center" class="butt">
                     <i-bs class="back" (click)="back()" name="arrow-left-circle" width="35" height="35" > </i-bs>
-                    <app-user-list [disp_super]="false" [disp_admin]="disp_admin" [disp_mdc]="disp_mdc" [id]=id_center_user [role]="role"></app-user-list>
+                    <app-user-list [current_user]=user [disp_super]="false" [disp_admin]="disp_admin" [disp_mdc]="disp_mdc" ></app-user-list>
                 </div>
 
 
@@ -26,7 +26,7 @@
 
                 </div>
 
-                <app-user-list [disp_super]="false" [disp_admin]="disp_admin" [disp_mdc]="disp_mdc" [id]=id_center [role]="role"></app-user-list>
+                <app-user-list [current_user]=user [disp_super]="false" [disp_admin]="disp_admin" [disp_mdc]="disp_mdc" ></app-user-list>
 
             </ng-template>
         </ng-container>
@@ -44,7 +44,7 @@
             <button ngbNavLink>Config</button>
             <ng-template ngbNavContent style="flex: 1;">
 
-                <app-user-list [disp_super]="true" [disp_admin]="false" [disp_mdc]="false" [id]=id_center [role]="role"></app-user-list>
+                <app-user-list [current_user]=user [disp_super]="true" [disp_admin]="false" [disp_mdc]="false"></app-user-list>
 
             </ng-template>
         </ng-container>

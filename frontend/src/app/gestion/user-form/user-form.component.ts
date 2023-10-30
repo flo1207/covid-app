@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UserForm } from '../user-form';
 import { FormBuilder, Validators } from '@angular/forms';
-import { DatePipe } from '@angular/common';
-import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { VaccinationCenter } from 'src/app/Vaccination/vaccination-center';
 import { VaccinationService } from 'src/app/Vaccination/vaccination.service';
 import { User } from '../User';
@@ -15,12 +13,14 @@ import { User } from '../User';
 export class UserFormComponent implements OnInit{
   
   @Input() user?: User;
-  @Input() role?: String;
+  @Input() current_user!: User;
 
   @Output() send = new EventEmitter<UserForm>();
   @Output() edit = new EventEmitter<UserForm>();
 
   centers?: VaccinationCenter[];
+
+  role?:String
  
   userInfo = this.formBuilder.group({
     prenom: [this.user?.prenom, [Validators.required]],
@@ -51,8 +51,11 @@ export class UserFormComponent implements OnInit{
 
     this.service.getAllVaccinationCenter("").subscribe(resultCenters => {
       this.centers = resultCenters;
-      this.isSuper = this.role == "ROLE_SUPER"
+      this.isSuper = this.current_user.role.authority == "ROLE_SUPER"
     });
+
+    this.role = this.current_user.role.authority
+
   }
 
   onSubmit() {
@@ -74,8 +77,6 @@ export class UserFormComponent implements OnInit{
       }else{
         this.send.emit(user);
       }
-
-
     }
 
     setTimeout(() =>{ 
@@ -84,6 +85,5 @@ export class UserFormComponent implements OnInit{
     
   }
 
-  
 }
 

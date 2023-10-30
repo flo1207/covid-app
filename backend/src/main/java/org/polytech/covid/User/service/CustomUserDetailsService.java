@@ -2,6 +2,7 @@ package org.polytech.covid.User.service;
 
 import java.util.Collections;
 
+import org.polytech.covid.User.files.CustomUserDetails;
 import org.polytech.covid.User.files.User;
 import org.polytech.covid.User.files.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,25 +14,21 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
+    private final UserRepository userRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    public CustomUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByMail(username);
-
         if (user == null) {
-            System.out.println("aucun");
-            throw new UsernameNotFoundException("Utilisateur non trouvé avec le nom d'utilisateur : " + username);
-        }else{
-            System.out.println(user.getMail());
+            throw new UsernameNotFoundException("User not found with username: " + username);
         }
-        // Créez un objet UserDetails à partir des informations de l'utilisateur
-        return new org.springframework.security.core.userdetails.User(
-            user.getMail(),
-            user.getPassword(),
-            Collections.singletonList(new SimpleGrantedAuthority(   "ADMIN")) // Ajoutez les rôles ou les autorisations appropriés ici
-        );
+        else{
+            System.out.println("validation");
+            return new CustomUserDetails(user);
+        }
     }
 }

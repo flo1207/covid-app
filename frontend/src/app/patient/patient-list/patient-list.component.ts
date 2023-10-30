@@ -40,13 +40,14 @@ export class PatientListComponent implements OnInit{
     this.patients_filter = this.patients;
     this.filtreByDate()
   }
+
   async vacciner(patient: Patient){
     
     this.patients!.forEach(item =>{
       if(item.idPatient == patient.idPatient){
           item.vaccination = true
       }
-  });
+    });
    ( await this.patientService.updatePatientVaccination(patient.idPatient)).subscribe((response) => {
       console.log(response);
     },

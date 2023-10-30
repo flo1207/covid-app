@@ -11,23 +11,17 @@ import { GestionService } from '../gestion.service';
   styleUrls: ['./gestion-table.component.scss']
 })
 export class GestionTableComponent {
-  id_center?: number;
   id_center_user!: number;
-  role?: string;
   activeId: any;
 
   user! : User;
-
   center?: VaccinationCenter;
-
   patients?: Patient[];
 
   disp_super = false;
   disp_admin = false;
   disp_mdc = false;
-
   disp_user_center = false;
-
 
   constructor(private service: GestionService, private logservice: LoginService){}
 
@@ -35,10 +29,8 @@ export class GestionTableComponent {
     
     this.service.getUserByUsername().subscribe(data => {
       this.user = data;
-      this.role = this.user.role.authority;
       this.center = this.user.center;
       this.patients = this.center.patients
-      this.id_center = this.center.idCentre
       this.setActive();
       this.disp_super = this.isSuper();
       this.disp_admin = this.isAdmin();

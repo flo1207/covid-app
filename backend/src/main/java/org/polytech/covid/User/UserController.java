@@ -79,7 +79,7 @@ public class UserController {
             String username = claims.getSubject();
 
             // Vérifiez les autorisations, par exemple si l'utilisateur a le rôle ADMIN
-            if (isSuper(claims) || isAdmin(claims)) {
+            if (isSuper(claims) || isAdmin(claims) || isMdc(claims)) {
                 User user = userService.findByMail(username);
                 return ResponseEntity.ok(user);
             } else {
@@ -95,12 +95,24 @@ public class UserController {
 
 
     @GetMapping(path  = "api/private/user/{role}")
-    public User[] getUserRole(@PathVariable String role){ 
+    public User[] getUserRole(@RequestHeader("Authorization") String authorizationHeader,@PathVariable String role){ 
         SimpleGrantedAuthority role_user = new SimpleGrantedAuthority("ROLE_MDC");
         if(role.equals("1")) role_user = new SimpleGrantedAuthority("ROLE_ADMIN");
         else if(role.equals("2")) role_user = new SimpleGrantedAuthority("ROLE_SUPER");
+        try {
+            Claims claims = getClaims(authorizationHeader);
 
-        return userService.findAllByRole(role_user);
+            // Vous pouvez maintenant extraire les informations du token JWT, par exemple le nom d'utilisateur
+            if (isSuper(claims) || isAdmin(claims)) {
+                return userService.findAllByRole(role_user);
+            } else {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            }
+        }catch (Exception e) {
+            // En cas d'erreur de validation du JWT
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "JWT invalide");
+        }
+
     }
 
     @GetMapping(path  = "api/private/center/users/{id}")
@@ -117,7 +129,7 @@ public class UserController {
             Claims claims = getClaims(authorizationHeader);
 
             // Vérifiez les autorisations, par exemple si l'utilisateur a le rôle ADMIN
-            if ((isSuper(claims) && role.equals("2")) || (role.equals("1") && isAdmin(claims)) || (role.equals("0") && isAdmin(claims)) ){
+            if ((isSuper(claims)) || (role.equals("1") && isAdmin(claims)) || (role.equals("0") && isAdmin(claims)) ){
                 Long convert_id = Long.parseLong(id_center);
                 VaccinationCentre center = centerService.findAllByIdCentre(convert_id);
                 SimpleGrantedAuthority role_user = new SimpleGrantedAuthority("ROLE_MDC");
@@ -156,7 +168,6 @@ public class UserController {
                 String encodedPassword = passwordEncoder.encode(password);
 
                 User user = userService.findAllByIdUser(id);
-                System.out.println(user.getMail());
                 user.setMail(mail);
                 user.setNom(nom);
                 user.setPrenom(prenom);

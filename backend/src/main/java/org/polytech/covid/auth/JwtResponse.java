@@ -8,14 +8,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-public class JwtResponse {
+public class jwtResponse {
 
     private final String token;
     
     @Value("${jwt.secret}")
     private String jwtSecret;
 
-    public JwtResponse(String token) {
+    public jwtResponse(String token) {
         this.token = token;
     }
 

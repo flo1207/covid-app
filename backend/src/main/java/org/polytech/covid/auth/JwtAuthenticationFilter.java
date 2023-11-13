@@ -16,11 +16,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class jwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final String jwtSecret;
 
-    public JwtAuthenticationFilter(String jwtSecret) {
+    public jwtAuthenticationFilter(String jwtSecret) {
         this.jwtSecret = jwtSecret;
     }
 

@@ -10,7 +10,7 @@ import javax.persistence.Table;
  
 @Entity
 @Table(name="t_patient")
-public class Patient {
+public class patient {
     @Id
     @GeneratedValue
     private long idPatient;
@@ -33,7 +33,7 @@ public class Patient {
     @Column(nullable = true)
     private LocalDate date_RDV;
 
-    public Patient(String mail, String nom, String prenom, Long id_centre, Boolean vaccination,
+    public patient(String mail, String nom, String prenom, Long id_centre, Boolean vaccination,
             LocalDate date_RDV) {
         this.mail = mail;
         this.nom = nom;
@@ -43,7 +43,7 @@ public class Patient {
         this.date_RDV = date_RDV;
     }
 
-    public Patient(){}
+    public patient(){}
 
     public String getMail() {
         return mail;

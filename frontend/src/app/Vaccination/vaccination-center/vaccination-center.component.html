@@ -14,13 +14,14 @@
 
        
         <div *ngIf="gestion" class="butt">
-            <i-bs (click)="modifierUserCentre()" name="people-fill" width="25" height="25" > </i-bs>
-            <i-bs (click)="modifierCentre()" name="pencil" width="25" height="25" > </i-bs>
+            <mat-icon class="back" (click)="modifierUserCentre()" fontIcon="groups"></mat-icon>  
+            <mat-icon class="back" (click)="modifierCentre()" fontIcon="edit"></mat-icon>  
+
             <div *ngIf="!conf">
-                <i-bs class="del" (click)="setConf()" name="x-circle" width="25" height="25" > </i-bs>
+                <mat-icon class="del" (click)="setConf()" fontIcon="cancel"></mat-icon>
             </div>
             <div *ngIf="conf">
-                <button type="button" class="btn btn-outline-danger" (click)="supCenter()"> confirmer </button>
+                <button mat-raised-button color="warn" (click)="supCenter()"> confirmer </button>
             </div>
         </div>
 

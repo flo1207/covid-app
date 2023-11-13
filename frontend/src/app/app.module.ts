@@ -20,6 +20,10 @@ import { GestionTableComponent } from './gestion/gestion-table/gestion-table.com
 import { PatientListComponent } from './patient/patient-list/patient-list.component';
 import { UserFormComponent } from './gestion/user-form/user-form.component';
 import { VaccinationCenterFormComponent } from './Vaccination/vaccination-center-form/vaccination-center-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button'
+import {MatTableModule} from '@angular/material/table';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -44,7 +48,11 @@ import { VaccinationCenterFormComponent } from './Vaccination/vaccination-center
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxBootstrapIconsModule.pick(allIcons)
+    NgxBootstrapIconsModule.pick(allIcons),
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatTableModule,
+    MatIconModule
 
   ],
   providers: [DatePipe],

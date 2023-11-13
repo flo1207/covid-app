@@ -2,31 +2,31 @@ package org.polytech.covid.VaccinationCenter.service;
 
 import java.util.List;
 
-import org.polytech.covid.User.files.User;
-import org.polytech.covid.VaccinationCenter.files.VaccinationCentre;
-import org.polytech.covid.VaccinationCenter.files.VaccinationCentreRepository;
+import org.polytech.covid.User.files.user;
+import org.polytech.covid.VaccinationCenter.files.vaccinationCentre;
+import org.polytech.covid.VaccinationCenter.files.vaccinationCentreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class VaccinationCenterService {
+public class vaccinationCenterService {
     
     @Autowired
-    private VaccinationCentreRepository centreRepository;
+    private vaccinationCentreRepository centreRepository;
     
-    public List<VaccinationCentre> findAllByCity(String cityName){
+    public List<vaccinationCentre> findAllByCity(String cityName){
         return centreRepository.findAllByCityIgnoreCaseContaining(cityName);
     }
     
-    public VaccinationCentre findAllByIdCentre(Long id) {
+    public vaccinationCentre findAllByIdCentre(Long id) {
         return centreRepository.findAllByIdCentre(id);
     }
 
-    public VaccinationCentre saveAll(VaccinationCentre centre){
+    public vaccinationCentre saveAll(vaccinationCentre centre){
         return centreRepository.save(centre);
     }
 
-    public void delete(VaccinationCentre center) {
+    public void delete(vaccinationCentre center) {
         centreRepository.delete(center);;
     }
     

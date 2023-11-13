@@ -1,89 +1,62 @@
 package org.polytech.covid.auth;
 
-import javax.servlet.http.HttpServletResponse;
-
-import org.polytech.covid.User.service.CustomUserDetailsService;
+import org.polytech.covid.User.service.customUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-    @EnableWebSecurity
-    @Configuration(proxyBeanMethods = false)
-    public class SecurityConfig extends WebSecurityConfigurerAdapter {
-        
-        @Value("${jwt.secret}")
-        private String jwtSecret;
+@EnableWebSecurity
+@Configuration
+public class securityConfig {
 
-        private final CustomUserDetailsService customUserDetailsService;
+    private final customUserDetailsService customUserDetailsService;
+    private final String jwtSecret;
 
-        public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
-            this.customUserDetailsService = customUserDetailsService;
-        }
-
-
-        @Bean
-        @Order(Ordered.HIGHEST_PRECEDENCE + 1)
-        public AuthenticationManager authenticationManagerBean() throws Exception {
-            return super.authenticationManagerBean();
-        }
-
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {      
-            http
-                .addFilterBefore(new JwtAuthenticationFilter(jwtSecret), UsernamePasswordAuthenticationFilter.class)
-                .authorizeRequests()
-                    .mvcMatchers("/api/public/**").permitAll()
-                    .mvcMatchers("/api/private/**").hasAnyRole("ADMIN", "SUPER", "MDC")
-                    .and()
-                .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                    .and()
-                .csrf().disable()
-                .exceptionHandling()
-                .authenticationEntryPoint((request, response, authException) ->{
-                    System.out.println(authException);
-                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Erreur d'authentification");})
-                .accessDeniedHandler((request, response, accessDeniedException) ->{
-                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "Accès refusé");});
-    }
-        
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-        // auth.inMemoryAuthentication()
-        //     .withUser("jean.lais@gmail.com")
-        //     .password(encoder().encode("admin"))
-        //     .roles("ADMIN")
-        //     .and()
-        //     .withUser("flo1207@live.fr")
-        //     .password(encoder().encode("super"))
-        //     .roles("SUPER")
-        //     .and()
-        //     .withUser("eric.p@gmail.com")
-        //     .password(encoder().encode("mdc"))
-        //     .roles("MDC");
-
-        auth.userDetailsService(customUserDetailsService)
-            .passwordEncoder(encoder());
-
+    @Autowired
+    public securityConfig( customUserDetailsService customUserDetailsService, @Value("${jwt.secret}") String jwtSecret) {
+        this.customUserDetailsService = customUserDetailsService;
+        this.jwtSecret = jwtSecret;
     }
 
+    @Bean
+    static RoleHierarchy roleHierarchy() {
+        RoleHierarchyImpl hierarchy = new RoleHierarchyImpl();
+        hierarchy.setHierarchy("ROLE_SUPER > ROLE_ADMIN\n" +
+                "ROLE_ADMIN > ROLE_MDC\n" +
+                "ROLE_MDC > ROLE_GUEST");
+        return hierarchy;
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+        .addFilterBefore(new jwtAuthenticationFilter(jwtSecret), UsernamePasswordAuthenticationFilter.class)
+        .authorizeHttpRequests((authz) ->
+                authz.antMatchers(HttpMethod.GET, "/api/public/**").permitAll()
+                        .antMatchers(HttpMethod.POST, "/api/private/**").hasAuthority("ROLE_SUPER")
+                        .antMatchers(HttpMethod.POST, "/api/private/**").hasAuthority("ROLE_ADMIN")
+                        .antMatchers(HttpMethod.POST, "/api/private/**").hasAuthority("ROLE_MDC"))
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)//On rend les session stateless
+        .and() 
+        .userDetailsService(customUserDetailsService) // Utilisation de votre CustomUserDetailsService
+        .csrf().disable();
+        return http.build();
+    }
     
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 
-    
 }

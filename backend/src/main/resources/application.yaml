@@ -6,14 +6,26 @@ spring:
     url: jdbc:postgresql://localhost:5432/covid-db
     username: postgres
     password: 7nwbky$$
+  devtools:
+    restart:
+      enabled: true
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
-    # hibernate.ddl-auto: create
+    hibernate.ddl-auto: create
 
 jwt:
   secret: YYRq+Y6myo81mBwrJ+oTKeBPhcH1NT2nf6HwVJrGuf09d17vxz4ZRwmipXt4qv2z4fLEw99BNS3AdrLHK/K/LA==
 
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
 logging:
   level:
-    org.springframework.security: TRACE
+    org:
+      springframework:
+        security: TRACE
+        aop: TRACE

@@ -3,72 +3,80 @@ package org.polytech.covid.User.service;
 import java.util.Collections;
 import java.util.List;
 
-import org.polytech.covid.User.files.User;
-import org.polytech.covid.User.files.UserRepository;
+import javax.annotation.PostConstruct;
+
+import org.polytech.covid.User.files.user;
+import org.polytech.covid.User.files.userRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
-public class UserService{
+public class userService{
 
     @Autowired
-    private UserRepository userRepository;
+    private userRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    /**
+     * On enregistre un super utilisateur au demarrage s'il n'est pas déjà enregistré
+     */
+    @PostConstruct
+    public void createUserDefault() {
+        user sup = userRepository.findByMail("super_admin@gmail.com");
+        if(sup == null){
+            System.out.println("Creation du super user");
+            user user = new user();
+            user.setNom("user");
+            SimpleGrantedAuthority role_user = new SimpleGrantedAuthority("ROLE_SUPER");
+            String encodedPassword = passwordEncoder.encode("super");
+            user.setMail("super_admin@gmail.com");
+            user.setNom("super");
+            user.setPrenom("super_admin");
+            user.setPassword(encodedPassword);
+            user.setRole(role_user);
+            this.userRepository.save(user);
+        }
+    }
     
 
-    public User saveAll(User user){
+    public user saveAll(user user){
         return userRepository.save(user);
     }
 
-    public List<User> getByIdCenter(Long convert_id) {
+    public List<user> getByIdCenter(Long convert_id) {
         return userRepository.getByCenter(convert_id);
     }
 
-    public User findAllByIdUser(Long convert_id) {
+    public user findAllByIdUser(Long convert_id) {
         return userRepository.findAllByIdUser(convert_id);
     }
 
-    public List<User> findAll() {
+    public List<user> findAll() {
         return userRepository.findAll();
     }
 
-    public User[] findAllByRole(SimpleGrantedAuthority role_user) {
+    public user[] findAllByRole(SimpleGrantedAuthority role_user) {
         return userRepository.findAllByRole(role_user);
     }
 
-    public User findAllByMailAndPassword(String username, String password) {
+    public user findAllByMailAndPassword(String username, String password) {
         return userRepository.findByMailAndPassword(username, password);
     }
 
-    public List<User> findByCenterIdCentre(Long convert_id) {
+    public List<user> findByCenterIdCentre(Long convert_id) {
         return userRepository.findByCenterIdCentre(convert_id);
     }
 
-    public User findByMail(String username) {
+    public user findByMail(String username) {
         return userRepository.findByMail(username);
     }
 
-    public void delete(User user) {
+    public void delete(user user) {
         userRepository.delete(user);
     }
 
-
-
-    // @Override
-    // public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    //     User user = userRepository.findByMail(username);
-
-        
-    //     return new org.springframework.security.core.userdetails.User(
-    //                 user.getMail(),
-    //                 user.getPassword(),
-    //                 // Add user roles and authorities here
-    //                 Collections.singletonList(new SimpleGrantedAuthority("ADMIN"))
-    //             );
-        
-        
-    // }
 }

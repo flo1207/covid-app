@@ -4,6 +4,8 @@ import { GestionService } from '../gestion.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserForm } from '../user-form';
 import { HttpErrorResponse } from '@angular/common/http';
+import {MatButtonModule} from '@angular/material/button';
+import {MatTableModule} from '@angular/material/table';
 
 @Component({
   selector: 'app-user-list',
@@ -11,11 +13,14 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent {
+
+  displayedColumns: string[] = ['idUser', 'prenom', 'nom','actions'];
   
   @Input() disp_super?: Boolean;
   @Input() disp_admin?: Boolean;
   @Input() disp_mdc?: Boolean;
   @Input() current_user!: User;
+  @Input() current_id_center!: number;
 
   addUser = false;
 
@@ -39,27 +44,40 @@ export class UserListComponent {
   constructor(private service: GestionService, private route: ActivatedRoute){ }
   
   ngOnInit(): void {
-    this.service.getAllUsers(this.current_user.center.idCentre!).subscribe(resultUsers => {
-      this.users = resultUsers.filter(t=>t.role.authority === this.current_user.role.authority);
-      this.medecins = resultUsers.filter(t=>t.role.authority === this.medecin);
-      this.admins = resultUsers.filter(t=>t.role.authority === this.admin);
-      if(!this.disp_super) this.supers = resultUsers.filter(t=>t.role.authority === this.super);
-      else this.service.getAllSuper().subscribe(data => {
-        this.supers = data.filter(t=>t.role.authority === this.super);
-      })
-    });
+    var curr_id = null;
+    if(this.current_id_center != null) curr_id = this.current_id_center
+    else if(this.current_user.center != null) curr_id = this.current_user.center.idCentre
+    if(!this.disp_super && curr_id != null){
+      this.service.getAllUsers(curr_id!).subscribe(resultUsers => {
+        this.users = resultUsers.filter(t=>t.role.authority === this.current_user.role.authority);
+        this.medecins = resultUsers.filter(t=>t.role.authority === this.medecin);
+        this.admins = resultUsers.filter(t=>t.role.authority === this.admin);
+        this.supers = resultUsers.filter(t=>t.role.authority === this.super);
+      });
+    }
+    //si super admin on va chercher juste la liste de super users
+    else this.service.getAllSuper().subscribe(data => {
+      this.supers = data.filter(t=>t.role.authority === this.super);
+    })
+    
+   
   }
 
   getUserList(){
-    this.service.getAllUsers(this.current_user.center.idCentre!).subscribe(resultUsers => {
-      this.users = resultUsers.filter(t=>t.role.authority === this.current_user.role.authority);
-      this.medecins = resultUsers.filter(t=>t.role.authority === this.medecin);
-      this.admins = resultUsers.filter(t=>t.role.authority === this.admin);
-      if(!this.disp_super) this.supers = resultUsers.filter(t=>t.role.authority === this.super);
-      else this.service.getAllSuper().subscribe(data => {
-        this.supers = data.filter(t=>t.role.authority === this.super);
-      })
-    });
+    var curr_id = null;
+    if(this.current_id_center != null) curr_id = this.current_id_center
+    else if(this.current_user.center != null) curr_id = this.current_user.center.idCentre
+    if(!this.disp_super && curr_id != null){
+      this.service.getAllUsers(curr_id!).subscribe(resultUsers => {
+        this.users = resultUsers.filter(t=>t.role.authority === this.current_user.role.authority);
+        this.medecins = resultUsers.filter(t=>t.role.authority === this.medecin);
+        this.admins = resultUsers.filter(t=>t.role.authority === this.admin);
+        this.supers = resultUsers.filter(t=>t.role.authority === this.super);
+      });
+    }
+    else this.service.getAllSuper().subscribe(data => {
+      this.supers = data.filter(t=>t.role.authority === this.super);
+    })
   }
 
   onDeleted(event: User) {
@@ -126,6 +144,7 @@ export class UserListComponent {
     }, 3000);
   
     }
+    
 
 
 

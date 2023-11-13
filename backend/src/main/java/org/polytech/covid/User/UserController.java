@@ -3,17 +3,16 @@ package org.polytech.covid.User;
 
 import java.util.List;
 
-import org.polytech.covid.User.files.User;
-import org.polytech.covid.User.files.UserRepository;
-import org.polytech.covid.User.service.UserService;
-import org.polytech.covid.VaccinationCenter.files.VaccinationCentre;
-import org.polytech.covid.VaccinationCenter.service.VaccinationCenterService;
+import org.polytech.covid.User.files.user;
+import org.polytech.covid.User.files.userRepository;
+import org.polytech.covid.User.service.userService;
+import org.polytech.covid.VaccinationCenter.files.vaccinationCentre;
+import org.polytech.covid.VaccinationCenter.service.vaccinationCenterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,46 +30,38 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
 @RestController
-public class UserController {
+public class userController {
     
     @Value("${jwt.secret}")
     private String jwtSecret; 
 
     @Autowired
-    private UserService userService;
+    private userService userService;
 
     @Autowired
-    private VaccinationCenterService centerService;
+    private vaccinationCenterService centerService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserRepository userRepository;
-
-
-    private final AuthenticationManager authenticationManager;
-
-    @Autowired
-    public UserController(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
-    }
+    private userRepository userRepository;
 
 
     @GetMapping(path  = "api/private/users")
-    public List<User> getUsers(){
+    public List<user> getUsers(){
         return userService.findAll();
     }
 
     @GetMapping(path  = "api/users/{id}")
-    public User findAllByIdUser(@PathVariable String id){
+    public user findAllByIdUser(@PathVariable String id){
         Long convert_id = Long.parseLong(id);
         return userService.findAllByIdUser(convert_id);
     }
 
     @GetMapping(path  = "api/private/get/user")
     @PreAuthorize("hasRole('ROLE_ADMIN','ROLE_SUPER')")
-    public ResponseEntity<User> getUser(@RequestHeader("Authorization") String authorizationHeader){
+    public ResponseEntity<user> getUser(@RequestHeader("Authorization") String authorizationHeader){
         
         try {
             Claims claims = getClaims(authorizationHeader);
@@ -80,7 +71,7 @@ public class UserController {
 
             // Vérifiez les autorisations, par exemple si l'utilisateur a le rôle ADMIN
             if (isSuper(claims) || isAdmin(claims) || isMdc(claims)) {
-                User user = userService.findByMail(username);
+                user user = userService.findByMail(username);
                 return ResponseEntity.ok(user);
             } else {
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN);
@@ -95,7 +86,7 @@ public class UserController {
 
 
     @GetMapping(path  = "api/private/user/{role}")
-    public User[] getUserRole(@RequestHeader("Authorization") String authorizationHeader,@PathVariable String role){ 
+    public user[] getUserRole(@RequestHeader("Authorization") String authorizationHeader,@PathVariable String role){ 
         SimpleGrantedAuthority role_user = new SimpleGrantedAuthority("ROLE_MDC");
         if(role.equals("1")) role_user = new SimpleGrantedAuthority("ROLE_ADMIN");
         else if(role.equals("2")) role_user = new SimpleGrantedAuthority("ROLE_SUPER");
@@ -116,7 +107,7 @@ public class UserController {
     }
 
     @GetMapping(path  = "api/private/center/users/{id}")
-    public List<User> findAllByIdCentre(@PathVariable String id){ 
+    public List<user> findAllByIdCentre(@PathVariable String id){ 
         Long convert_id = Long.parseLong(id);
         
         return userService.findByCenterIdCentre(convert_id);
@@ -124,19 +115,19 @@ public class UserController {
 
     @PostMapping(path  = "api/private/users")
     @PreAuthorize("hasRole('ROLE_ADMIN','ROLE_SUPER')")
-    public User setUser(@RequestHeader("Authorization") String authorizationHeader, @RequestParam("prenom") String prenom,@RequestParam("nom") String nom,@RequestParam("password") String password, @RequestParam("mail") String mail,@RequestParam("id_center") String id_center,@RequestParam("role") String role ) { 
+    public user setUser(@RequestHeader("Authorization") String authorizationHeader, @RequestParam("prenom") String prenom,@RequestParam("nom") String nom,@RequestParam("password") String password, @RequestParam("mail") String mail,@RequestParam("id_center") String id_center,@RequestParam("role") String role ) { 
         try {
             Claims claims = getClaims(authorizationHeader);
 
             // Vérifiez les autorisations, par exemple si l'utilisateur a le rôle ADMIN
             if ((isSuper(claims)) || (role.equals("1") && isAdmin(claims)) || (role.equals("0") && isAdmin(claims)) ){
                 Long convert_id = Long.parseLong(id_center);
-                VaccinationCentre center = centerService.findAllByIdCentre(convert_id);
+                vaccinationCentre center = centerService.findAllByIdCentre(convert_id);
                 SimpleGrantedAuthority role_user = new SimpleGrantedAuthority("ROLE_MDC");
                 if(role.equals("1")) role_user = new SimpleGrantedAuthority("ROLE_ADMIN");
                 else if(role.equals("2")) role_user = new SimpleGrantedAuthority("ROLE_SUPER");
                 
-                User new_user = new User(prenom,nom,password,mail,center,role_user);
+                user new_user = new user(prenom,nom,password,mail,center,role_user);
 
                 String encodedPassword = passwordEncoder.encode(new_user.getPassword());
                 new_user.setPassword(encodedPassword);
@@ -155,19 +146,19 @@ public class UserController {
 
     @PutMapping(path  = "api/private/users")
     @PreAuthorize("hasRole('ROLE_ADMIN','ROLE_SUPER')")
-    public User updateUser(@RequestHeader("Authorization") String authorizationHeader, @RequestParam("id") Long id,@RequestParam("prenom") String prenom,@RequestParam("nom") String nom,@RequestParam("password") String password, @RequestParam("mail") String mail,@RequestParam("id_center") Long id_center,@RequestParam("role") String role ) { 
+    public user updateUser(@RequestHeader("Authorization") String authorizationHeader, @RequestParam("id") Long id,@RequestParam("prenom") String prenom,@RequestParam("nom") String nom,@RequestParam("password") String password, @RequestParam("mail") String mail,@RequestParam("id_center") Long id_center,@RequestParam("role") String role ) { 
         try {
             Claims claims = getClaims(authorizationHeader);
             // Vérifiez les autorisations, par exemple si l'utilisateur a le rôle ADMIN
             if (isSuper(claims)  || isAdmin(claims) ){
               
-                VaccinationCentre center = centerService.findAllByIdCentre(id_center);
+                vaccinationCentre center = centerService.findAllByIdCentre(id_center);
                 SimpleGrantedAuthority role_user = new SimpleGrantedAuthority("ROLE_MDC");
                 if(role.equals("1")) role_user = new SimpleGrantedAuthority("ROLE_ADMIN");
                 else if(role.equals("2")) role_user = new SimpleGrantedAuthority("ROLE_SUPER");
                 String encodedPassword = passwordEncoder.encode(password);
 
-                User user = userService.findAllByIdUser(id);
+                user user = userService.findAllByIdUser(id);
                 user.setMail(mail);
                 user.setNom(nom);
                 user.setPrenom(prenom);
@@ -197,7 +188,7 @@ public class UserController {
             // Vérifiez les autorisations, par exemple si l'utilisateur a le rôle ADMIN
             if (isSuper(claims)  || isAdmin(claims) ){
                 Long new_id = Long.parseLong(id);
-                User user = userService.findAllByIdUser(new_id);
+                user user = userService.findAllByIdUser(new_id);
                 userService.delete(user);
             } else {
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN);

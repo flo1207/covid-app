@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PatientRepository extends JpaRepository<Patient, Integer>{
-    public List<Patient> findAllByNomLike(String nom);
+public interface patientRepository extends JpaRepository<patient, Integer>{
+    public List<patient> findAllByNomLike(String nom);
 
-    public Patient findByIdPatient(Long id_pat);
+    public patient findByIdPatient(Long id_pat);
 }

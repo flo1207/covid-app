@@ -9,11 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.polytech.covid.Patient.files.Patient;
+import org.polytech.covid.Patient.files.patient;
 
 @Entity
 @Table(name="t_vaccination_centre")
-public class VaccinationCentre {
+public class vaccinationCentre {
     @Id
     @GeneratedValue
     private long idCentre;
@@ -28,11 +28,11 @@ public class VaccinationCentre {
     private String city;
 
     @OneToMany
-    private List<Patient> patients;
+    private List<patient> patients;
 
-    public VaccinationCentre(){}
+    public vaccinationCentre(){}
 
-    public VaccinationCentre( String name, String address, String city){
+    public vaccinationCentre( String name, String address, String city){
         this.name = name;
         this.address = address;
         this.city = city;
@@ -62,16 +62,16 @@ public class VaccinationCentre {
         this.city = city;
     }
 
-    public List<Patient> getPatients() {
+    public List<patient> getPatients() {
         return patients;
     }
 
-    public void setPatients(List<Patient> patients) {
+    public void setPatients(List<patient> patients) {
         this.patients = patients;
     }
 
-    public void addPatient(Patient patient) {
-        List<Patient> patients = getPatients();
+    public void addPatient(patient patient) {
+        List<patient> patients = getPatients();
         patients.add(patient);
         this.patients = patients;
     }

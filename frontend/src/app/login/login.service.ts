@@ -48,8 +48,31 @@ export class LoginService {
   getUsername(): Observable<string | null> {
     return this.username.asObservable();
   }
+
+  // on verifie que le token ne soit pas expiré
+  private tokenExpired(token: string) {
+    const [header, payload, signature] = token.split('.');
+    // Decode the payload
+    const decodedPayload = JSON.parse(atob(payload));
+    // Check the expiration date  
+    if (decodedPayload && decodedPayload.exp) {
+      const expirationDate = new Date(0);
+      expirationDate.setUTCSeconds(decodedPayload.exp);
+
+      // Compare with the current date
+      if (expirationDate < new Date()) {
+        return false;
+      } else {
+        return true;
+      } 
+    } else {
+    return false;
+  } 
+    
+  }
   
   getToken(){
+    if(localStorage.getItem("token") != null && !this.tokenExpired(localStorage.getItem("token")!)) localStorage.clear();
     return localStorage.getItem("token");
   }
 }

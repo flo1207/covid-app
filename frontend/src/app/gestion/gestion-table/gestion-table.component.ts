@@ -4,6 +4,7 @@ import { LoginService } from 'src/app/login/login.service';
 import { Patient } from 'src/app/patient/patient';
 import { User } from '../User';
 import { GestionService } from '../gestion.service';
+import {MatTableModule} from '@angular/material/table';
 
 @Component({
   selector: 'app-gestion-table',
@@ -30,7 +31,7 @@ export class GestionTableComponent {
     this.service.getUserByUsername().subscribe(data => {
       this.user = data;
       this.center = this.user.center;
-      this.patients = this.center.patients
+      if(this.center != null) this.patients = this.center.patients
       this.setActive();
       this.disp_super = this.isSuper();
       this.disp_admin = this.isAdmin();

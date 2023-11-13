@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface VaccinationCentreRepository extends JpaRepository<VaccinationCentre, Integer>{
-    public List<VaccinationCentre> findAllByCityIgnoreCaseContaining(String city);
-    public VaccinationCentre findAllByIdCentre(Long id);
+public interface vaccinationCentreRepository extends JpaRepository<vaccinationCentre, Integer>{
+    public List<vaccinationCentre> findAllByCityIgnoreCaseContaining(String city);
+    public vaccinationCentre findAllByIdCentre(Long id);
 }

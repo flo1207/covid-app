@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { GestionService } from '../gestion.service';
 import { User } from '../User';
 import { BehaviorSubject } from 'rxjs';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: '[app-user]',

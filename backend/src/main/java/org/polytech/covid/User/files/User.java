@@ -13,14 +13,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.polytech.covid.VaccinationCenter.files.VaccinationCentre;
+import org.polytech.covid.VaccinationCenter.files.vaccinationCentre;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import liquibase.pro.packaged.v;
  
 @Entity
 @Table(name="t_user")
-public class User {
+public class user {
     @Id
     @GeneratedValue
     private long idUser;
@@ -41,9 +43,9 @@ public class User {
     private SimpleGrantedAuthority role;
 
     @OneToOne
-    private VaccinationCentre center;
+    private vaccinationCentre center;
 
-    public User(String prenom, String nom, String password, String mail, VaccinationCentre center, SimpleGrantedAuthority role) {
+    public user(String prenom, String nom, String password, String mail, vaccinationCentre center, SimpleGrantedAuthority role) {
         this.mail = mail;
         this.nom = nom;
         this.prenom = prenom;
@@ -52,7 +54,7 @@ public class User {
         this.role = role;
     }
 
-    public User(){}
+    public user(){}
 
     public String getMail() {
         return mail;
@@ -94,11 +96,11 @@ public class User {
         this.role = role;
     }
 
-    public VaccinationCentre getCenter() {
+    public vaccinationCentre getCenter() {
         return center;
     }
 
-    public void setCenter(VaccinationCentre center) {
+    public void setCenter(vaccinationCentre center) {
         this.center = center;
     }
 

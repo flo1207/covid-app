@@ -3,16 +3,15 @@ package org.polytech.covid.VaccinationCenter;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.polytech.covid.Patient.files.Patient;
-import org.polytech.covid.Patient.service.PatientService;
-import org.polytech.covid.VaccinationCenter.files.VaccinationCentre;
-import org.polytech.covid.VaccinationCenter.service.VaccinationCenterService;
+import org.polytech.covid.Patient.files.patient;
+import org.polytech.covid.Patient.service.patientService;
+import org.polytech.covid.VaccinationCenter.files.vaccinationCentre;
+import org.polytech.covid.VaccinationCenter.service.vaccinationCenterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,32 +28,25 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
 @RestController
-public class VaccinationCenterController {
+public class vaccinationCenterController {
 
     @Value("${jwt.secret}")
     private String jwtSecret; 
     
     @Autowired
-    private VaccinationCenterService centerService;
+    private vaccinationCenterService centerService;
 
     @Autowired
-    private PatientService patientService;
-
-     private final AuthenticationManager authenticationManager;
-
-    @Autowired
-    public VaccinationCenterController(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
-    }
+    private patientService patientService;
 
     @GetMapping(path  = "api/public/centers")
-    public List<VaccinationCentre> getCity(@RequestParam("city") String city){        
+    public List<vaccinationCentre> getCity(@RequestParam("city") String city){        
         if(city == null) return centerService.findAllByCity("%");
         else return centerService.findAllByCity(city);
     }
 
     @GetMapping(path  = "api/public/center")
-    public VaccinationCentre getCenter(
+    public vaccinationCentre getCenter(
         @RequestParam("id") Long id){        
         return centerService.findAllByIdCentre(id);
     }
@@ -62,7 +54,7 @@ public class VaccinationCenterController {
     @PostMapping(path  = "api/private/centers")
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_SUPER')")
-    public VaccinationCentre setCenter(@RequestHeader("Authorization") String authorizationHeader, @RequestParam("name") String name, @RequestParam("address") String address,@RequestParam("city") String city ) { 
+    public vaccinationCentre setCenter(@RequestHeader("Authorization") String authorizationHeader, @RequestParam("name") String name, @RequestParam("address") String address,@RequestParam("city") String city ) { 
         System.out.println("######### la");
         try {
 
@@ -72,7 +64,7 @@ public class VaccinationCenterController {
 
             // Vérifiez les autorisations, par exemple si l'utilisateur a le rôle ADMIN
             if (isSuper(claims) ){
-                VaccinationCentre new_centre = new VaccinationCentre(name,address,city);
+                vaccinationCentre new_centre = new vaccinationCentre(name,address,city);
                 return centerService.saveAll(new_centre);
             } else {
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN);
@@ -85,13 +77,13 @@ public class VaccinationCenterController {
 
     @PutMapping(path  = "api/private/centers")
     @PreAuthorize("hasRole('ROLE_SUPER')")
-    public VaccinationCentre updateCenter(@RequestHeader("Authorization") String authorizationHeader, @RequestParam("id") Long id, @RequestParam("name") String name, @RequestParam("address") String address,@RequestParam("city") String city ) { 
+    public vaccinationCentre updateCenter(@RequestHeader("Authorization") String authorizationHeader, @RequestParam("id") Long id, @RequestParam("name") String name, @RequestParam("address") String address,@RequestParam("city") String city ) { 
         try {
             Claims claims = getClaims(authorizationHeader);
 
             // Vérifiez les autorisations, par exemple si l'utilisateur a le rôle ADMIN
             if (isSuper(claims) ){
-                VaccinationCentre centre = this.centerService.findAllByIdCentre(id);
+                vaccinationCentre centre = this.centerService.findAllByIdCentre(id);
                 centre.setAddress(address);
                 centre.setName(name);
                 centre.setCity(city);
@@ -107,12 +99,12 @@ public class VaccinationCenterController {
 
     @PostMapping(path  = "api/public/centers/patients")
     @ResponseBody
-    public VaccinationCentre addPatient( @RequestParam("mail") String mail, @RequestParam("nom") String nom, @RequestParam("prenom") String prenom, @RequestParam("id_centre") Long id_centre, @RequestParam(required = false,name="localDate") @DateTimeFormat(pattern = "dd.MM.yyyy") LocalDate localDate) { 
-        VaccinationCentre vaccinationCenter = centerService.findAllByIdCentre(id_centre);
+    public vaccinationCentre addPatient( @RequestParam("mail") String mail, @RequestParam("nom") String nom, @RequestParam("prenom") String prenom, @RequestParam("id_centre") Long id_centre, @RequestParam(required = false,name="localDate") @DateTimeFormat(pattern = "dd.MM.yyyy") LocalDate localDate) { 
+        vaccinationCentre vaccinationCenter = centerService.findAllByIdCentre(id_centre);
         if(vaccinationCenter == null) return null;
         else{
             
-            Patient new_patient = new Patient(mail,nom,prenom,id_centre,false,localDate);
+            patient new_patient = new patient(mail,nom,prenom,id_centre,false,localDate);
 
             vaccinationCenter.addPatient(new_patient);
             patientService.save(new_patient);
@@ -129,7 +121,7 @@ public class VaccinationCenterController {
             // Vérifiez les autorisations, par exemple si l'utilisateur a le rôle ADMIN
             if (isSuper(claims) ){
                 Long new_id = Long.parseLong(id);
-                VaccinationCentre center = centerService.findAllByIdCentre(new_id);
+                vaccinationCentre center = centerService.findAllByIdCentre(new_id);
                 centerService.delete(center);
             } else {
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN);

@@ -4,4 +4,7 @@
 
 #POST http://localhost:8080/api/public/centers?name=Centre1&address=2ruedesmimolettes&city=Nancy
 #POST http://localhost:8080/api/public/centers?name=Centre2&address=2ruedescomptés&city=Nancy
-POST http://localhost:8080/api/public/centers/patients?mail=flo1207@live.fr&num_tel=0629152787&nom=IMPROVISATO&prenom=Florian&nom_centre=Centre2&city=Nancy
+#POST http://localhost:8080/api/public/centers/patients?mail=flo1207@live.fr&num_tel=0629152787&nom=IMPROVISATO&prenom=Florian&nom_centre=Centre2&city=Nancy
+
+
+GET http://localhost:8080/actuator/prometheus

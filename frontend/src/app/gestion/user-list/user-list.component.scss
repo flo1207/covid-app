@@ -12,8 +12,13 @@ ul{
     padding-left: 2rem;
 }
 
-td{
+td, th{
     vertical-align: middle;
+    border-radius: 20px;
+}
+
+thead{
+    border-radius: 20px;
 }
 
 .butt{
@@ -23,11 +28,10 @@ td{
 }
 
 
-i-bs{
+mat-icon{
     margin-top: auto;
     margin-bottom: auto;
     margin-right: 20px;
-    color: black;
 }
 
 .del{
@@ -42,7 +46,19 @@ i-bs{
     color: green;
 }
 
-i-bs:hover{
-    color: grey;
+mat-icon:hover{
+    color: black;
     cursor: pointer;
+}
+
+h2{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+table {
+    width: 100%;
+    background-color: rgb(158, 158, 158);
+    border-radius: 20px;
 }

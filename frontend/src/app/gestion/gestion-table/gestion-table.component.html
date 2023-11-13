@@ -1,5 +1,6 @@
 
 <div class="d-flex gestion" style="padding: 20px;">
+
     <div ngbNav #nav="ngbNav" [(activeId)]="activeId"  class="nav-pills flex-column" orientation="vertical" >
 
         <ng-container *ngIf="isSuper()" ngbNavItem="1">
@@ -9,8 +10,8 @@
                     <app-vaccination-center-list (edituser)="onEditUser($event)" [gestion]=true></app-vaccination-center-list>
                 </div>
                 <div *ngIf="disp_user_center" class="butt">
-                    <i-bs class="back" (click)="back()" name="arrow-left-circle" width="35" height="35" > </i-bs>
-                    <app-user-list [current_user]=user [disp_super]="false" [disp_admin]="disp_admin" [disp_mdc]="disp_mdc" ></app-user-list>
+                    <mat-icon class="back" (click)="back()" fontIcon="arrow_back"></mat-icon>  
+                    <app-user-list [current_id_center]=id_center_user [current_user]=user [disp_super]="false" [disp_admin]="disp_admin" [disp_mdc]="disp_mdc" ></app-user-list>
                 </div>
 
 
@@ -35,7 +36,12 @@
             <button ngbNavLink>Planning</button>
             <ng-template ngbNavContent>
                 <ul style="text-align: center;">
-                    <app-patient-list [patients]="patients"></app-patient-list>
+                    <div *ngIf="patients">
+                        <app-patient-list [patients]="patients"></app-patient-list>
+                    </div>
+                    <div *ngIf="!patients">
+                        Aucun centre rattaché à cet utilisateur
+                    </div>
                 </ul>
             </ng-template>
         </ng-container>

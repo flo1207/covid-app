@@ -11,29 +11,43 @@
   <div *ngIf="disp_super" >
 
     <ul style="text-align: center;">
-      <h2>Super                     
-        <i-bs class="add" (click)="ajouterUser()" name="plus-circle" width="25" height="25" > </i-bs>
+      <h2>Super
+        <mat-icon class="add"  (click)="ajouterUser()" fontIcon="add_circle"></mat-icon>  
       </h2>
       <div *ngIf="supers?.length == 0  ">
         Aucun
       </div>
       <div class="tableau" *ngIf="supers?.length != 0  ">
+        <table mat-table [dataSource]="supers!" class="mat-elevation-z8">
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                <th scope="col">id</th>
-                <th scope="col">Prénom</th>
-                <th scope="col">Nom</th>
-                <th scope="col" style=" width: 20px; ">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr app-user *ngFor="let s of supers" [user]="s" (deleted)="onDeleted($event)" (edited)="onEdit($event)">
-                </tr>
-            </tbody>
+          <!-- Position Column -->
+          <ng-container matColumnDef="idUser">
+            <th mat-header-cell *matHeaderCellDef> Id </th>
+            <td mat-cell *matCellDef="let supers"> {{supers.idUser}} </td>
+          </ng-container>
+  
+          <!-- Name Column -->
+          <ng-container matColumnDef="prenom">
+            <th mat-header-cell *matHeaderCellDef> Prénom </th>
+            <td mat-cell *matCellDef="let supers" style="color: white;"> {{supers.prenom}} </td>
+          </ng-container>
+  
+          <!-- Weight Column -->
+          <ng-container matColumnDef="nom">
+            <th mat-header-cell *matHeaderCellDef> Nom </th>
+            <td mat-cell *matCellDef="let supers"> {{supers.nom}} </td>
+          </ng-container>
+  
+           <!-- Weight Column -->
+           <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td app-user *matCellDef="let supers" [user]="supers" (deleted)="onDeleted($event)" (edited)="onEdit($event)">
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
         </table>
-        
       </div>
     </ul>
 
@@ -43,28 +57,44 @@
   <div *ngIf="disp_admin" >
 
     <ul style="text-align: center;">
-      <h2>Administrateur                     
-        <i-bs class="add" (click)="ajouterUser()" name="plus-circle" width="25" height="25" > </i-bs>
+      <h2>Administrateur 
+        <mat-icon class="add" (click)="ajouterUser()" fontIcon="add_circle"></mat-icon>  
       </h2>
       <div *ngIf="admins?.length == 0  ">
         Aucun
       </div>
       <div class="tableau" *ngIf="admins?.length != 0  ">
+        <table mat-table [dataSource]="admins!" class="mat-elevation-z8">
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                <th scope="col">id</th>
-                <th scope="col">Prénom</th>
-                <th scope="col">Nom</th>
-                <th scope="col" style=" width: 20px; ">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr app-user *ngFor="let a of admins" [user]="a" (deleted)="onDeleted($event)" (edited)="onEdit($event)">
-                </tr>
-            </tbody>
+          <!-- Position Column -->
+          <ng-container matColumnDef="idUser">
+            <th mat-header-cell *matHeaderCellDef> Id </th>
+            <td mat-cell *matCellDef="let admins"> {{admins.idUser}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="prenom">
+            <th mat-header-cell *matHeaderCellDef> Prénom </th>
+            <td mat-cell *matCellDef="let admins" style="color: white;"> {{admins.prenom}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="nom">
+            <th mat-header-cell *matHeaderCellDef> Nom </th>
+            <td mat-cell *matCellDef="let admins"> {{admins.nom}} </td>
+          </ng-container>
+
+           <!-- Weight Column -->
+           <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td app-user *matCellDef="let admins" [user]="admins" (deleted)="onDeleted($event)" (edited)="onEdit($event)">
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
         </table>
+        
         
       </div>
     </ul>
@@ -75,27 +105,42 @@
 
   <ul style="text-align: center; margin-top: 50px;">
     <h2>Médecins
-      <i-bs class="add" (click)="ajouterUser()" name="plus-circle" width="25" height="25" > </i-bs>
+      <mat-icon class="add" (click)="ajouterUser()" fontIcon="add_circle"></mat-icon>  
     </h2>
     <div *ngIf="medecins?.length == 0  ">
       Aucun
     </div>
     <div class="tableau" *ngIf="medecins?.length != 0  ">
 
-      <table class="table table-striped">
-          <thead>
-              <tr>
-                <th scope="col">id</th>
-                <th scope="col">Prénom</th>
-                <th scope="col">Nom</th>
-                <th scope="col" style=" width: 20px; ">Actions</th>
-              </tr>
-          </thead>
-          <tbody>
-            <tr app-user *ngFor="let m of medecins" [user]="m" (deleted)="onDeleted($event)" (edited)="onEdit($event)">
-                  
-            </tr>
-          </tbody>
+      <table mat-table [dataSource]="medecins!" class="mat-elevation-z8">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="idUser">
+          <th mat-header-cell *matHeaderCellDef> Id </th>
+          <td mat-cell *matCellDef="let medecins"> {{medecins.idUser}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="prenom">
+          <th mat-header-cell *matHeaderCellDef> Prénom </th>
+          <td mat-cell *matCellDef="let medecins" style="color: white;"> {{medecins.prenom}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="nom">
+          <th mat-header-cell *matHeaderCellDef> Nom </th>
+          <td mat-cell *matCellDef="let medecins"> {{medecins.nom}} </td>
+        </ng-container>
+
+         <!-- Weight Column -->
+         <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td app-user *matCellDef="let medecins" [user]="medecins" (deleted)="onDeleted($event)" (edited)="onEdit($event)">
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
       </table>
 
     </div>

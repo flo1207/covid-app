@@ -19,11 +19,10 @@
     padding: 5px;
 }
 
-i-bs{
+mat-icon{
     margin-top: auto;
     margin-bottom: auto;
     margin-right: 20px;
-    color: black;
 }
 
 .del{
@@ -38,8 +37,8 @@ i-bs{
     color: green;
 }
 
-i-bs:hover{
-    color: grey;
+mat-icon:hover{
+    color: black;
     cursor: pointer;
 }
 
@@ -49,6 +48,5 @@ td{
 
 .butt{
     display: flex;
-    justify-content: center;
     flex: 0.5;
 }

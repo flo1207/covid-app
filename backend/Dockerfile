@@ -1,7 +1,7 @@
 FROM eclipse-temurin:17-jdk-jammy AS builder-backend
 
 WORKDIR /backend
-COPY /backend/ .
+COPY . .
 
 RUN ./gradlew build
 

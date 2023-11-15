@@ -1,14 +1,12 @@
 version: '3'
 services:
   angular-app:  
-    build:
-      context: .
-      dockerfile: frontend/Dockerfile
+    build: ./frontend
     container_name: angular
     ports:
       - 4200:80
-    networks:
-      - backend-net
+    links:
+      - postgres
 
   postgres:
     image: postgres
@@ -17,15 +15,14 @@ services:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-    networks:
-      - backend-net
-
+    volumes:
+      - app-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
 
   spring-app:
-    build:
-      context: .
-      dockerfile: backend/Dockerfile
-    container_name: spring
+    build: ./backend
+    container_name: spring-app
     depends_on:
       - postgres
     environment:
@@ -34,10 +31,61 @@ services:
       SPRING_DATASOURCE_PASSWORD: postgres
     ports:
       - 8080:8080 
-    networks:
-      - backend-net
+    links:
+      - angular-app
 
-  
-networks:
-  backend-net:
-    driver: bridge
+
+volumes:
+  app-data:
+
+# # Docker Compose file Reference (https://docs.docker.com/compose/compose-file/)
+# version: '3'
+
+# #Define services
+# services:
+
+#   #PostgreSQL Database for the application
+#   app-postgres:
+#     image: "postgres:9.6-alpine"
+#     container_name: app-postgres
+#     #Volume mounted for database for the storage
+#     volumes:
+#       - scrum-data:/var/lib/postgresql/data
+#     ports:
+#       - 5432:5432 # Forward the exposed port 5432 on the container to port 5432 on the host machine
+
+#     #Environment variable for DB name, user and password
+#     environment:
+#       - POSTGRES_DB=postgres
+#       - POSTGRES_USER=postgres
+#       - POSTGRES_PASSWORD=postgres
+
+#   #Back-end Spring Boot Application
+#   app-spring:
+#     #The docker file in scrum-app build the jar and provides the docker image with the following name.
+#     build: ./backend
+#     container_name: app-spring
+
+#     #Environment variables for Spring Boot Application.
+#     environment:
+#       - DB_SERVER=app-postgres
+#       - POSTGRES_DB=postgres
+#       - POSTGRES_USER=postgres
+#       - POSTGRES_PASSWORD=postgres
+#     ports:
+#       - 8080:8080 # Forward the exposed port 8080 on the container to port 8080 on the host machine
+#     links:
+#       - app-postgres
+
+#   #Fron-end Angular Application
+#   app-angular:
+#     build: ./frontend
+#     container_name: app-angular
+#     ports:
+#       - 4200:80
+#     links:
+#       - app-spring
+
+# #Volumes for DB data
+# volumes:
+#   scrum-data:

@@ -36,6 +36,7 @@
     margin: auto;
     flex: 0.2;
     justify-content: center;
+    align-items: center;
 }
 
 .title h1{
@@ -45,11 +46,14 @@
     text-align: center;
 }
 
-i-bs{
+mat-icon{
     color: white;
+    font-size: 35px;
+    height: 35px;
+    width: 35px;
 }
 
-i-bs:hover{
+mat-icon:hover{
     color: black;
     cursor: pointer;
 }

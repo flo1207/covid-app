@@ -3,7 +3,7 @@ import { UserForm } from '../user-form';
 import { FormBuilder, Validators } from '@angular/forms';
 import { VaccinationCenter } from 'src/app/Vaccination/vaccination-center';
 import { VaccinationService } from 'src/app/Vaccination/vaccination.service';
-import { User } from '../User';
+import { User } from '../user_detail';
 
 @Component({
   selector: 'app-user-form',

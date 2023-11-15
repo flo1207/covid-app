@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { GestionService } from '../gestion.service';
-import { User } from '../User';
+import { GestionService } from 'src/app/gestion/gestion.service';
+import { User } from '../user_detail';
 import { BehaviorSubject } from 'rxjs';
 import {MatIconModule} from '@angular/material/icon';
 

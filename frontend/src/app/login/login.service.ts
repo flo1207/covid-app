@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { VaccinationCenter } from '../Vaccination/vaccination-center';
-import { User } from '../gestion/User';
+import { User } from '../gestion/user_detail';
 import { GestionService } from '../gestion/gestion.service';
 
 @Injectable({

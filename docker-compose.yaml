@@ -1,5 +1,15 @@
 version: '3'
 services:
+  angular-app:  
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: angular
+    ports:
+      - 4200:80
+    networks:
+      - backend-net
+
   postgres:
     image: postgres
     container_name: postgres
@@ -7,12 +17,14 @@ services:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    networks:
+      - backend-net
 
 
   spring-app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: backend/Dockerfile
     container_name: spring
     depends_on:
       - postgres
@@ -21,4 +33,11 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
     ports:
-      - 8080:80 
+      - 8080:8080 
+    networks:
+      - backend-net
+
+  
+networks:
+  backend-net:
+    driver: bridge

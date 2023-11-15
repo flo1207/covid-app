@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { User } from '../User';
+import { User } from '../user_detail';
 import { GestionService } from '../gestion.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserForm } from '../user-form';

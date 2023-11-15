@@ -14,7 +14,7 @@ import { LoginPageComponent } from './login/login-page/login-page.component';
 import { LoginFormComponent } from './login/login-form/login-form.component';
 
 import { NgxBootstrapIconsModule, allIcons} from 'ngx-bootstrap-icons';
-import { UserComponent } from './gestion/user/user.component';
+import { UserComponent } from './gestion/user-display/user.component';
 import { UserListComponent } from './gestion/user-list/user-list.component';
 import { GestionTableComponent } from './gestion/gestion-table/gestion-table.component';
 import { PatientListComponent } from './patient/patient-list/patient-list.component';

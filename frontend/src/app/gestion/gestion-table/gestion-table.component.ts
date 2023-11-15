@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { VaccinationCenter } from 'src/app/Vaccination/vaccination-center';
 import { LoginService } from 'src/app/login/login.service';
 import { Patient } from 'src/app/patient/patient';
-import { User } from '../User';
+import { User } from '../user_detail';
 import { GestionService } from '../gestion.service';
 import {MatTableModule} from '@angular/material/table';
 

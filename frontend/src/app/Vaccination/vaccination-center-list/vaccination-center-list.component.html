@@ -4,8 +4,8 @@
 <div *ngIf="!addCenter" class="form-text">
   <div *ngIf="gestion">
 
-    <h2>Liste des centres de vaccination                 
-        <i-bs class="add" (click)="ajouterCenter()" name="plus-circle" width="25" height="25" > </i-bs>
+    <h2>Liste des centres de vaccination  
+      <mat-icon class="add"  (click)="ajouterCenter()" fontIcon="add_circle"></mat-icon>  
     </h2>
 
   </div>
@@ -46,7 +46,7 @@
 </div>
 
 <div *ngIf="addCenter" class="form-text">
-  <i-bs class="back" (click)="back()" name="arrow-left-circle" width="35" height="35" > </i-bs>
+  <mat-icon class="back" (click)="back()" fontIcon="arrow_back"></mat-icon>  
   <app-vaccination-center-form (send)="createCenter($event)" (edit)="editCenter($event)"  [center]=current_center></app-vaccination-center-form>
 </div>
   

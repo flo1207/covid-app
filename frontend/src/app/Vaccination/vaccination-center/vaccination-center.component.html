@@ -17,20 +17,20 @@
             <mat-icon class="back" (click)="modifierUserCentre()" fontIcon="groups"></mat-icon>  
             <mat-icon class="back" (click)="modifierCentre()" fontIcon="edit"></mat-icon>  
 
-            <div *ngIf="!conf">
+            <div style="display: contents;" *ngIf="!conf">
                 <mat-icon class="del" (click)="setConf()" fontIcon="cancel"></mat-icon>
             </div>
-            <div *ngIf="conf">
+            <div style="display: contents;" *ngIf="conf">
                 <button mat-raised-button color="warn" (click)="supCenter()"> confirmer </button>
             </div>
         </div>
 
         <div *ngIf="!gestion">
             <div *ngIf="!selected" class="bouton">
-                <button type="button" class="btn btn-outline-success" (click)="centerSelect()"> Choisir </button>
+                <button mat-raised-button style="color: green;" (click)="centerSelect()"> Choisir </button>
             </div>
             <div *ngIf="selected" class="bouton">
-                <button type="button" class="btn btn-outline-danger" (click)="centerSelect()"> Annuler </button>
+                <button mat-raised-button color="warn" (click)="centerSelect()"> Annuler </button>
             </div>
     
         

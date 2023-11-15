@@ -5,6 +5,7 @@
     padding: 2%;
     margin-top: 2%;
     align-items: center;
+    font-size: larger;
 }
 
 .bouton{
@@ -19,7 +20,7 @@
     padding: 5px;
 }
 
-i-bs{
+mat-icon{
     margin-top: auto;
     margin-bottom: auto;
     margin-right: 20px;
@@ -38,7 +39,7 @@ i-bs{
     color: green;
 }
 
-i-bs:hover{
+mat-icon:hover{
     color: grey;
     cursor: pointer;
 }

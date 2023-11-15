@@ -24,7 +24,7 @@ input{
 }
 
 
-i-bs{
+mat-icon{
     margin-top: auto;
     margin-bottom: auto;
     margin-right: 20px;
@@ -43,8 +43,13 @@ i-bs{
     color: green;
 }
 
-i-bs:hover{
+mat-icon:hover{
     color: grey;
     cursor: pointer;
 }
 
+h2{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}

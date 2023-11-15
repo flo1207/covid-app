@@ -17,29 +17,21 @@
 
 
 .flex-column{
-    justify-content: center;
+    margin-top: 35px;
 }
 
 .gestion{
-    min-height: 450px;
+    min-height: 250px;
 }
 
 .ms-4{
     margin: auto;
-}
+    margin-top: 0;
 
-.nav-pills{
-    position: fixed;
-    margin-top: 35px;
-}
-
-.tab-content{
-    display: block;
-    padding-left: 100px;
 }
 
 
-i-bs{
+mat-icon{
     margin-top: auto;
     margin-bottom: auto;
     margin-right: 20px;
@@ -58,7 +50,7 @@ i-bs{
     color: green;
 }
 
-i-bs:hover{
+mat-icon:hover{
     color: grey;
     cursor: pointer;
 }

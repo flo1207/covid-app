@@ -13,7 +13,7 @@ import org.polytech.covid.Patient.files.patient;
 
 @Entity
 @Table(name="t_vaccination_centre")
-public class VaccinationCentre {
+public class vaccinationCentre {
     @Id
     @GeneratedValue
     private long idCentre;
@@ -30,9 +30,9 @@ public class VaccinationCentre {
     @OneToMany
     private List<patient> patients;
 
-    public VaccinationCentre(){}
+    public vaccinationCentre(){}
 
-    public VaccinationCentre( String name, String address, String city){
+    public vaccinationCentre( String name, String address, String city){
         this.name = name;
         this.address = address;
         this.city = city;

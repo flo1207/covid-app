@@ -40,13 +40,13 @@ pipeline {
         }
     }
 
-    // post {
-    //     always {
-    //         // Nettoyer les ressources Docker après le déploiement
-    //         script {
-    //             sh 'docker-compose down'
-    //         }
-    //     }
-    // }
+    post {
+        always {
+            // Nettoyer les ressources Docker après le déploiement
+            script {
+                sh 'docker-compose down'
+            }
+        }
+    }
 
 }

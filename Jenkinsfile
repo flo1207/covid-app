@@ -18,36 +18,35 @@ pipeline {
                 }
             }
         }
-        stages {
-            stage('Build et Push des Docker Images') {
-                steps {
-                    script {
-                        // Étape de construction de l'image Angular
-                        docker.build('angular-app', './frontend')
+        stage('Build et Push des Docker Images') {
+            steps {
+                script {
+                    // Étape de construction de l'image Angular
+                    docker.build('angular-app', './frontend')
 
-                        // Étape de construction de l'image Spring Boot
-                        docker.build('spring-app', './backend')
-                    }
-                }
-            }
-
-            stage('Deploiement avec Docker Compose') {
-                steps {
-                    script {
-                        // Déploiement avec Docker Compose
-                        sh 'docker-compose up -d'
-                    }
+                    // Étape de construction de l'image Spring Boot
+                    docker.build('spring-app', './backend')
                 }
             }
         }
 
-        post {
-            always {
-                // Nettoyer les ressources Docker après le déploiement
+        stage('Deploiement avec Docker Compose') {
+            steps {
                 script {
-                    sh 'docker-compose down'
+                    // Déploiement avec Docker Compose
+                    sh 'docker-compose up -d'
                 }
             }
         }
     }
+
+    post {
+        always {
+            // Nettoyer les ressources Docker après le déploiement
+            script {
+                sh 'docker-compose down'
+            }
+        }
+    }
+
 }

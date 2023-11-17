@@ -5,8 +5,9 @@ services:
     container_name: angular-app
     ports:
       - 4200:80
-    links:
+    depends_on:
       - postgres
+      - spring-app
 
   postgres:
     image: postgres
@@ -31,8 +32,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: postgres
     ports:
       - 8080:8080 
-    links:
-      - angular-app
+      
 
 
 volumes:

@@ -17,6 +17,7 @@ Nous utiliserons pour cela différents fichiers indispensables au bon fonctionne
 - `backend/Dockerfile` : fichier de configuration utilisé pour créer une image Docker du backend 
 - `frontend/Dockerfile` : fichier de configuration utilisé pour créer une image Docker du frontend 
 - `docker-compose.yaml` : fichier contenant les configurations nécessaires pour l'exécution des conteneurs du projet
+- `Jenkinsfile` : script jenkins pour lancer les différents build dans un pipeline jenkins
 - `/backend`: repertoire contenant les fichiers du server spring boot
 - `/frontend`: repertoire contenant les fichiers angular du frontend
 
@@ -64,13 +65,19 @@ http://localhost:8080/api/public/test
 docker-compose down
 ```
 
-## Ajouter des centres et gérer l'application
+## Build du backend en local
 
-1. Rendez vous dans la rubrique `gestion`
-2. Connectez vous avec: 
-- username = `super_admin@gmail.com`
-- password = `super`
-3. Vous pouvez désormais ajouter des aministrateurs ou des medecins et gérer l'application
+1. Clonez le repertoire suivant:
+
+```sh
+git clone https://github.com/jredel/jenkins-compose
+```
+
+2. Une fois dans le reperoir /backend lancer la commande:
+
+```sh
+docker compose up -d
+```
 
 ## Créer un pipeline avec `Jenkins`
 
@@ -88,7 +95,7 @@ docker compose up -d
 
 3. Installer les plugins obligatoires:
 - Docker
-- Docker compose
+- `Docker compose`
 - Git
 
 4. Après avoir configurer votre compte à l'adresse http://localhost:8001
@@ -98,3 +105,11 @@ Veuillez ensuite créer un nouvel item en pipeline avec les options suivantes:
 - Pipeline -> Definition -> `Pipeline script from SCM`
 
 5. Enfin vous pouvez lancer un nouveau build et tester le bon fonctionnement du projet.
+
+## Ajouter des centres et gérer l'application
+
+1. Rendez vous dans la rubrique `gestion`
+2. Connectez vous avec: 
+- username = `super_admin@gmail.com`
+- password = `super`
+3. Vous pouvez désormais ajouter des aministrateurs ou des medecins et gérer l'application

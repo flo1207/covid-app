@@ -57,9 +57,20 @@ export class VaccinationCenterListComponent implements OnInit{
   }
   
   ngOnInit(): void {
-    this.service.getAllVaccinationCenter(this.city).subscribe(resultCenters => {
-      this.centers = resultCenters;
-    });
+    this.service.getAllVaccinationCenter(this.city).subscribe(
+      resultCenters => {
+        this.centers = resultCenters;
+      },
+      (error) => {
+        try {
+          // Gestion spécifique des erreurs ici, par exemple loguer l'erreur
+          window.alert("Problème de connexion à la base de données. Veuillez réessayer plus tard.");            
+        } catch (catchError) {
+          console.error("Une erreur s'est produite lors de la gestion de l'erreur :", catchError);
+        }
+      }
+    );
+   
   }
 
   centerSelect(aCenter: VaccinationCenter) {

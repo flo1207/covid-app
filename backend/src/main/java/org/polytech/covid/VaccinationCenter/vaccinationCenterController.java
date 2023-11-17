@@ -40,7 +40,8 @@ public class vaccinationCenterController {
     private patientService patientService;
 
     @GetMapping(path  = "api/public/centers")
-    public List<vaccinationCentre> getCity(@RequestParam("city") String city){        
+    public List<vaccinationCentre> getCity(@RequestParam("city") String city){    
+        System.out.println("CICICICICCI");    
         if(city == null) return centerService.findAllByCity("%");
         else return centerService.findAllByCity(city);
     }
@@ -59,8 +60,6 @@ public class vaccinationCenterController {
         try {
 
             Claims claims = getClaims(authorizationHeader);
-
-            System.out.println(claims);
 
             // Vérifiez les autorisations, par exemple si l'utilisateur a le rôle ADMIN
             if (isSuper(claims) ){

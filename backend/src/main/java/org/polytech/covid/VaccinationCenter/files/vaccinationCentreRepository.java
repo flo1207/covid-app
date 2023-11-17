@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface vaccinationCentreRepository extends JpaRepository<vaccinationCentre, Integer>{
     public List<vaccinationCentre> findAllByCityIgnoreCaseContaining(String city);
     public vaccinationCentre findAllByIdCentre(Long id);
+    public vaccinationCentre findByName(String name);
+
 }

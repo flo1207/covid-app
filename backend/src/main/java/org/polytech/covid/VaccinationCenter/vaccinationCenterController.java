@@ -41,7 +41,6 @@ public class vaccinationCenterController {
 
     @GetMapping(path  = "api/public/centers")
     public List<vaccinationCentre> getCity(@RequestParam("city") String city){    
-        System.out.println("CICICICICCI");    
         if(city == null) return centerService.findAllByCity("%");
         else return centerService.findAllByCity(city);
     }

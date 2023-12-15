@@ -6,9 +6,9 @@ Florian IMPROVISATO
 
 ## Description
 
-Ce projet fut réalisé dans le cadre d'un  cours de mise en production et def programmation FullStack délivrés à Polytech Nancy.
+Ce projet fut réalisé dans le cadre d'un  cours de mise en production et de programmation FullStack délivrés à Polytech Nancy.
 
-Il s'agit d'une application permettant de prendre des rendez-vous pour se faire vacciner mais aussi gérer les différents centres via une rubrique de gestion en fonction de rôles.
+Il s'agit d'une application permettant de prendre des rendez-vous pour se faire vacciner mais aussi de gérer les différents centres via une rubrique de gestion en fonction de rôles.
 
 Le projet peut être lancé grâce à plusieurs containers Docker.
 
@@ -21,6 +21,13 @@ Nous utiliserons pour cela différents fichiers indispensables au bon fonctionne
 - `/backend`: repertoire contenant les fichiers du server spring boot
 - `/frontend`: repertoire contenant les fichiers angular du frontend
 
+## Travail accomplis
+
+1. Création de l'application et de la partie frontend avec Angular.
+2. Pour la partie Backend, j'ai pu développer une authentification par token et une gestion des demande et requettes en fonction de l'authentification de la personne.
+3. J'ai pu réaliser une page de tests unitaires dans le repertoire backend/src/test. Pour un soucis de fonctionalité avec la partie docker les tests sont en commentaire mais fonctionel en local.
+4. J'ai pu créer des metrics afin de compter le nombre de patients prenants des rendez-vous ainsi que des metrics liées au temps de création/suppression d'un utilisateur.
+5. Enfin j'ai pu build l'application entièrement sur un docker (voir la partie de build).
 
 ## Les prérequis
 La liste des applications qui doivent être installées sur la machine :
